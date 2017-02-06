@@ -1,6 +1,6 @@
 module ApplicationHelper
   def app_name
-    "APP_NAME"
+    "Smart Factory"
   end
 
   def background

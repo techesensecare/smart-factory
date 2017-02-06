@@ -20,7 +20,16 @@
 //= require bootstrap
 //x require editable/bootstrap-editable
 //x require editable/rails
-//= require_tree .
+//
+//= require ./inspinia/plugins/metisMenu/jquery.metisMenu.js
+//= require ./inspinia/plugins/slimscroll/jquery.slimscroll.min.js
+//= require ./inspinia/plugins/peity/jquery.peity.min.js
+//= require ./inspinia/inspinia.js
+//= require ./inspinia/plugins/pace/pace.min.js
+//= require ./inspinia/plugins/iCheck/icheck.min.js
+//= require ./inspinia/demo/peity-demo.js
+//
+//= require_self
 
 jQuery(function() {
   $('.chosen').chosen()
