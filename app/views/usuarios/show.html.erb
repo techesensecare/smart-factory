@@ -1,0 +1,75 @@
+<ol class="breadcrumb">
+  <li>
+    <%= link_to "Usuários", usuarios_path %>
+  </li>
+  <li class="active">
+    <%= @usuario.nome %>
+  </li>
+</ol>
+
+<h1 class="page-header">
+  <%= @usuario.nome %>
+</h1>
+
+<div class="panel panel-default">
+  <table class="table table-bordered">
+    <tr>
+      <th>Nome</th>
+      <td><%= @usuario.nome %></td>
+    </tr>
+    <tr>
+      <th>Perfil</th>
+      <td><%= @usuario.perfil %></td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td><%= @usuario.email %></td>
+    </tr>
+    <tr>
+      <th>Situação</th>
+      <td><%= @usuario.ativo ? 'Ativo' : 'Inativo' %></td>
+    </tr>
+  </table>
+
+  <div class="panel-footer">
+    <%= link_to 'Editar Cadastro', edit_usuario_path(@usuario), class: 'btn btn-default' %>
+    <%= link_to '<i class="fa fa-trash-o"></i> Deletar'.html_safe, @usuario, :method => 'delete', 
+                 :class => 'btn btn-danger pull-right', :confirm => "Tem certeza que quer deletar esse usuário e todas as suas informações?" %>
+  </div>
+</div>
+
+<% if @usuario.perfil.professor? %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Contador de aulas dos últimos 5 meses
+  </div>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Período</th>
+      <th>Ministrou/Feriado</th>
+      <th>Cancelou</th>
+      <th>Foi substituído</th>
+    </tr>
+    <% 5.times do |x| %>
+      <% referencia = Date.today - x.months %>
+      <tr>
+        <td><%= referencia.strftime '%m/%Y' %></td>
+        <td>
+          <%= link_to aulas_usuario_path(@usuario, data: referencia) do %>
+            <%= @usuario.aulas.no_periodo(referencia).contabilizadas.count %>
+            <% substituiu = @usuario.aulas.substituidas.no_periodo(referencia).ministradas.count %>
+            <% if substituiu > 0 %>
+              (sendo <%= substituiu %> <%= 'troca'.pluralize substituiu %>)
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= @usuario.aulas.no_periodo(referencia).canceladas.count %></td>
+        <td><%= Aula.no_periodo(referencia).programadas_para(@usuario).confirmadas.substituidas.count %></td>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+
+<% end %>

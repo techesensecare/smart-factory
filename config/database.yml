@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: lucas
+  password: 123
+  host: localhost
+
+development:
+  <<: *default
+  database: smart-factory_development
+
+test:
+  <<: *default
+  database: smart-factory_test
+
+production:
+  <<: *default
+  database: smart-factory_production
