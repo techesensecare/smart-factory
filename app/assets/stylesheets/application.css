@@ -15,6 +15,9 @@
  *= require ./inspinia/animate.css
  *= require ./inspinia/style.css
  *
+ *= require select2.css
+ *= require select2-bootstrap.css
+ *
  *x require fullcalendar
  *x require editable/bootstrap-editable
  *x require_tree .

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :terminais
+  resources :maquinas
   resources :fornecedores
-  devise_for :usuarios
+  resources :usuarios
+  devise_for :usuarios, :path_prefix => 'auth'
   root to: 'welcome#index'
   get 'welcome/index'
 

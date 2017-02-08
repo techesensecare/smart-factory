@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h1>
+    <%= @maquina.descricao %>
+  </h1>
+  <div class="pull-right">
+    <%= link_to "Editar", edit_maquina_path(@maquina), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <td class="col-md-2">Descrição</td> <td><%= @maquina.descricao %></td>
+    </tr>
+    <tr>
+      <td>Data do cadastro</td> <td><%= l @maquina.created_at %></td>
+    </tr>
+  </table>
+</div>

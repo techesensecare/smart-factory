@@ -29,10 +29,14 @@
 //= require ./inspinia/plugins/iCheck/icheck.min.js
 //= require ./inspinia/demo/peity-demo.js
 //
+//= require jquery-maskmoney.js
+//= require select2.js
+//= require select2_locale_pt-BR.js
+//
 //= require_self
 
 jQuery(function() {
-  $('.chosen').chosen()
+//  $('.chosen').chosen()
 
   $('.money').maskMoney({prefix: "", allowZero: true, allowNegative: false, thousands: ".", decimal: ",", affixesStay: false});
   $('.nota').maskMoney({prefix: "", allowZero: true, allowNegative: false, thousands: ".", decimal: ",", affixesStay: false, precision: 1});

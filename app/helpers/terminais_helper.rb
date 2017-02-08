@@ -1,0 +1,2 @@
+module TerminaisHelper
+end

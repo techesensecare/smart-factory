@@ -1,20 +1,16 @@
 class UsuariosController < ApplicationController
+  before_action { @configuracoes = true }
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-
-  respond_to :all
 
   def index
     @usuarios = Usuario.all
-    respond_with(@usuarios)
   end
 
   def show
-    respond_with(@usuario)
   end
 
   def new
     @usuario = Usuario.new
-    respond_with(@usuario)
   end
 
   def edit
@@ -23,7 +19,7 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
     @usuario.save
-    respond_with(@usuario)
+    redirect_to usuarios_path, notice: "Usuário cadastrado com sucesso"
   end
 
   def update
@@ -35,12 +31,11 @@ class UsuariosController < ApplicationController
     end
 
     @usuario.update(update_params)
-    respond_with(@usuario)
+    redirect_to usuarios_path, notice: "Usuário atualizado com sucesso"
   end
 
   def destroy
     @usuario.destroy
-    respond_with(@usuario)
   end
 
   private

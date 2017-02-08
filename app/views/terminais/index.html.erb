@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>Terminais</h1>
+  <%= link_to "Novo Terminal", new_terminal_path, class: 'btn btn-primary' %>
+</div>
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Máquinas</th>
+        <th>Data cadastro</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @terminais.each do |terminal| %>
+        <tr>
+          <td><%= link_to terminal.descricao, terminal %></td>
+          <td><%= terminal.maquinas.map(&:descricao).join(', ') %></td>
+          <td><%= l terminal.created_at, format: :xshort %></td>
+          <td><%= link_to 'Editar', edit_terminal_path(terminal), class: 'btn btn-default btn-xs' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

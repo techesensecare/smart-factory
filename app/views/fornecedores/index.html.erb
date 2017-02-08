@@ -7,7 +7,9 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Descrição</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Email</th>
         <th>Data cadastro</th>
         <th></th>
       </tr>
@@ -16,7 +18,9 @@
     <tbody>
       <% @fornecedores.each do |fornecedor| %>
         <tr>
-          <td><%= link_to fornecedor.descricao, fornecedor %></td>
+          <td><%= link_to fornecedor.nome, fornecedor %></td>
+          <td><%= fornecedor.telefone %></td>
+          <td><%= fornecedor.email %></td>
           <td><%= l fornecedor.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_fornecedor_path(fornecedor), class: 'btn btn-default btn-xs' %></td>
         </tr>

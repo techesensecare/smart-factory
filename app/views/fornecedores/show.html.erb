@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>
-    <%= @fornecedor.descricao %>
+    <%= @fornecedor.nome %>
   </h1>
   <div class="pull-right">
     <%= link_to "Editar", edit_fornecedor_path(@fornecedor), class: 'btn btn-primary' %>
@@ -10,7 +10,10 @@
 <div class="panel panel-default">
   <table class="table">
     <tr>
-      <td class="col-md-2">Descrição</td> <td><%= @fornecedor.descricao %></td>
+      <td class="col-md-2">Telefone</td> <td><%= @fornecedor.telefone %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Email</td> <td><%= @fornecedor.email %></td>
     </tr>
     <tr>
       <td>Data do cadastro</td> <td><%= l @fornecedor.created_at %></td>

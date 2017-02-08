@@ -1,0 +1,34 @@
+<%= simple_form_for(terminal, multipart: true) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if terminal.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(terminal.errors.count, "erro") %></h2>
+
+          <ul>
+          <% terminal.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.input :descricao %>
+
+      <% tags_array = Maquina.all.map { |tag| [tag.descricao, tag.id] } %>
+      <%= f.input :maquina_ids, collection: tags_array, label: 'Máquinas próximas ao tablet',
+                  input_html: {multiple: true, class: 'select2'} %>
+
+
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+      <%= link_to "Apagar", @terminal, 
+                  method: :delete, 
+                  class: 'btn btn-danger pull-right',
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @terminal.persisted? %> 
+    </div>
+  </div>
+<% end %>

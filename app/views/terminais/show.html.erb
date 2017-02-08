@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h1>
+    <%= @terminal.descricao %>
+  </h1>
+  <div class="pull-right">
+    <%= link_to "Editar", edit_terminal_path(@terminal), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <td class="col-md-2">Descrição</td> <td><%= @terminal.descricao %></td>
+    </tr>
+    <tr>
+      <td>Data do cadastro</td> <td><%= l @terminal.created_at %></td>
+    </tr>
+  </table>
+</div>

@@ -44,13 +44,13 @@
         <li>
           <a href="/"><i class="fa fa-list-ol"></i> <span class="nav-label">Fila de Produção</span></a>
         </li>
-        <li>
+        <li class="<%= 'active' if @configuracoes %>">
           <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Configurações</span> <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li><%= link_to "Usuários" %></li>
-            <li><%= link_to "Funcionários" %></li>
-            <li><%= link_to "Fornecedores", fornecedores_path %></li>
-            <li><%= link_to "Equipamentos" %></li>
+            <li class="<%= 'active' if controller_name == 'usuarios' %>"><%= link_to "Usuários", usuarios_path %></li>
+            <li class="<%= 'active' if controller_name == 'terminais' %>"><%= link_to "Terminais", terminais_path %></li>
+            <li class="<%= 'active' if controller_name == 'maquinas' %>"><%= link_to "Máquinas", maquinas_path %></li>
+            <li class="<%= 'active' if controller_name == 'fornecedores' %>"><%= link_to "Fornecedores", fornecedores_path %></li>
           </ul>
         </li>
       </ul>
