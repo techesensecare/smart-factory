@@ -3933,6 +3933,7 @@ ul.notes li div {
   margin-top: 5px;
   display: block;
 }
+/*
 .file {
   border: 1px solid #e7eaec;
   padding: 0;
@@ -3940,7 +3941,8 @@ ul.notes li div {
   position: relative;
   margin-bottom: 20px;
   margin-right: 20px;
-}
+} 
+*/
 .file-manager .hr-line-dashed {
   margin: 15px 0;
 }

@@ -8,11 +8,11 @@ module ApplicationHelper
   end
 
   def logo
-    nil
+    'smart-factory.jpg'
   end
 
   def logo_width
-    nil
+    '100%'
   end
 
   def logo_header

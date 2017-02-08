@@ -1,0 +1,30 @@
+<%= simple_form_for(fornecedor, multipart: true) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if fornecedor.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(fornecedor.errors.count, "erro") %></h2>
+
+          <ul>
+          <% fornecedor.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.input :nome %>
+      <%= f.input :email %>
+      <%= f.input :telefone %>
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+      <%= link_to "Apagar", @fornecedor, 
+                  method: :delete, 
+                  class: 'btn btn-danger pull-right',
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @fornecedor.persisted? %> 
+    </div>
+  </div>
+<% end %>

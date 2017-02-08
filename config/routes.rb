@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :fornecedores
   devise_for :usuarios
   root to: 'welcome#index'
   get 'welcome/index'
