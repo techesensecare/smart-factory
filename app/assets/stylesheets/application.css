@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require ./inspinia/bootstrap.min.css
- *= require ./font-awesome/css/font-awesome.css.scss
+ *= require ./font-awesome/css/font-awesome.css
  *= require ./inspinia/plugins/iCheck/custom.css
  *= require ./inspinia/animate.css
  *= require ./inspinia/style.css
