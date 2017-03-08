@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>
+    OS Número: <span class="numero-os"><%= @pedido.numero %></span>
+  </h1>
+  <div class="pull-right">
+    <%= link_to "Editar", edit_pedido_path(@pedido), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <td class="col-md-2">Cliente</td> <td><%= link_to @pedido.cliente.nome, @pedido.cliente %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Observação</td> <td><%= @pedido.observacao %></td>
+    </tr>
+    <tr>
+      <td>Data do cadastro</td> <td><%= l @pedido.created_at %></td>
+    </tr>
+  </table>
+</div>

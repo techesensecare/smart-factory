@@ -41,8 +41,8 @@
         <li>
           <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span></a>
         </li>
-        <li>
-          <a href="/"><i class="fa fa-list-ol"></i> <span class="nav-label">Fila de Produção</span></a>
+        <li class="<%= 'active' if @menu_pedidos %>">
+          <a href="/pedidos"><i class="fa fa-list-ol"></i> <span class="nav-label">Fila de Produção</span></a>
         </li>
         <li class="<%= 'active' if @menu_clientes %>">
           <a href="/clientes"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
