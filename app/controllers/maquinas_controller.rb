@@ -38,6 +38,12 @@ class MaquinasController < ApplicationController
     end
   end
 
+  def finalizar
+    @maquina = Maquina.find(params[:id])
+    Etapa.where(id: params[:etapa]).update_all data_entrega: Date.today
+    redirect_to @maquina
+  end
+
   # PATCH/PUT /maquinas/1
   # PATCH/PUT /maquinas/1.json
   def update

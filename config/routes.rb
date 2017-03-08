@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :pedidos
   resources :clientes
   resources :terminais
-  resources :maquinas
+  resources :maquinas do
+    get :finalizar, on: :member
+  end
   resources :fornecedores
   resources :usuarios
   devise_for :usuarios, :path_prefix => 'auth'

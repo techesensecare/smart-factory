@@ -8,6 +8,7 @@
     <thead>
       <tr>
         <th>Descrição</th>
+        <th>Itens pendentes</th>
         <th>Data cadastro</th>
         <th></th>
       </tr>
@@ -17,6 +18,7 @@
       <% @maquinas.each do |maquina| %>
         <tr>
           <td><%= link_to maquina.descricao, maquina %></td>
+          <td><%= maquina.etapas.pendente.count %></td>
           <td><%= l maquina.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_maquina_path(maquina), class: 'btn btn-default btn-xs' %></td>
         </tr>

@@ -1,4 +1,4 @@
-<%= simple_form_for(pedido, multipart: true) do |f| %>
+<%= simple_nested_form_for(pedido, multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <% if pedido.errors.any? %>
@@ -16,6 +16,41 @@
       <%= f.input :numero, label: 'Número do pedido (gerado automaticamente)', input_html: { disabled: true } %>
       <%= f.input :cliente_id, collection: Cliente.all, input_html: { class: 'select2' } %>
       <%= f.input :observacao, label: 'Observação' %>
+
+      <label>
+        Etapas
+      </label>
+      <div class="etapas-wrapper" style="margin-bottom: 20px">
+        <div id="etapas">
+          <%= f.fields_for :etapas do |b| %>
+            <div class="row">
+              <%= b.input :maquina_id, 
+                          label: 'Máquina',
+                          collection: Maquina.all,
+                          wrapper_html: { class: 'col-md-2' } %>
+              <%= b.input :descricao,
+                          wrapper_html: { class: 'col-md-2' } %>
+              <%= b.input :quantidade,
+                          wrapper_html: { class: 'col-md-2' } %>
+              <%= b.input :data_entrega, 
+                          label: 'Data de entrega',
+                          include_blank: true,
+                          wrapper_html: { class: 'col-md-4' } %>
+
+              <div class="col-md-1">
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
+                                      class: 'btn btn-default btn-sm', 
+                                      style: 'margin-top: 24px' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%= f.link_to_add "Incluir Etapa", 
+                          :etapas, 
+                          class: 'btn btn-default', 
+                          data: { target: '#etapas' }  %>
+      </div>
     </div>
 
     <div class="panel-footer">

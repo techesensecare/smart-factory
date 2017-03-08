@@ -20,3 +20,22 @@
     </tr>
   </table>
 </div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <th>Máquina</th>
+      <th>Descrição</th>
+      <th>Quantidade</th>
+      <th>Data de entrega</th>
+    </tr>
+    <% @pedido.etapas.each do |etapa| %>
+      <tr>
+        <td><%= etapa.maquina.descricao %></td>
+        <td><%= etapa.descricao %></td>
+        <td><%= etapa.quantidade %></td>
+        <td><%= l etapa.data_entrega if etapa.data_entrega %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
