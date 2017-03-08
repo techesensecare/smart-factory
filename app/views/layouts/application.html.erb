@@ -44,6 +44,9 @@
         <li>
           <a href="/"><i class="fa fa-list-ol"></i> <span class="nav-label">Fila de Produção</span></a>
         </li>
+        <li class="<%= 'active' if @menu_clientes %>">
+          <a href="/clientes"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
+        </li>
         <li class="<%= 'active' if @configuracoes %>">
           <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Configurações</span> <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">

@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>
+    <%= @cliente.nome %>
+  </h1>
+  <div class="pull-right">
+    <%= link_to "Editar", edit_cliente_path(@cliente), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <td class="col-md-2">Telefone</td> <td><%= @cliente.telefone %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Email</td> <td><%= @cliente.email %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Endereço</td> <td><%= @cliente.endereco %></td>
+    </tr>
+    <tr>
+      <td>Data do cadastro</td> <td><%= l @cliente.created_at %></td>
+    </tr>
+  </table>
+</div>
