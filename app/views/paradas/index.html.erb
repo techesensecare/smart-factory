@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Paradas</h1>
+  <%= link_to "Nova Parada", new_parada_path, class: 'btn btn-primary' %>
+</div>
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Data cadastro</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @paradas.each do |parada| %>
+        <tr>
+          <td><%= link_to parada.descricao, parada %></td>
+          <td><%= l parada.created_at, format: :xshort %></td>
+          <td><%= link_to 'Editar', edit_parada_path(parada), class: 'btn btn-default btn-xs' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

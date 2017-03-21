@@ -1,0 +1,1 @@
+json.array! @celulas, partial: 'celulas/celula', as: :celula

@@ -1,0 +1,2 @@
+class Parada < ApplicationRecord
+end

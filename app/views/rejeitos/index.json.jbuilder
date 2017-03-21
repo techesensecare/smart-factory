@@ -1,0 +1,1 @@
+json.array! @rejeitos, partial: 'rejeitos/rejeito', as: :rejeito

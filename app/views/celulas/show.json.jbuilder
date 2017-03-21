@@ -1,0 +1,1 @@
+json.partial! "celulas/celula", celula: @celula

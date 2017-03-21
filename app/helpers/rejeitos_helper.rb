@@ -1,0 +1,2 @@
+module RejeitosHelper
+end

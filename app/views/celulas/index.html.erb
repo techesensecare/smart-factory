@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>Células</h1>
+  <%= link_to "Nova Célula", new_celula_path, class: 'btn btn-primary' %>
+</div>
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Máquinas</th>
+        <th>Data cadastro</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @celulas.each do |celula| %>
+        <tr>
+          <td><%= link_to celula.descricao, celula %></td>
+          <td><%= celula.maquinas.map(&:descricao).join(', ') %></td>
+          <td><%= l celula.created_at, format: :xshort %></td>
+          <td><%= link_to 'Editar', edit_celula_path(celula), class: 'btn btn-default btn-xs' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

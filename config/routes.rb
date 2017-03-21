@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :celulas
+  resources :centros
+  resources :paradas
+  resources :rejeitos
+  resources :turnos
   resources :pedidos
   resources :clientes
   resources :terminais

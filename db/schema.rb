@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315113452) do
+ActiveRecord::Schema.define(version: 20170321164247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "celulas", force: :cascade do |t|
+    t.string   "descricao"
+    t.integer  "centro_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["centro_id"], name: "index_celulas_on_centro_id", using: :btree
+  end
+
+  create_table "celulas_maquinas", id: false, force: :cascade do |t|
+    t.integer "celula_id",  null: false
+    t.integer "maquina_id", null: false
+  end
+
+  create_table "centros", force: :cascade do |t|
+    t.string   "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -61,6 +80,12 @@ ActiveRecord::Schema.define(version: 20170315113452) do
     t.integer "usuario_id", null: false
   end
 
+  create_table "paradas", force: :cascade do |t|
+    t.string   "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pedidos", force: :cascade do |t|
     t.integer  "cliente_id"
     t.string   "numero"
@@ -71,7 +96,19 @@ ActiveRecord::Schema.define(version: 20170315113452) do
     t.index ["cliente_id"], name: "index_pedidos_on_cliente_id", using: :btree
   end
 
+  create_table "rejeitos", force: :cascade do |t|
+    t.string   "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "terminais", force: :cascade do |t|
+    t.string   "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "turnos", force: :cascade do |t|
     t.string   "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -109,9 +146,13 @@ ActiveRecord::Schema.define(version: 20170315113452) do
     t.string   "cargo"
     t.date     "data_admissao"
     t.text     "observacoes"
+    t.integer  "turno_id"
     t.index ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
+    t.index ["turno_id"], name: "index_usuarios_on_turno_id", using: :btree
   end
 
+  add_foreign_key "celulas", "centros"
   add_foreign_key "pedidos", "clientes"
+  add_foreign_key "usuarios", "turnos"
 end

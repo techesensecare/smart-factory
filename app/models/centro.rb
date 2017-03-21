@@ -1,0 +1,2 @@
+class Centro < ApplicationRecord
+end

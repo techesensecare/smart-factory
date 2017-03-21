@@ -1,0 +1,33 @@
+<%= simple_form_for(celula, multipart: true) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if celula.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(celula.errors.count, "erro") %></h2>
+
+          <ul>
+          <% celula.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.input :descricao %>
+      <%= f.input :centro_id, collection: Centro.all, label: "Centro de custo" %>
+
+      <% tags_array = Maquina.all.map { |tag| [tag.descricao, tag.id] } %>
+      <%= f.input :maquina_ids, collection: tags_array, label: 'Máquinas que compõem esta célula',
+                  input_html: {multiple: true, class: 'select2'} %>
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+      <%= link_to "Apagar", @celula, 
+                  method: :delete, 
+                  class: 'btn btn-danger pull-right',
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @celula.persisted? %> 
+    </div>
+  </div>
+<% end %>
