@@ -8,7 +8,8 @@ class Usuario < ActiveRecord::Base
 
   validates :nome, presence: true
 
-  enumerize :perfil, in: [:administrador, :comum], default: :comum, predicates: true, scope: true
+  enumerize :perfil, in: [:administrador, :gestor, :comum], default: :comum, predicates: true, scope: true
+  enumerize :tipo_sanguineo, in: %w(a+ a- b+ b- ab+ ab- o+ o-)
 
   scope :ativo, -> { where(ativo: true) }
 
