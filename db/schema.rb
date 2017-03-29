@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329225933) do
+ActiveRecord::Schema.define(version: 20170329230945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,8 +85,18 @@ ActiveRecord::Schema.define(version: 20170329225933) do
 
   create_table "maquinas", force: :cascade do |t|
     t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "modelo"
+    t.string   "fabricante"
+    t.string   "ano_fabricacao"
+    t.string   "ano_compra"
+    t.text     "observacao"
+    t.string   "codigo_interno"
+    t.string   "foto_file_name"
+    t.string   "foto_content_type"
+    t.integer  "foto_file_size"
+    t.datetime "foto_updated_at"
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|

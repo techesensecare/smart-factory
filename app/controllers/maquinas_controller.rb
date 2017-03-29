@@ -5,7 +5,7 @@ class MaquinasController < ApplicationController
   # GET /maquinas
   # GET /maquinas.json
   def index
-    @maquinas = Maquina.all
+    @maquinas = Maquina.order('descricao ASC').all
   end
 
   # GET /maquinas/1
@@ -76,6 +76,7 @@ class MaquinasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def maquina_params
-      params.require(:maquina).permit(:descricao)
+      # params.require(:maquina).permit(:descricao)
+      params.require(:maquina).permit!
     end
 end

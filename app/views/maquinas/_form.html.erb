@@ -14,6 +14,18 @@
       <% end %>
 
       <%= f.input :descricao %>
+      <%= link_ver_arquivo @maquina, :foto %>
+      <%= f.input :foto %>
+      <div class="row">
+        <%= f.input :modelo, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :fabricante, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :ano_fabricacao, wrapper_html: { class: 'col-md-4' } %>
+      </div>
+      <div class="row">
+        <%= f.input :ano_compra, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :codigo_interno, wrapper_html: { class: 'col-md-4' } %>
+      </div>
+      <%= f.input :observacao, label: "Observação" %>
     </div>
 
     <div class="panel-footer">

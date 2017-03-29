@@ -30,4 +30,11 @@ module ApplicationHelper
   def link_color
     '#428bca' 
   end
+
+  def link_ver_arquivo(objeto, metodo) 
+    arquivo = objeto.send(metodo)
+    if not arquivo.blank?
+      link_to "Ver arquivo", arquivo.url
+    end
+  end
 end
