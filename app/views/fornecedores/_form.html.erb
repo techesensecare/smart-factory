@@ -1,4 +1,4 @@
-<%= simple_form_for(fornecedor, multipart: true) do |f| %>
+<%= simple_nested_form_for(fornecedor, multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <% if fornecedor.errors.any? %>
@@ -14,8 +14,45 @@
       <% end %>
 
       <%= f.input :nome %>
-      <%= f.input :email %>
-      <%= f.input :telefone %>
+      <div class="row">
+        <%= f.input :cnpj, label: "CNPJ", wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :ie, label: "Inscrição Estadual", wrapper_html: { class: 'col-md-6' }  %>
+      </div>
+
+      <div class="row">
+        <%= f.input :telefone, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :site, wrapper_html: { class: 'col-md-4' } %>
+      </div>
+      <%= f.input :observacoes, label: "Observações" %>
+
+      <p class="c-black f-500 m-b-5">
+        <i class="fa fa-map-marker"></i> Endereços
+        <%= f.link_to_add "<i class='btn-icon-only fa fa-plus'></i>".html_safe, :enderecos, class: "btn btn-xs btn-primary", title: "Incluir Endereço", alt: "Incluir Endereço", data: { target: "#addresses" } %>      
+      </p>
+      <div id="addresses">
+        <%= f.fields_for :enderecos do |endereco| %>
+          <div class="address">
+            <div class="row">
+              <%= endereco.input :logradouro,  placeholder: 'Logradouro', label: false, wrapper_html: {class: 'col-md-5'} %>
+              <%= endereco.input :numero,  placeholder: 'Número', label: false, wrapper_html: {class: 'col-md-2'} %>
+              <%= endereco.input :complemento,  placeholder: 'Complemento', label: false, wrapper_html: {class: 'col-md-3'} %>
+            </div>
+
+            <div class="row">
+              <%= endereco.input :bairro,  placeholder: 'Bairro', label: false, wrapper_html: {class: 'col-md-3'} %>
+              <%= endereco.input :cidade,  placeholder: 'Cidade', label: false, wrapper_html: {class: 'col-md-3'} %>
+              <%= endereco.input :estado,  placeholder: 'Estado', label: false, wrapper_html: {class: 'col-md-2'} %>
+              <%= endereco.input :cep,  placeholder: 'Cep', label: false, input_html: {class: 'cep_field'}, wrapper_html: {class: 'col-md-2'} %>
+              <div class="form-group col-md-2">
+                <%= endereco.link_to_remove "<i class='fa fa-minus'></i>".html_safe, 
+                          :class => "btn btn-primary btn-danger btn-xs", 
+                          :title => "Excluir", :alt => "Excluir" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="panel-footer">
@@ -28,3 +65,11 @@
     </div>
   </div>
 <% end %>
+
+<style>
+.address {
+  padding-left: 20px;
+    padding-top: 20px;
+    border-bottom: 1px solid #eee;
+}
+</style>

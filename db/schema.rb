@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321164247) do
+ActiveRecord::Schema.define(version: 20170329225933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,21 @@ ActiveRecord::Schema.define(version: 20170321164247) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "enderecos", force: :cascade do |t|
+    t.string   "logradouro"
+    t.string   "numero"
+    t.string   "bairro"
+    t.string   "complemento"
+    t.string   "cidade"
+    t.string   "estado"
+    t.string   "tipo"
+    t.string   "cep"
+    t.integer  "enderecable_id"
+    t.string   "enderecable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "etapas", force: :cascade do |t|
     t.integer  "pedido_id"
     t.integer  "etapa_id"
@@ -60,8 +75,12 @@ ActiveRecord::Schema.define(version: 20170321164247) do
     t.string   "nome"
     t.string   "telefone"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "cnpj"
+    t.string   "ie"
+    t.text     "observacoes"
+    t.string   "site"
   end
 
   create_table "maquinas", force: :cascade do |t|

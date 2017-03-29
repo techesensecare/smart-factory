@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  logradouro: MyString
+  numero: MyString
+  bairro: MyString
+  complemento: MyString
+  cidade: MyString
+  estado: MyString
+  tipo: MyString
+  enderecable_id: 1
+  enderecable_type: MyString
+
+two:
+  logradouro: MyString
+  numero: MyString
+  bairro: MyString
+  complemento: MyString
+  cidade: MyString
+  estado: MyString
+  tipo: MyString
+  enderecable_id: 1
+  enderecable_type: MyString
