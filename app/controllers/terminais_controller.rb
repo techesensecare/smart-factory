@@ -70,6 +70,7 @@ class TerminaisController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def terminal_params
-      params.require(:terminal).permit(:descricao, :maquina_ids => [])
+      # params.require(:terminal).permit(:descricao, :maquina_ids => [])
+      params.require(:terminal).permit!
     end
 end

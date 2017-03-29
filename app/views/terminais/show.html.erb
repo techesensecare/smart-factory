@@ -10,7 +10,13 @@
 <div class="panel panel-default">
   <table class="table">
     <tr>
-      <td class="col-md-2">Descrição</td> <td><%= @terminal.descricao %></td>
+      <td class="col-md-2">Marca</td> <td><%= @terminal.marca %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Identificação</td> <td><%= @terminal.identificacao %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Observações</td> <td><%= @terminal.observacoes %></td>
     </tr>
     <tr>
       <td>Data do cadastro</td> <td><%= l @terminal.created_at %></td>

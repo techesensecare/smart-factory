@@ -14,11 +14,16 @@
       <% end %>
 
       <%= f.input :descricao %>
+      <div class="row">
+        <%= f.input :marca, wrapper_html: { class: 'col-md-6' }  %>
+        <%= f.input :identificacao, label: "Identificação", wrapper_html: { class: 'col-md-6' } %>
+      </div>
 
       <% tags_array = Maquina.all.map { |tag| [tag.descricao, tag.id] } %>
       <%= f.input :maquina_ids, collection: tags_array, label: 'Máquinas próximas ao tablet',
                   input_html: {multiple: true, class: 'select2'} %>
 
+      <%= f.input :observacoes, label: "Observações" %>
 
     </div>
 
