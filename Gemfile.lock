@@ -162,6 +162,9 @@ GEM
       mime-types
       mimemagic (= 0.3.0)
     parseline (1.0.3)
+    pdfjs_viewer-rails (0.0.9)
+      rails (> 4.2.0)
+      sass-rails (~> 5.0)
     pg (0.19.0)
     puma (3.6.2)
     rack (2.0.1)
@@ -267,6 +270,7 @@ DEPENDENCIES
   nested_form
   paperclip (~> 4.2)
   parseline
+  pdfjs_viewer-rails
   pg
   puma (~> 3.0)
   rails (~> 5.0.1)

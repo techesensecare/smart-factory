@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329233001) do
+ActiveRecord::Schema.define(version: 20170407144033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "anexos", force: :cascade do |t|
+    t.string   "anexavel_type"
+    t.integer  "anexavel_id"
+    t.string   "descricao"
+    t.string   "codigo"
+    t.integer  "revisao",              default: 1
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "arquivo_file_name"
+    t.string   "arquivo_content_type"
+    t.integer  "arquivo_file_size"
+    t.datetime "arquivo_updated_at"
+  end
 
   create_table "celulas", force: :cascade do |t|
     t.string   "descricao"
@@ -83,6 +97,17 @@ ActiveRecord::Schema.define(version: 20170329233001) do
     t.string   "site"
   end
 
+  create_table "item_pedidos", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.string   "descricao_produto"
+    t.integer  "produto_id"
+    t.integer  "quantidade"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["pedido_id"], name: "index_item_pedidos_on_pedido_id", using: :btree
+    t.index ["produto_id"], name: "index_item_pedidos_on_produto_id", using: :btree
+  end
+
   create_table "maquinas", force: :cascade do |t|
     t.string   "descricao"
     t.datetime "created_at",        null: false
@@ -123,6 +148,15 @@ ActiveRecord::Schema.define(version: 20170329233001) do
     t.datetime "updated_at", null: false
     t.date     "prazo"
     t.index ["cliente_id"], name: "index_pedidos_on_cliente_id", using: :btree
+  end
+
+  create_table "produtos", force: :cascade do |t|
+    t.string   "codigo"
+    t.string   "descricao"
+    t.string   "unidade_medida"
+    t.string   "tipo"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "rejeitos", force: :cascade do |t|
@@ -185,6 +219,8 @@ ActiveRecord::Schema.define(version: 20170329233001) do
   end
 
   add_foreign_key "celulas", "centros"
+  add_foreign_key "item_pedidos", "pedidos"
+  add_foreign_key "item_pedidos", "produtos"
   add_foreign_key "pedidos", "clientes"
   add_foreign_key "usuarios", "turnos"
 end

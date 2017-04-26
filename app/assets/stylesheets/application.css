@@ -58,8 +58,17 @@
   margin-top: 20px;
 }
 
+/* Customização do tema */
+.page-header {
+  margin: 0px 0 10px !important;
+}
+#page-wrapper {
+  min-height: 650px !important;
+}
+
 
 /* SmartFactory */
 .numero-os {
   color: #d9534f;
 }
+
