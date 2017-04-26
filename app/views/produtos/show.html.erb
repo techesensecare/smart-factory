@@ -54,6 +54,32 @@
         </tr>
       </table>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Matérias-primas
+      </div>
+      <% if @produto.materia_primas.blank? %>
+        <div class="panel panel-body">
+          Nenhuma matéria prima relacionada.
+        </div>
+      <% else %>
+        <table class="table">
+          <tr>
+            <th>Cód</th> <th>Descrição</th> <th>Unidade</th> <th>Qtd.</th> <th>Tipo</th>
+          </tr>
+          <% @produto.materia_primas.each do |m| %>
+            <tr>
+              <td><%= link_to m.produto_usado.codigo, m.produto_usado %></td>
+              <td><%= m.produto_usado.descricao %></td>
+              <td><%= m.produto_usado.unidade_medida %></td>
+              <td><%= m.quantidade %></td>
+              <td><%= m.produto_usado.tipo %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
   </div>
   <div class="col-md-8">
   </div>

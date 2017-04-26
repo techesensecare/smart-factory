@@ -63,6 +63,40 @@
                           class: 'btn btn-default', 
                           data: { target: '#anexos' }  %>
       </div>
+
+
+      <div class="anexos-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
+        <label style="">Matérias-Primas</label>
+        <div id="materia_primas">
+          <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-4">
+              Matéria-Prima
+            </div>
+            <div class="col-md-2">
+              Quantidade
+            </div>
+          </div>
+          <%= f.fields_for :materia_primas do |b| %>
+            <%= b.hidden_field :id %>
+            <div class="row">
+              <%= b.input :produto_usado_id, 
+                    collection: Produto.where("id <> ?", @produto.id).order('descricao'), 
+                    label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-4' } %>
+              <%= b.input :quantidade, label: false, placeholder: 'Quantidade', wrapper_html: { class: 'col-md-2' } %>
+              <div class="col-md-1">
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
+                                      class: 'btn btn-danger btn-xs', 
+                                      style: 'margin-top: 5px' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Matéria Prima", 
+                          :materia_primas, 
+                          class: 'btn btn-default', 
+                          data: { target: '#materia_primas' }  %>
+      </div>
+
     </div>
 
     <div class="panel-footer">

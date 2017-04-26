@@ -65,6 +65,9 @@
 #page-wrapper {
   min-height: 650px !important;
 }
+.footer {
+  display: none !important;
+}
 
 
 /* SmartFactory */

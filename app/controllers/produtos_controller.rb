@@ -87,7 +87,8 @@ class ProdutosController < ApplicationController
         :descricao,
         :unidade_medida,
         :tipo,
-        {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]}
+        {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
+        {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :_destroy]}
       )
     end
 end
