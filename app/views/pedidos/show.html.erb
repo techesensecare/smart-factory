@@ -4,8 +4,7 @@
   <div class="steps">
     Etapas: 
     <div class="label <%= 'label-success' %>"> Vendas <i class="fa fa-check"></i></div>
-    <div class="label <%= 'label-success' if "engenharia pcp producao finalizado".include? @pedido.status %>"> Engenharia <i class="fa fa-check"></i></div>
-    <div class="label <%= 'label-success' if "pcp producao finalizado".include? @pedido.status %>"> PCP <i class="fa fa-check"></i></div>
+    <div class="label <%= 'label-success' if "engenharia producao finalizado".include? @pedido.status %>"> Engenharia <i class="fa fa-check"></i></div>
     <div class="label <%= 'label-success' if "producao finalizado".include? @pedido.status %>"> Produção <i class="fa fa-check"></i></div>
     <div class="label <%= 'label-success' if "finalizado".include? @pedido.status %>"> Finalizado <i class="fa fa-check"></i></div>
   </div>
@@ -122,13 +121,13 @@
 
               <%= link_to "Editar Roteiro", detalhar_projeto_pedido_path(@pedido), class: 'btn btn-primary' %>
 
-              <%= link_to "Concluir e enviar para PCP", atualizar_status_pedido_path(@pedido, status: 'pcp'), class: 'btn btn-primary',
+              <%= link_to "Concluir e enviar para produção", atualizar_status_pedido_path(@pedido, status: 'producao'), class: 'btn btn-primary',
                           confirm: "Tem certeza?" %>
             <% end %>
           <% end %>
         <% end %>
 
-        <% if @pedido.status == 'pcp' %>
+        <% if @pedido.status == 'producao' %>
           <% if @pedido.item_pedidos.where(produto_id: nil).any? %>
             Cadastre todos os produtos antes de editar o roteiro.
           <% else %>
@@ -149,7 +148,7 @@
                     <td><%= o.descricao %></td>
                     <td><%= o.maquina.try :descricao %></td>
                     <td><%= o.quantidade %></td>
-                    <td><%= o.status %></td>
+                    <td><%= o.status_text %></td>
                   </tr>
                   <%= %>
                 <% end %>

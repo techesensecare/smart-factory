@@ -1,0 +1,60 @@
+
+<div class="page-header">
+  <h1>Operações</h1>
+  <%= link_to "Novo Pedido", new_pedido_path, class: 'btn btn-primary' %>
+</div>
+
+<p>
+  Você está visualizando as operações, independentes de pedidos.
+  <%= link_to "Clique aqui para visualizar os Pedidos em produção.", pedidos_path(with_status: :producao) %>
+</p>
+
+<ul class="nav nav-tabs" style="margin: 10px 0">
+  <% PedidoOperacao.status.options.each do |label, value| %>
+    <% if value != 'finalizado' %>
+      <li class="<%= 'active' if params[:with_status] == value %>">
+        <% quantidade = PedidoOperacao.with_status(value).count %>
+        <% if quantidade > 0 %>
+          <%= link_to "#{label} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
+        <% else %>
+          <%= link_to "#{label}".html_safe, with_status: value %>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="<%= 'active' if params[:with_status] == value %>">
+        <%= link_to label, with_status: value %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Pedido</th>
+        <th>Ordem</th>
+        <th>Descrição</th>
+        <th>Máquina</th>
+        <th>Quantidade</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @operacoes.each do |operacao| %>
+        <tr>
+          <td><%= link_to operacao.pedido.numero, operacao.pedido %></td>
+          <td><%= operacao.ordem %></td>
+          <td><%= operacao.descricao %></td>
+          <td><%= operacao.maquina.descricao %></td>
+          <td><%= operacao.quantidade %></td>
+          <td><%= operacao.status %></td>
+          <td><%= link_to 'Abrir', pedido_path(operacao.pedido), class: 'btn btn-default btn-xs' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

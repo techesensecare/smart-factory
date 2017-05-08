@@ -1,7 +1,7 @@
 class PedidoOperacao < ApplicationRecord
   extend Enumerize
 
-  enumerize :status, in: %w(projeto aguardando executando finalizada), default: :projeto, scope: true
+  enumerize :status, in: %w(aguardando na_fila executando finalizada), default: :aguardando, scope: true
 
   belongs_to :pedido
   belongs_to :produto

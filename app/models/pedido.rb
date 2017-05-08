@@ -1,7 +1,7 @@
 class Pedido < ApplicationRecord
   extend Enumerize
 
-  enumerize :status, in: %w(vendas engenharia pcp producao finalizado), default: :vendas, scope: true
+  enumerize :status, in: %w(vendas engenharia producao finalizado), default: :vendas, scope: true
 
   belongs_to :cliente
 

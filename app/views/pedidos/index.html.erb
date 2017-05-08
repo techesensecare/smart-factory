@@ -27,6 +27,13 @@
   </ul>
 <% end %>
 
+<% if params[:with_status] == 'producao' %>
+  <p>
+    Você está visualizando os pedidos que estão em produção. 
+    <%= link_to "Clique aqui para visualizar as Operações.", pedido_operacoes_path %>
+  </p>
+<% end %>
+
 <div class="panel panel-default">
   <table class="table table-striped">
     <thead>

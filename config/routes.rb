@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :paradas
   resources :rejeitos
   resources :turnos
+  resources :pedido_operacoes
   resources :pedidos do
     get :atualizar_status, on: :member
     get :detalhar_projeto, on: :member
