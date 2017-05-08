@@ -11,6 +11,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'fornecedor', 'fornecedores'
   inflect.irregular 'terminal', 'terminais'
   inflect.irregular 'maquina', 'maquinas'
+  inflect.irregular 'ferramenta', 'ferramentas'
+  inflect.irregular 'operacao', 'operacoes'
+  inflect.irregular 'pedido_operacao', 'pedido_operacoes'
 end
 
 # These inflection rules are supported but not enabled by default:

@@ -1,11 +1,18 @@
 class PedidosController < ApplicationController
   before_action { @menu_pedidos = true }
-  before_action :set_pedido, only: [:show, :edit, :update, :destroy]
+  before_action :set_pedido, only: [:show, :edit, :update, :destroy, :atualizar_status, :detalhar_projeto]
+
+  has_scope :with_status
+  has_scope :with_descricao
 
   # GET /pedidos
   # GET /pedidos.json
   def index
-    @pedidos = Pedido.all
+    if not params[:with_descricao]
+      params[:with_status] ||= 'vendas'
+    end
+
+    @pedidos = apply_scopes(Pedido.all)
   end
 
   # GET /pedidos/1
@@ -16,10 +23,34 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
+    @pedido.responsavel = current_usuario
+  end
+
+  def atualizar_status
+    @pedido.update status: params[:status]
+    redirect_to @pedido
   end
 
   # GET /pedidos/1/edit
   def edit
+  end
+
+  def detalhar_projeto
+    if @pedido.operacoes.blank? 
+      @pedido.item_pedidos.each do |item|
+        item.produto.todas_operacoes.each do |operacao|
+          @pedido.operacoes.build(
+            pedido_item: item,
+            ordem:       operacao.ordem,
+            descricao:   operacao.descricao,
+            maquina:     operacao.maquina,
+            observacao:  operacao.observacao,
+            ferramentas: operacao.ferramentas,
+            quantidade:  item.quantidade * operacao.quantidade_materia_prima 
+          )
+        end
+      end
+    end
   end
 
   # POST /pedidos

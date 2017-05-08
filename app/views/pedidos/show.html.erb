@@ -1,41 +1,165 @@
 <div class="page-header">
   <h1>
-    OS Número: <span class="numero-os"><%= @pedido.numero %></span>
+    Pedido Nº: <span class="numero-os"><%= @pedido.numero %></span>
+  <div class="steps">
+    Etapas: 
+    <div class="label <%= 'label-success' %>"> Vendas <i class="fa fa-check"></i></div>
+    <div class="label <%= 'label-success' if "engenharia pcp producao finalizado".include? @pedido.status %>"> Engenharia <i class="fa fa-check"></i></div>
+    <div class="label <%= 'label-success' if "pcp producao finalizado".include? @pedido.status %>"> PCP <i class="fa fa-check"></i></div>
+    <div class="label <%= 'label-success' if "producao finalizado".include? @pedido.status %>"> Produção <i class="fa fa-check"></i></div>
+    <div class="label <%= 'label-success' if "finalizado".include? @pedido.status %>"> Finalizado <i class="fa fa-check"></i></div>
+  </div>
+
   </h1>
   <div class="pull-right">
     <%= link_to "Editar", edit_pedido_path(@pedido), class: 'btn btn-primary' %>
   </div>
 </div>
 
-<div class="panel panel-default">
-  <table class="table">
-    <tr>
-      <td class="col-md-2">Cliente</td> <td><%= link_to @pedido.cliente.nome, @pedido.cliente %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Observação</td> <td><%= @pedido.observacao %></td>
-    </tr>
-    <tr>
-      <td>Data do cadastro</td> <td><%= l @pedido.created_at %></td>
-    </tr>
-  </table>
-</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Pedido
+      </div>
+      <table class="table">
+          <th>Cliente</th> <td><%= link_to @pedido.cliente.nome, @pedido.cliente %></td>
+        </tr>
+        <tr>
+          <th>Descrição</th> <td><%= @pedido.descricao %></td>
+        </tr>
+        <tr>
+        <tr>
+          <th>Observação</th> <td><%= @pedido.observacao %></td>
+        </tr>
+        <tr>
+          <th>Data do cadastro</th> <td><%= l @pedido.created_at %></td>
+        </tr>
+        <tr>
+          <th>Responsável</th> <td><%= @pedido.responsavel.try(:nome) %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-<div class="panel panel-default">
-  <table class="table">
-    <tr>
-      <th>Máquina</th>
-      <th>Descrição</th>
-      <th>Quantidade</th>
-      <th>Data de entrega</th>
-    </tr>
-    <% @pedido.etapas.each do |etapa| %>
-      <tr>
-        <td><%= etapa.maquina.descricao %></td>
-        <td><%= etapa.descricao %></td>
-        <td><%= etapa.quantidade %></td>
-        <td><%= l etapa.data_entrega if etapa.data_entrega %></td>
-      </tr>
-    <% end %>
-  </table>
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Itens do Pedido
+      </div>
+      <table class="table">
+        <tr>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <% if @pedido.status.engenharia? %>
+            <th>Composição</th>
+          <% end %>
+        </tr>
+        <% @pedido.item_pedidos.each do |item| %>
+          <tr>
+            <td>
+              <% if item.produto %>
+                <%= link_to item.descricao_produto, item.produto %>
+              <% else %>
+                <%= item.descricao_produto %>
+              <% end %>
+            </td>
+            <td><%= item.quantidade %></td>
+            <% if @pedido.status.engenharia? %>
+              <td xclass="text-right">
+                <% if item.produto %>
+                  OK, produto já cadastrado.
+                <% else %>
+                  <%= link_to "Produto não cadastrado. Cadastrar &rarr;".html_safe, 
+                              new_produto_path(descricao: item.descricao_produto, return_to: request.url),
+                              class: 'btn btn-primary btn-xs' %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Roteiro de Fabricação
+      </div>
+      <div class="panel-body">
+        <% if @pedido.status == 'vendas' %>
+          <p>
+            Pedido ainda em aberto. Quando aprovado, envie para engenharia.
+          </p>
+          <p>
+            <%= link_to "Enviar para Engenharia", atualizar_status_pedido_path(@pedido, status: 'engenharia'), class: 'btn btn-primary' %>
+          </p>
+        <% end %>
+        <% if @pedido.status == 'engenharia' %>
+          <% if @pedido.item_pedidos.where(produto_id: nil).any? %>
+            Cadastre todos os produtos antes de editar o roteiro.
+          <% else %>
+            <% if @pedido.operacoes.blank? %>
+              <%= link_to "Criar Roteiro", detalhar_projeto_pedido_path(@pedido), class: 'btn btn-primary' %>
+            <% else %>
+              <table class="table table-bordered">
+                <tr>
+                  <th>Ordem</th>
+                  <th>Descrição</th>
+                  <th>Máquina</th>
+                  <th>Quantidade</th>
+                  <th>Status</th>
+                </tr>
+                <% @pedido.operacoes.each do |o| %>
+                  <tr>
+                    <td><%= o.ordem %></td>
+                    <td><%= o.descricao %></td>
+                    <td><%= o.maquina.try :descricao %></td>
+                    <td><%= o.quantidade %></td>
+                    <td><%= o.status %></td>
+                  </tr>
+                  <%= %>
+                <% end %>
+              </table>
+
+              <%= link_to "Editar Roteiro", detalhar_projeto_pedido_path(@pedido), class: 'btn btn-primary' %>
+
+              <%= link_to "Concluir e enviar para PCP", atualizar_status_pedido_path(@pedido, status: 'pcp'), class: 'btn btn-primary',
+                          confirm: "Tem certeza?" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if @pedido.status == 'pcp' %>
+          <% if @pedido.item_pedidos.where(produto_id: nil).any? %>
+            Cadastre todos os produtos antes de editar o roteiro.
+          <% else %>
+            <% if @pedido.operacoes.blank? %>
+              <%= link_to "Criar Roteiro", detalhar_projeto_pedido_path(@pedido), class: 'btn btn-primary' %>
+            <% else %>
+              <table class="table table-bordered">
+                <tr>
+                  <th>Ordem</th>
+                  <th>Descrição</th>
+                  <th>Máquina</th>
+                  <th>Quantidade</th>
+                  <th>Status</th>
+                </tr>
+                <% @pedido.operacoes.each do |o| %>
+                  <tr>
+                    <td><%= o.ordem %></td>
+                    <td><%= o.descricao %></td>
+                    <td><%= o.maquina.try :descricao %></td>
+                    <td><%= o.quantidade %></td>
+                    <td><%= o.status %></td>
+                  </tr>
+                  <%= %>
+                <% end %>
+              </table>
+
+              <%= link_to "Editar Roteiro", detalhar_projeto_pedido_path(@pedido), class: 'btn btn-primary' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

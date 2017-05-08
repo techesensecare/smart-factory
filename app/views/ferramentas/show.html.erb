@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>
+    <%= @ferramenta.descricao %> - <%= @ferramenta.codigo %>
+  </h1>
+  <div class="pull-right">
+    <%= link_to "Editar", edit_ferramenta_path(@ferramenta), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <td class="col-md-2">Tipo</td> <td><%= @ferramenta.tipo_text %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Unidade de Medida</td> <td><%= @ferramenta.unidade_medida %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Quantidade</td> <td><%= @ferramenta.quantidade %></td>
+    </tr>
+    <tr>
+      <td class="col-md-2">Observação</td> <td><%= @ferramenta.observacao %></td>
+    </tr>
+    <tr>
+      <td>Data do cadastro</td> <td><%= l @ferramenta.created_at %></td>
+    </tr>
+  </table>
+</div>

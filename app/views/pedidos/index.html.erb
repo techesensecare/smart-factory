@@ -3,13 +3,39 @@
   <%= link_to "Novo Pedido", new_pedido_path, class: 'btn btn-primary' %>
 </div>
 
+
+<% if params[:with_descricao] %>
+  <h3>Resultado da pesquisa: </h3>
+<% else %>
+  <ul class="nav nav-tabs" style="margin: 10px 0">
+    <% Pedido.status.options.each do |label, value| %>
+      <% if value != 'finalizado' %>
+        <li class="<%= 'active' if params[:with_status] == value %>">
+          <% quantidade = Pedido.with_status(value).count %>
+          <% if quantidade > 0 %>
+            <%= link_to "#{label} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
+          <% else %>
+            <%= link_to "#{label}".html_safe, with_status: value %>
+          <% end %>
+        </li>
+      <% else %>
+        <li class="<%= 'active' if params[:with_status] == value %>">
+          <%= link_to label, with_status: value %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="panel panel-default">
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Número</th>
+        <th>Descrição</th>
         <th>Cliente</th>
         <th>Data cadastro</th>
+        <th>Responsável</th>
         <th></th>
       </tr>
     </thead>
@@ -18,9 +44,11 @@
       <% @pedidos.each do |pedido| %>
         <tr>
           <td><%= link_to pedido.numero, pedido %></td>
+          <td><%= pedido.descricao %></td>
           <td><%= link_to pedido.cliente.nome, pedido.cliente %></td>
           <td><%= l pedido.created_at, format: :xshort %></td>
-          <td><%= link_to 'Editar', edit_pedido_path(pedido), class: 'btn btn-default btn-xs' %></td>
+          <td><%= pedido.responsavel.try(:nome) %></td>
+          <td><%= link_to 'Abrir', pedido_path(pedido), class: 'btn btn-default btn-xs' %></td>
         </tr>
       <% end %>
     </tbody>

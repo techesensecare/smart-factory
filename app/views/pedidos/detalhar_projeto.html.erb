@@ -1,0 +1,68 @@
+<h1>
+  <%= link_to @pedido do %>
+    Pedido Nº: <span class="numero-os"><%= @pedido.numero %></span> 
+  <% end %> / Roteiro de Fabricação
+</h1>
+
+<% pedido = @pedido %>
+<%= simple_nested_form_for(pedido, multipart: true) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if pedido.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(pedido.errors.count, "erro") %></h2>
+
+          <ul>
+          <% pedido.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="operacoes-wrapper" style="margin-bottom: 20px; padding: 0px; border: 0px solid #ddd;">
+        <div id="operacoes">
+          <%= f.fields_for :operacoes do |b| %>
+            <div class="operacao" style="margin-bottom: 20px; border-left: 2px solid #1ab394; padding-left: 10px;">
+              <%= b.hidden_field :id %>
+              <div class="row">
+                <%= b.input :pedido_item_id, 
+                            collection: @pedido.item_pedidos, 
+                            label_method: :descricao_produto,
+                            label: 'Referente ao item', wrapper_html: { class: 'col-md-3' } %>
+                <%= b.input :ordem, wrapper_html: { class: 'col-md-1' } %>
+                <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-3' } %>
+                <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
+                <%= b.input :status, label: "Status", wrapper_html: { class: 'col-md-2' } %>
+              </div>
+              <div class="row">
+                <%= b.input :quantidade, wrapper_html: {class: 'col-md-6'} %>
+                <% tags_array = Ferramenta.all.map { |tag| [tag.codigo + ' - ' + tag.descricao, tag.id] } %>
+                <%= b.input :ferramenta_ids, collection: tags_array, label: 'Ferramentas', wrapper_html: {class: 'col-md-6'},
+                            input_html: {multiple: true, class: 'select2-ferramentas'} %>
+              </div>
+              <%= b.input :observacao, label: false, placeholder: 'Observação' %>
+              <div class="row">
+                <div class="col-md-2">
+                  <%= b.link_to_remove "<span class='fa fa-times'><span> Remover ".html_safe, 
+                                        class: 'btn btn-danger btn-xs', 
+                                        style: 'margin-top: 5px' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%= f.link_to_add "Adicionar Operação", 
+                          :operacoes,
+                          class: 'btn btn-primary', 
+                          data: { target: '#operacoes' }  %>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

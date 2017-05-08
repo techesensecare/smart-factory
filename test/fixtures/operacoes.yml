@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  produto: one
+  ordem: 1
+  descricao: MyString
+  maquina: one
+  observacao: MyText
+  tempo_setup: 1
+  tempo_operacao_estimado: 1
+
+two:
+  produto: two
+  ordem: 1
+  descricao: MyString
+  maquina: two
+  observacao: MyText
+  tempo_setup: 1
+  tempo_operacao_estimado: 1

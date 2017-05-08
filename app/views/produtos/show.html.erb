@@ -80,6 +80,30 @@
         </table>
       <% end %>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Roteiro de Produção
+      </div>
+      <% if @produto.operacoes.blank? %>
+        <div class="panel panel-body">
+          Nenhuma operação relacionada.
+        </div>
+      <% else %>
+        <table class="table">
+          <tr>
+            <th>Ordem</th> <th>Descrição</th> <th>Máquina</th>
+          </tr>
+          <% @produto.operacoes.order('ordem ASC').each do |m| %>
+            <tr>
+              <td><%= m.ordem %></td>
+              <td><%= m.descricao %></td>
+              <td><%= m.maquina.try(:descricao) %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
   </div>
   <div class="col-md-8">
   </div>

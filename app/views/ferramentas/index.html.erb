@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>Ferramentas</h1>
+  <%= link_to "Nova Ferramenta", new_ferramenta_path, class: 'btn btn-primary' %>
+</div>
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Código</th>
+        <th>Data cadastro</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @ferramentas.each do |ferramenta| %>
+        <tr>
+          <td><%= link_to ferramenta.descricao, ferramenta %></td>
+          <td><%= ferramenta.codigo %></td>
+          <td><%= l ferramenta.created_at, format: :xshort %></td>
+          <td><%= link_to 'Editar', edit_ferramenta_path(ferramenta), class: 'btn btn-default btn-xs' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

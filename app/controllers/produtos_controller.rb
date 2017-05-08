@@ -28,6 +28,7 @@ class ProdutosController < ApplicationController
   # GET /produtos/new
   def new
     @produto = Produto.new
+    @produto.descricao = params[:descricao]
   end
 
   # GET /produtos/1/edit
@@ -41,7 +42,13 @@ class ProdutosController < ApplicationController
 
     respond_to do |format|
       if @produto.save
-        format.html { redirect_to @produto, notice: 'Produto was successfully created.' }
+        format.html do
+          if params[:return_to].present?
+            redirect_to params[:return_to], notice: 'Produto cadastrado com sucesso.' 
+          else
+            redirect_to @produto, notice: 'Produto cadastrado com sucesso.' 
+          end
+        end
         format.json { render :show, status: :created, location: @produto }
       else
         format.html { render :new }
@@ -55,7 +62,7 @@ class ProdutosController < ApplicationController
   def update
     respond_to do |format|
       if @produto.update(produto_params)
-        format.html { redirect_to @produto, notice: 'Produto was successfully updated.' }
+        format.html { redirect_to @produto, notice: 'Produto atualizado.' }
         format.json { render :show, status: :ok, location: @produto }
       else
         format.html { render :edit }
@@ -88,7 +95,9 @@ class ProdutosController < ApplicationController
         :unidade_medida,
         :tipo,
         {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
-        {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :_destroy]}
+        {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :_destroy]},
+        {:operacoes_attributes => [:id, :ordem, :descricao, :maquina_id, :tempo_setup, :tempo_operacao, {:ferramenta_ids => []}, 
+                                   :observacao, :_destroy]}
       )
     end
 end

@@ -68,10 +68,25 @@
 .footer {
   display: none !important;
 }
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, 
+.nav-tabs > li.active > a:focus {
+  border-bottom-width: 2px !important;
+}
 
 
 /* SmartFactory */
 .numero-os {
   color: #d9534f;
+}
+.steps {
+  font-size: 15px;
+  padding: 15px 0 7px;
+  border-radius: 4px;
+}
+.steps i {
+  visibility: hidden;
+}
+.steps .label-success i {
+  visibility: visible;
 }
 

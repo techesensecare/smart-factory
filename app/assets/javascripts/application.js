@@ -45,7 +45,18 @@ jQuery(function() {
 
   $('#check-all').click(function() { $('td.check input').prop('checked', $(this).prop('checked')); } )
 
-  $('.select2').select2({language: 'pt-BR'});
+  formatters = function() {
+    $('select.select2-ferramentas').select2();
+    $('select.select2-produto').select2({
+      language: 'pt-br',
+      tags: true
+    });
+  }
+  formatters();
+
+  $(document).on('nested:fieldAdded', function() {
+    formatters();
+  });
 
   // TODO 
   // Fechar menu lateral

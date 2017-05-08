@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426090452) do
+ActiveRecord::Schema.define(version: 20170427173824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,27 @@ ActiveRecord::Schema.define(version: 20170426090452) do
     t.integer  "depende_de_id"
   end
 
+  create_table "ferramentas", force: :cascade do |t|
+    t.string   "descricao"
+    t.string   "codigo"
+    t.string   "unidade_medida"
+    t.string   "tipo"
+    t.integer  "quantidade"
+    t.text     "observacao"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "ferramentas_operacoes", id: false, force: :cascade do |t|
+    t.integer "ferramenta_id", null: false
+    t.integer "operacao_id",   null: false
+  end
+
+  create_table "ferramentas_pedido_operacoes", id: false, force: :cascade do |t|
+    t.integer "ferramenta_id",      null: false
+    t.integer "pedido_operacao_id", null: false
+  end
+
   create_table "fornecedores", force: :cascade do |t|
     t.string   "nome"
     t.string   "telefone"
@@ -142,19 +163,55 @@ ActiveRecord::Schema.define(version: 20170426090452) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "operacoes", force: :cascade do |t|
+    t.integer  "produto_id"
+    t.integer  "ordem"
+    t.string   "descricao"
+    t.integer  "maquina_id"
+    t.text     "observacao"
+    t.integer  "tempo_setup"
+    t.integer  "tempo_operacao"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["maquina_id"], name: "index_operacoes_on_maquina_id", using: :btree
+    t.index ["produto_id"], name: "index_operacoes_on_produto_id", using: :btree
+  end
+
   create_table "paradas", force: :cascade do |t|
     t.string   "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "pedido_operacoes", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.integer  "produto_id"
+    t.integer  "ordem"
+    t.string   "descricao"
+    t.integer  "maquina_id"
+    t.text     "observacao"
+    t.integer  "tempo_setup"
+    t.integer  "tempo_operacao"
+    t.string   "status"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "pedido_item_id"
+    t.integer  "quantidade"
+    t.index ["maquina_id"], name: "index_pedido_operacoes_on_maquina_id", using: :btree
+    t.index ["pedido_id"], name: "index_pedido_operacoes_on_pedido_id", using: :btree
+    t.index ["produto_id"], name: "index_pedido_operacoes_on_produto_id", using: :btree
+  end
+
   create_table "pedidos", force: :cascade do |t|
     t.integer  "cliente_id"
     t.string   "numero"
     t.text     "observacao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.date     "prazo"
+    t.string   "status"
+    t.string   "descricao"
+    t.integer  "responsavel_id"
     t.index ["cliente_id"], name: "index_pedidos_on_cliente_id", using: :btree
   end
 
@@ -229,6 +286,11 @@ ActiveRecord::Schema.define(version: 20170426090452) do
   add_foreign_key "celulas", "centros"
   add_foreign_key "item_pedidos", "pedidos"
   add_foreign_key "item_pedidos", "produtos"
+  add_foreign_key "operacoes", "maquinas"
+  add_foreign_key "operacoes", "produtos"
+  add_foreign_key "pedido_operacoes", "maquinas"
+  add_foreign_key "pedido_operacoes", "pedidos"
+  add_foreign_key "pedido_operacoes", "produtos"
   add_foreign_key "pedidos", "clientes"
   add_foreign_key "usuarios", "turnos"
 end

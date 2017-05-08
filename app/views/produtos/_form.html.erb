@@ -1,4 +1,6 @@
 <%= simple_nested_form_for(produto, multipart: true) do |f| %>
+  <%= hidden_field_tag :return_to, params[:return_to] %>
+
   <div class="panel panel-default">
     <div class="panel-body">
       <% if produto.errors.any? %>
@@ -96,6 +98,44 @@
                           class: 'btn btn-default', 
                           data: { target: '#materia_primas' }  %>
       </div>
+
+      <div class="operacoes-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
+        <label style="">Operações</label>
+        <div id="operacoes" style="">
+          <%= f.fields_for :operacoes do |b| %>
+            <div class="operacao" style="margin-bottom: 20px; border-left: 2px solid #1ab394; padding-left: 10px;">
+              <%= b.hidden_field :id %>
+              <div class="row">
+                <%= b.input :ordem, wrapper_html: { class: 'col-md-1' } %>
+                <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
+                <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
+              </div>
+              <div class="row">
+                <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
+                <%= b.input :tempo_operacao, label: "Tempo de Operação (min)", wrapper_html: { class: 'col-md-4' } %>
+              </div>
+              <div class="row">
+                <% tags_array = Ferramenta.all.map { |tag| [tag.codigo + ' - ' + tag.descricao, tag.id] } %>
+                <%= b.input :ferramenta_ids, collection: tags_array, label: 'Ferramentas', wrapper_html: {class: 'col-md-12'},
+                            input_html: {multiple: true, class: 'select2-ferramentas'} %>
+              </div>
+              <%= b.input :observacao, label: "Observação" %>
+              <div class="row">
+                <div class="col-md-2">
+                  <%= b.link_to_remove "<span class='fa fa-times'><span> Remover ".html_safe, 
+                                        class: 'btn btn-danger btn-xs', 
+                                        style: 'margin-top: 5px' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Operação", 
+                          :operacoes, 
+                          class: 'btn btn-default', 
+                          data: { target: '#operacoes' }  %>
+      </div>
+
 
     </div>
 

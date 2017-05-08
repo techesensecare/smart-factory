@@ -14,54 +14,46 @@
       <% end %>
 
       <%= f.input :numero, label: 'Número do pedido (gerado automaticamente)', input_html: { disabled: true } %>
+      <div class="row">
+        <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-9' } %>
+        <%= f.input :status, include_blank: false, wrapper_html: { class: 'col-md-3' } %>
+      </div>
       <%= f.input :cliente_id, collection: Cliente.all, input_html: { class: 'select2' } %>
       <%= f.input :prazo, include_blank: true %>
 
       <label>
-        Etapas
+        Itens do Pedido
       </label>
-      <div class="etapas-wrapper" style="margin-bottom: 20px">
-        <div id="etapas">
-          <%= f.fields_for :etapas do |b| %>
+      <div class="item-pedidos-wrapper" style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd;">
+        <div id="item_pedidos">
+          <%= f.fields_for :item_pedidos do |b| %>
             <div class="row">
-              <%= b.input :maquina_id, 
-                          label: 'Máquina',
-                          collection: Maquina.all,
-                          wrapper_html: { class: 'col-md-2' } %>
-              <%= b.input :descricao,
-                          wrapper_html: { class: 'col-md-2' } %>
+              <%# TODO Melhorar essas seleção, os novos ficam com dois itens em branco %>
+              <%= b.input :descricao_produto,
+                          collection: select2_collection_tags(Produto.all, :descricao, b.object.descricao_produto),
+                          label: "Descrição do produto",
+                          wrapper_html: { class: 'col-md-4' },
+                          input_html: { class: 'select2-produto' } %>
               <%= b.input :quantidade,
-                          label: 'Qtd',
-                          wrapper_html: { class: 'col-md-1' } %>
-              <%= b.input :data_entrega, 
-                          label: 'Entrega',
-                          as: :string,
-                          include_blank: true,
-                          input_html: { type: 'date' },
-                          wrapper_html: { class: 'col-md-3' } %>
-              <%= b.input :depende_de_id, 
-                          label: 'Depende de...',
-                          collection: Maquina.all,
-                          include_blank: true,
-                          input_html: { type: 'date' },
-                          wrapper_html: { class: 'col-md-3' } %>
-
+                          label: 'Quantidade',
+                          wrapper_html: { class: 'col-md-2' } %>
               <div class="col-md-1">
-                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
-                                      class: 'btn btn-default btn-sm', 
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe,
+                                      class: 'btn btn-default btn-sm',
                                       style: 'margin-top: 24px' %>
               </div>
             </div>
           <% end %>
         </div>
 
-        <%= f.link_to_add "Incluir Etapa", 
-                          :etapas, 
-                          class: 'btn btn-default', 
-                          data: { target: '#etapas' }  %>
+        <%= f.link_to_add "Incluir Item", 
+                          :item_pedidos,
+                          class: 'btn btn-primary', 
+                          data: { target: '#item_pedidos' }  %>
       </div>
 
       <%= f.input :observacao, label: 'Observação' %>
+      <%= f.input :responsavel_id, collection: Usuario.all, label: "Responsável" %>
     </div>
 
     <div class="panel-footer">
