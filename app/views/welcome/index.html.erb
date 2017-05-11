@@ -1,2 +1,44 @@
 <h1>Painel de controle</h1>
-<p>Em desenvolvimento...</p>
+
+<div class="row">
+  <% @maquinas.each do |m| %>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= m.descricao %>
+          <div class="status <%= m.status %>">
+            <%= m.status.text %>
+          </div>
+        </div>
+        <div class="foto">
+          <%= image_tag m.foto if m.foto %>
+        </div>
+        <div class="panel-footer">
+          <%= link_to "Ver operações", operacoes_maquina_path(maquina_id: m), class: 'btn btn-outline btn-default btn-block' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+.status.executando {
+  color: orange;
+}
+.status.disponivel {
+  color: #18a689;
+}
+.status.manutencao {
+  color: red;
+}
+.status.setup {
+  color: blue;
+}
+.foto {
+  max-height: 100px;
+  overflow: hidden;
+}
+.foto img {
+  width: 100%;
+}
+</style>

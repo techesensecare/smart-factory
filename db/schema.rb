@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427173824) do
+ActiveRecord::Schema.define(version: 20170511182108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,18 @@ ActiveRecord::Schema.define(version: 20170427173824) do
     t.index ["produto_id"], name: "index_item_pedidos_on_produto_id", using: :btree
   end
 
+  create_table "maquina_historicos", force: :cascade do |t|
+    t.integer  "maquina_id"
+    t.integer  "usuario_id"
+    t.string   "status"
+    t.integer  "pedido_operacao_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["maquina_id"], name: "index_maquina_historicos_on_maquina_id", using: :btree
+    t.index ["pedido_operacao_id"], name: "index_maquina_historicos_on_pedido_operacao_id", using: :btree
+    t.index ["usuario_id"], name: "index_maquina_historicos_on_usuario_id", using: :btree
+  end
+
   create_table "maquinas", force: :cascade do |t|
     t.string   "descricao"
     t.datetime "created_at",        null: false
@@ -143,6 +155,7 @@ ActiveRecord::Schema.define(version: 20170427173824) do
     t.string   "foto_content_type"
     t.integer  "foto_file_size"
     t.datetime "foto_updated_at"
+    t.string   "status"
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|
@@ -181,6 +194,19 @@ ActiveRecord::Schema.define(version: 20170427173824) do
     t.string   "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pedido_operacao_historicos", force: :cascade do |t|
+    t.integer  "pedido_operacao_id"
+    t.string   "status"
+    t.integer  "usuario_id"
+    t.string   "motivo"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "maquina_id"
+    t.index ["maquina_id"], name: "index_pedido_operacao_historicos_on_maquina_id", using: :btree
+    t.index ["pedido_operacao_id"], name: "index_pedido_operacao_historicos_on_pedido_operacao_id", using: :btree
+    t.index ["usuario_id"], name: "index_pedido_operacao_historicos_on_usuario_id", using: :btree
   end
 
   create_table "pedido_operacoes", force: :cascade do |t|
@@ -286,8 +312,14 @@ ActiveRecord::Schema.define(version: 20170427173824) do
   add_foreign_key "celulas", "centros"
   add_foreign_key "item_pedidos", "pedidos"
   add_foreign_key "item_pedidos", "produtos"
+  add_foreign_key "maquina_historicos", "maquinas"
+  add_foreign_key "maquina_historicos", "pedido_operacoes"
+  add_foreign_key "maquina_historicos", "usuarios"
   add_foreign_key "operacoes", "maquinas"
   add_foreign_key "operacoes", "produtos"
+  add_foreign_key "pedido_operacao_historicos", "maquinas"
+  add_foreign_key "pedido_operacao_historicos", "pedido_operacoes"
+  add_foreign_key "pedido_operacao_historicos", "usuarios"
   add_foreign_key "pedido_operacoes", "maquinas"
   add_foreign_key "pedido_operacoes", "pedidos"
   add_foreign_key "pedido_operacoes", "produtos"

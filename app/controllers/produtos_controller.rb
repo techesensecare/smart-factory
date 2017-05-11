@@ -1,4 +1,6 @@
 class ProdutosController < ApplicationController
+  include AnexosHelper
+
   before_action { @configuracoes = true }
   before_action :set_produto, only: [:show, :edit, :update, :destroy]
 
@@ -11,18 +13,7 @@ class ProdutosController < ApplicationController
   # GET /produtos/1
   # GET /produtos/1.json
   def show
-    @anexos = @produto.anexos.order('id ASC')
-    if params[:anexo_id]
-      @anexo = @anexos.where(id: params[:anexo_id]).first
-    else
-      @anexo = @anexos.first
-    end
-
-    if @anexo
-      antes, depois = @anexos.to_a.split(@anexo)
-      @anterior = antes.last if antes
-      @proximo  = depois.first if depois
-    end
+    load_anexos
   end
 
   # GET /produtos/new

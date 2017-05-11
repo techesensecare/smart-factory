@@ -25,7 +25,8 @@
 //= require ./inspinia/plugins/slimscroll/jquery.slimscroll.min.js
 //= require ./inspinia/plugins/peity/jquery.peity.min.js
 //= require ./inspinia/inspinia.js
-//= require ./inspinia/plugins/pace/pace.min.js
+// Linha comentada, pois causava pequenos bugs no carregamento da página.
+// require ./inspinia/plugins/pace/pace.min.js
 //= require ./inspinia/plugins/iCheck/icheck.min.js
 //= require ./inspinia/demo/peity-demo.js
 //

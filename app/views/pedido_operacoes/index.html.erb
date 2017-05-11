@@ -1,19 +1,50 @@
+<% if @maquina %>
+  <p>
+  <%= link_to "&larr; Voltar".html_safe, root_path %>
+  </p>
+<% end %>
 
 <div class="page-header">
-  <h1>Operações</h1>
-  <%= link_to "Novo Pedido", new_pedido_path, class: 'btn btn-primary' %>
+  <h1>
+    Operações
+    <% if @maquina %>
+      da <%= @maquina.descricao %>
+    <% end %>
+  </h1>
+
+  <div class="status <%= @maquina.status %>">
+    <%= @maquina.status.text %>
+    <% if @maquina.status.setup? %>
+      <%= link_to 'Finalizar setup <i class="fa fa-check"></i>'.html_safe, finalizar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+    <% elsif @maquina.status.disponivel? %>
+      <%= link_to 'Iniciar setup <i class="fa fa-play"></i>'.html_safe, iniciar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+    <% end %>
+  </div>
 </div>
 
-<p>
+<p class="hide">
   Você está visualizando as operações, independentes de pedidos.
   <%= link_to "Clique aqui para visualizar os Pedidos em produção.", pedidos_path(with_status: :producao) %>
 </p>
+
+<div id="filtros" class="hide">
+  <%= form_tag '', method: :get do %>
+    <div class="input-group">
+      <%= text_field_tag :with_query, params[:with_query], 
+                         placeholder: "Pesquise operação pela OS, cliente, produto ou descrição...",
+                         class: 'form-control string' %>
+      <div class="input-group-btn">
+        <%= submit_tag "Pesquisar", class: 'btn btn-default' %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <ul class="nav nav-tabs" style="margin: 10px 0">
   <% PedidoOperacao.status.options.each do |label, value| %>
     <% if value != 'finalizado' %>
       <li class="<%= 'active' if params[:with_status] == value %>">
-        <% quantidade = PedidoOperacao.with_status(value).count %>
+        <% quantidade = @maquina.pedido_operacoes.with_status(value).count %>
         <% if quantidade > 0 %>
           <%= link_to "#{label} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
         <% else %>
@@ -30,31 +61,59 @@
 
 
 <div class="panel panel-default">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Pedido</th>
-        <th>Ordem</th>
-        <th>Descrição</th>
-        <th>Máquina</th>
-        <th>Quantidade</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
+  <table class="table table-bordered">
+    <tr>
+      <th>Pedido</th>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Operação</th>
+      <th>Quantidade</th>
+      <th>Prazo Entrega</th>
+      <th>Prioridade</th>
+      <th>Status</th>
+      <th>Motivo</th>
+      <th></th>
+    </tr>
 
-    <tbody>
-      <% @operacoes.each do |operacao| %>
-        <tr>
-          <td><%= link_to operacao.pedido.numero, operacao.pedido %></td>
-          <td><%= operacao.ordem %></td>
-          <td><%= operacao.descricao %></td>
-          <td><%= operacao.maquina.descricao %></td>
-          <td><%= operacao.quantidade %></td>
-          <td><%= operacao.status %></td>
-          <td><%= link_to 'Abrir', pedido_path(operacao.pedido), class: 'btn btn-default btn-xs' %></td>
-        </tr>
-      <% end %>
-    </tbody>
+    <% @operacoes.each do |o| %>
+      <tr>
+        <td><%= o.pedido.numero %></td>
+        <td><%= o.pedido.cliente.nome %></td>
+        <td><%= o.pedido_item.descricao_produto %></td>
+        <td><%= o.descricao %></td>
+        <td><%= o.quantidade %></td>
+        <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
+        <td><%= %></td>
+        <td><%= o.status.text %></td>
+        <td></td>
+        <td><%= link_to "Abrir", o %></td>
+      </tr>
+    <% end %>
   </table>
 </div>
+
+<style>
+.status {
+  float: right;
+  padding: 10px;
+  font-size: 1.5em;
+  margin-top: 5px;
+}
+.status.executando {
+  color: orange;
+}
+.status.disponivel {
+  color: #18a689;
+}
+.status.manutencao {
+  color: red;
+}
+.status.setup {
+  color: blue;
+}
+.page-header .btn-primary {
+  float: none;
+  margin: 0;
+    margin-left: 10px;
+}
+</style>

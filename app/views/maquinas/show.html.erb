@@ -28,56 +28,29 @@
     </div>
   </div>
   <div class="col-md-9">
-    <h3>Trabalhos em aberto</h3>
+    <h3>Histórico de trabalhos</h3>
     <div class="panel panel-default">
       <table class="table">
         <tr>
+          <th>Status</th>
+          <th>Usuário</th>
+          <th>Operação</th>
           <th>Pedido</th>
-          <th>Cliente</th>
-          <th>Descrição</th>
-          <th>Entrada</th>
-          <th>Saída</th>
+          <th>Data</th>
         </tr>
-        <% @maquina.etapas.pendente.each do |e| %>
+        <% @maquina.historicos.order('created_at DESC').each do |e| %>
           <tr>
-            <td><%= link_to e.pedido.numero, e.pedido %></td>
-            <td><%= link_to e.pedido.cliente.nome, e.pedido.cliente %></td>
-            <td><%= e.descricao %></td>
+            <td><%= e.status %></td>
+            <td><%= e.usuario.nome %></td>
+            <td><%= e.pedido_operacao.try(:descricao) %></td>
+            <td><%= e.pedido_operacao.try(:pedido).try(:numero) %></td>
             <td><%= l e.created_at, format: :short %></td>
-            <td><%= link_to "Finalizar", finalizar_maquina_path(@maquina, etapa: e) %></td>
           </tr>
         <% end %>
       </table>
-      <% if @maquina.etapas.pendente.blank? %>
+      <% if @maquina.historicos.blank? %>
         <div class="panel-body">
-          Nenhum trabalho pendente.
-        </div>
-      <% end %>
-    </div>
-
-    <h3>Trabalhos finalizados</h3>
-    <div class="panel panel-default">
-      <table class="table">
-        <tr>
-          <th>Pedido</th>
-          <th>Cliente</th>
-          <th>Descrição</th>
-          <th>Entrada</th>
-          <th>Saída</th>
-        </tr>
-        <% @maquina.etapas.finalizada.each do |e| %>
-          <tr>
-            <td><%= link_to e.pedido.numero, e.pedido %></td>
-            <td><%= link_to e.pedido.cliente.nome, e.pedido.cliente %></td>
-            <td><%= e.descricao %></td>
-            <td><%= l e.created_at, format: :short %></td>
-            <td><%= l e.data_entrega, format: :short if e.data_entrega %></td>
-          </tr>
-        <% end %>
-      </table>
-      <% if @maquina.etapas.finalizada.blank? %>
-        <div class="panel-body">
-          Nenhum trabalho finalizado.
+          Nenhum histórico registrado.
         </div>
       <% end %>
     </div>

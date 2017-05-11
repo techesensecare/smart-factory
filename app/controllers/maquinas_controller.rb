@@ -1,6 +1,6 @@
 class MaquinasController < ApplicationController
   before_action { @configuracoes = true }
-  before_action :set_maquina, only: [:show, :edit, :update, :destroy]
+  before_action :set_maquina, only: [:show, :edit, :update, :destroy, :monitor]
 
   # GET /maquinas
   # GET /maquinas.json
@@ -29,7 +29,7 @@ class MaquinasController < ApplicationController
 
     respond_to do |format|
       if @maquina.save
-        format.html { redirect_to maquinas_path, notice: 'Maquina was successfully created.' }
+        format.html { redirect_to maquinas_path, notice: 'Máquina cadastrada com sucesso.' }
         format.json { render :show, status: :created, location: @maquina }
       else
         format.html { render :new }
@@ -38,6 +38,24 @@ class MaquinasController < ApplicationController
     end
   end
 
+  has_scope :with_status, default: :na_fila
+  def monitor
+    @operacoes = apply_scopes(@maquina.pedido_operacoes)
+  end
+
+  def finalizar_setup
+    @maquina = Maquina.find(params[:id])
+    @maquina.update_status :disponivel, current_usuario
+    redirect_to :back
+  end
+
+  def iniciar_setup
+    @maquina = Maquina.find(params[:id])
+    @maquina.update_status :setup, current_usuario
+    redirect_to :back
+  end
+
+  # Depreciado
   def finalizar
     @maquina = Maquina.find(params[:id])
     Etapa.where(id: params[:etapa]).update_all data_entrega: Date.today

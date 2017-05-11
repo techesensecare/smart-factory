@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pedido_operacao: one
+  status: MyString
+  usuario: one
+  motivo: MyString
+
+two:
+  pedido_operacao: two
+  status: MyString
+  usuario: two
+  motivo: MyString

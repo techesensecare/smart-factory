@@ -28,7 +28,7 @@
 <% end %>
 
 <% if params[:with_status] == 'producao' %>
-  <p>
+  <p class="hide">
     Você está visualizando os pedidos que estão em produção. 
     <%= link_to "Clique aqui para visualizar as Operações.", pedido_operacoes_path %>
   </p>

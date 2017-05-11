@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  maquina: one
+  usuario: one
+  status: MyString
+  pedido_operacao: one
+
+two:
+  maquina: two
+  usuario: two
+  status: MyString
+  pedido_operacao: two

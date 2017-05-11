@@ -7,19 +7,43 @@
   </div>
 </div>
 
-<div class="panel panel-default">
-  <table class="table">
-    <tr>
-      <td class="col-md-2">Telefone</td> <td><%= @cliente.telefone %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Email</td> <td><%= @cliente.email %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Endereço</td> <td><%= @cliente.endereco %></td>
-    </tr>
-    <tr>
-      <td>Data do cadastro</td> <td><%= l @cliente.created_at %></td>
-    </tr>
-  </table>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <table class="table">
+        <tr>
+          <td class="">Telefone</td> <td><%= @cliente.telefone %></td>
+        </tr>
+        <tr>
+          <td class="">Email</td> <td><%= @cliente.email %></td>
+        </tr>
+        <tr>
+          <td class="">Endereço</td> <td><%= @cliente.endereco %></td>
+        </tr>
+        <tr>
+          <td>Data do cadastro</td> <td><%= l @cliente.created_at %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Pedidos
+      </div>
+      <table class="table table-striped">
+        <% @cliente.pedidos.order('created_at DESC').each do |p| %>
+          <tr>
+            <td><%= l p.created_at %></td>
+            <td><%= p.numero %></td>
+            <td><%= p.descricao %></td>
+            <td><%= p.status %></td>
+            <td><%= l(p.prazo) if p.prazo %></td>
+            <td><%= link_to "Abrir", p %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
 </div>

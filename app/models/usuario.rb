@@ -24,4 +24,12 @@ class Usuario < ActiveRecord::Base
     ativo
   end
 
+  def minhas_maquinas
+    if perfil.comum?
+      maquinas
+    else
+      Maquina.all
+    end
+  end
+
 end

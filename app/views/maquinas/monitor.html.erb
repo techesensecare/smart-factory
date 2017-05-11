@@ -1,0 +1,52 @@
+<h1><%= @maquina.descricao %></h1>
+
+<ul class="nav nav-tabs" style="margin: 10px 0">
+  <% PedidoOperacao.status.options.each do |label, value| %>
+    <% if value != 'finalizado' %>
+      <li class="<%= 'active' if params[:with_status] == value %>">
+        <% quantidade = @maquina.pedido_operacoes.with_status(value).count %>
+        <% if quantidade > 0 %>
+          <%= link_to "#{label} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
+        <% else %>
+          <%= link_to "#{label}".html_safe, with_status: value %>
+        <% end %>
+      </li>
+    <% else %>
+      <li class="<%= 'active' if params[:with_status] == value %>">
+        <%= link_to label, with_status: value %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<div class="panel panel-default">
+  <table class="table table-bordered">
+    <tr>
+      <th>Pedido</th>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Operação</th>
+      <th>Quantidade</th>
+      <th>Prazo Entrega</th>
+      <th>Prioridade</th>
+      <th>Status</th>
+      <th>Motivo</th>
+      <th></th>
+    </tr>
+
+    <% @operacoes.each do |o| %>
+      <tr>
+        <td><%= o.pedido.numero %></td>
+        <td><%= o.pedido.cliente.nome %></td>
+        <td><%= o.pedido_item.descricao_produto %></td>
+        <td><%= o.descricao %></td>
+        <td><%= o.quantidade %></td>
+        <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
+        <td><%= %></td>
+        <td><%= o.status.text %></td>
+        <td></td>
+        <td><%= link_to "Abrir", o %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

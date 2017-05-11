@@ -1,0 +1,190 @@
+<p>
+  <%= link_to "&larr; Voltar".html_safe, operacoes_maquina_path(@operacao.maquina, with_status: @operacao.status) %>
+</p>
+
+<% if flash[:alert] %>
+  <div class="alert alert-warning">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Operação na <%= @operacao.maquina.descricao %>
+        <h2>
+          <%= @operacao.descricao %> 
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Quantidade a produzir
+        <h2>
+          <%= @operacao.quantidade %> 
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Situação
+        <h2>
+          <small><%= @operacao.status.text %> </small>
+          <% if @operacao.status.aguardando? %>
+            <%= link_to update_status_pedido_operacao_path(status: :na_fila), class: 'btn btn-primary pull-right' do %>
+              Enviar para Fila
+              <i class="fa fa-play"></i>
+            <% end %>
+          <% end %>
+          <% if @operacao.status.na_fila? %>
+            <%= link_to update_status_pedido_operacao_path(status: :executando), class: 'btn btn-primary pull-right' do %>
+              Iniciar
+              <i class="fa fa-play"></i>
+            <% end %>
+          <% end %>
+          <% if @operacao.status.pausada? %>
+            <%= link_to update_status_pedido_operacao_path(status: :executando), class: 'btn btn-primary pull-right' do %>
+              Continuar
+              <i class="fa fa-play"></i>
+            <% end %>
+          <% end %>
+          <% if @operacao.status.executando? %>
+            <%= link_to update_status_pedido_operacao_path(status: :finalizada), class: 'btn btn-primary pull-right' do %>
+              Concluir
+              <i class="fa fa-check"></i>
+            <% end %>
+            <%= link_to '', data: { toggle: :modal, target: '#pausarModal' } , class: 'btn btn-info pull-right', style: "margin-right: 5px" do %>
+              Pausar
+              <i class="fa fa-pause"></i>
+            <% end %>
+          <% end %>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="pausarModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Registrar Parada</h4>
+      </div>
+      <%= form_tag update_status_pedido_operacao_path, method: :get do %>
+        <div class="modal-body">
+            <%= hidden_field_tag :status, :pausada %>
+            <%= select_tag :motivo, 
+                  options_for_select(Parada.all.map(&:descricao)), 
+                  class: 'form-control' %>
+        </div>
+        <div class="modal-footer">
+            <%= submit_tag "Registrar Parada", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Observação
+        <h4>
+          <%= @operacao.observacao.present? ? @operacao.observacao : '-' %> 
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Ferramentas
+        <h4>
+          <% if @operacao.ferramentas.any? %>
+            <%= @operacao.ferramentas.map(&:descricao).join(', ') %> 
+          <% else %>
+            -
+          <% end %>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Prazo
+        <h4>
+          <% if @operacao.pedido.prazo %>
+            <%= l @operacao.pedido.prazo %> 
+          <% else %>
+            - 
+          <% end %>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= render 'anexos_panel' %>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Sobre o pedido
+      </div>
+      <table class="table">
+        <tr>
+          <th>Pedido Nº</th>
+          <td><%= link_to @operacao.pedido.numero, @operacao.pedido %></td>
+        </tr>
+        <tr>
+          <th>Cliente</th>
+          <td><%= @operacao.pedido.cliente.nome %></td>
+        </tr>
+        <tr>
+          <th>Observação do pedido</th>
+          <td><%= @operacao.pedido.observacao %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Histórico
+      </div>
+      <% if @operacao.historicos.blank? %>
+        <div class="panel-body">
+          Nenhum histórico encontrado.
+        </div>
+      <% else %>
+        <table class="table">
+          <% @operacao.historicos.order('created_at DESC').each do |h| %>
+            <tr>
+              <td><%= h.usuario.nome %></td>
+              <td>
+                <%= h.status.text %>
+                <% if h.motivo.present? %>
+                  - 
+                  <%= h.motivo %>
+                <% end %>
+              </td>
+              <td><%= l h.created_at %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
