@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     patch :confirmar_desmembramento, on: :member
     get :finalizar, on: :member
     patch :confirmar_finalizacao, on: :member
+    get :sem_maquina, on: :collection
+    get :definir_maquina, on: :member
+    patch :confirmar_maquina, on: :member
   end
   resources :pedidos do
     get :atualizar_status, on: :member
@@ -34,6 +37,7 @@ Rails.application.routes.draw do
   devise_for :usuarios, :path_prefix => 'auth'
   root to: 'welcome#index'
   get 'welcome/index'
+  get '/operacoes/sem_maquina/', to: 'pedido_operacoes#sem_maquina' , as: :operacoes_sem_maquina
   get '/operacoes/:maquina_id/', to: 'pedido_operacoes#index' , as: :operacoes_maquina
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

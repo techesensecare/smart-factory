@@ -19,6 +19,19 @@
       </div>
     </div>
   <% end %>
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Operações sem máquina
+      </div>
+      <div class="panel-body text-center" style="height: 117px">
+        <h1><%= @operacoes_sem_maquina.count %></h1>
+      </div>
+      <div class="panel-footer">
+        <%= link_to "Ver operações", operacoes_sem_maquina_path, class: 'btn btn-outline btn-default btn-block' %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <h3>Alerta de falta de estoque</h3>

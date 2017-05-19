@@ -1,0 +1,76 @@
+<p>
+  <%= link_to "&larr; Voltar".html_safe, sem_maquina_pedido_operacoes_path %>
+</p>
+
+<% if flash[:alert] %>
+  <div class="alert alert-warning">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<h1>
+  Definir Máquina
+</h1>
+
+<% if @operacao.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@operacao.errors.count, "erro") %></h2>
+
+    <ul>
+      <% @operacao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= simple_nested_form_for @operacao, url: confirmar_maquina_pedido_operacao_path(@operacao) do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Operação sem máquina
+          <h2>
+            <%= @operacao.descricao %> 
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Quantidade a produzir
+          <h2>
+            <%= @operacao.quantidade %> 
+            <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
+             <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'pull-right btn btn-default' %>
+            <% end %>
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Status
+          <h2>
+            <%= @operacao.status %>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= f.input :maquina_id, collection: Maquina.all %>
+    </div>
+  </div>
+
+  <%= submit_tag "Confirmar Máquina", class: 'btn btn-primary' %>
+  <%= link_to "Voltar", sem_maquina_pedido_operacoes_path, class: 'btn btn-default' %>
+
+<% end %>

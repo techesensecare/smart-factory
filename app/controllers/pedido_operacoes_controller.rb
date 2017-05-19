@@ -25,6 +25,20 @@ class PedidoOperacoesController < ApplicationController
     @operacao = PedidoOperacao.find(params[:id])
   end
 
+  def sem_maquina
+    @operacoes = PedidoOperacao.where(maquina_id: nil)
+  end
+
+  def definir_maquina
+    @operacao = PedidoOperacao.find(params[:id])
+  end
+
+  def confirmar_maquina
+    @operacao = PedidoOperacao.find(params[:id])
+    @operacao.update_attributes params[:pedido_operacao].permit!
+    redirect_to sem_maquina_pedido_operacoes_path
+  end
+
   def confirmar_desmembramento
     @operacao = PedidoOperacao.find(params[:id])
     @operacao.nova_quantidade  = params[:pedido_operacao][:nova_quantidade]
