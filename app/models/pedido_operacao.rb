@@ -21,6 +21,24 @@ class PedidoOperacao < ApplicationRecord
   attr_accessor :nova_maquina_id
   attr_accessor :nova_quantidade
 
+  # Alerta de saldos baixo.
+  def alertas
+    if @alertas
+      @alertas
+    else
+      @alertas = []
+      pedido_item.produto.materia_primas.each do |m|
+        if m.produto_usado.tipo.comprado?
+          quantidade_necessaria = m.quantidade * quantidade
+          if quantidade_necessaria > m.produto_usado.saldo
+            alertas << [ m.produto_usado, quantidade_necessaria, m.produto_usado.saldo]
+          end
+        end
+      end
+      @alertas
+    end
+  end
+
   def finalizar(params, usuario, maquina)
     PedidoOperacao.transaction do
       self.update_attributes params

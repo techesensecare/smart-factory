@@ -21,6 +21,44 @@
   <% end %>
 </div>
 
+<h3>Alerta de falta de estoque</h3>
+
+<% if @operacoes_sem_estoque.any? %>
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <tr>
+      <th>Pedido</th>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Operação</th>
+      <th>Quantidade</th>
+      <th>Prazo Entrega</th>
+      <th>Status</th>
+      <th>Matéria</th>
+      <th>Qtd Necessária</th>
+      <th>Qtd Disponível</th>
+    </tr>
+    <% @operacoes_sem_estoque.each do |o| %>
+      <tr>
+      <% o.alertas.each do |a| %>
+        <td><%= o.pedido.numero %></td>
+        <td><%= o.pedido.cliente.nome %></td>
+        <td><%= o.pedido_item.descricao_produto %></td>
+        <td><%= o.descricao %></td>
+        <td><%= o.quantidade %></td>
+        <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
+        <td><%= o.status.text %></td>
+        <td><%= a.first.descricao %> </td>
+        <td><%= a.second %> </td>
+        <td><%= a.last %> </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  Nenhuma operação comprometida por falta de estoque.
+<% end %>
+
 <style>
 .status.executando {
   color: orange;
