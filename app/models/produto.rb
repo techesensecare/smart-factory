@@ -19,12 +19,23 @@ class Produto < ApplicationRecord
 
   has_many :movimentos
 
+  default_scope { order('descricao ASC') }
+
 
   before_save :update_itens
 
   def update_itens 
     ItemPedido.where(descricao_produto: self.descricao).update(produto_id: self.id)
   end
+
+  # WIP
+  #
+  # def saldo_necessario
+  #   PedidoOperacao.
+  #     joins(:pedido_item => { :produto => :materia_primas }).
+  #     where("item_pedidos.produto_id" => 1).
+  #     where("item_pedidos.quantidade * materia_primas. > produtos.saldo")
+  # end
 
   def todas_operacoes
     operacoes_do_produto = self.operacoes
