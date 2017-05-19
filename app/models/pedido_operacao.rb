@@ -5,8 +5,10 @@ class PedidoOperacao < ApplicationRecord
 
   enumerize :status, in: %w(aguardando na_fila executando pausada finalizada), default: :aguardando, scope: true
 
-  belongs_to :pedido
+  # TODO Remover
   belongs_to :produto
+
+  belongs_to :pedido
   belongs_to :maquina
   belongs_to :pedido_item, class_name: 'ItemPedido'
   has_and_belongs_to_many :ferramentas
@@ -23,17 +25,22 @@ class PedidoOperacao < ApplicationRecord
     PedidoOperacao.transaction do
       self.update_attributes params
 
-      # self.quantidade_produzida = params[:quantidade_produzida].to_i
-      # self.rejeitos_attributes  = params[:rejeitos_attributes] if params[:rejeitos_attributes]
-
-      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", self.rejeitos
-
       if quantidade_produzida < quantidade
         quantidade_rejeitada = rejeitos.map(&:quantidade).sum
 
         if quantidade_rejeitada + quantidade_produzida < quantidade
           self.errors.add(:quantidade_produzida, 'valor menor que esperado, atualize ou registre um rejeito')
           raise ActiveRecord::RecordInvalid
+        end
+      end
+
+      pedido_item.produto.materia_primas.each do |m|
+        if m.produto_usado.tipo.comprado?
+          m.produto_usado.movimentos.create(
+            :tipo       => :remover, 
+            :quantidade => m.quantidade * quantidade_produzida,
+            :observacao => "Utilizado na produção de #{m.produto.descricao} no pedido #{pedido.numero}"
+          )
         end
       end
 
