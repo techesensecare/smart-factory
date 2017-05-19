@@ -34,6 +34,9 @@
   </p>
 <% end %>
 
+<% if @pedidos.blank? %>
+  <h2>Nenhum pedido.</h2>
+<% else %>
 <div class="panel panel-default">
   <table class="table table-striped">
     <thead>
@@ -61,3 +64,4 @@
     </tbody>
   </table>
 </div>
+<% end %>

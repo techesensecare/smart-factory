@@ -1,0 +1,36 @@
+<p>
+  <%= link_to "&larr; Voltar".html_safe, pedido_operacao_path(@operacao) %>
+</p>
+
+<h1>Desmembrar Operação</h1>
+
+<%= form_for @operacao, url: confirmar_desmembramento_pedido_operacao_path(@operacao) do |f| %>
+  <div class="panel panel-default">
+    <table class="table">
+      <tr>
+        <th width="160px">Descrição</th>  <td><%= @operacao.descricao %></td>
+      </tr>
+      <tr>
+        <th width="160px">Máquina</th>    <td><%= @operacao.maquina.descricao %></td>
+      </tr>
+      <tr>
+        <th width="160px">Quantidade do pedido</th> <td><%= @operacao.quantidade %></td>
+      </tr>
+      <tr class="hide">
+        <th width="160px">Outra Máquina</th> 
+        <td>
+          <%= f.select :nova_maquina_id, 
+                      options_from_collection_for_select(Maquina.where('id <> ?', @operacao.maquina), :id, :descricao) %>
+        </td>
+      </tr>
+      <tr>
+        <th width="160px">Quantidade restante</th>    <td><%= f.text_field :nova_quantidade %></td>
+      </tr>
+    </table>
+    <div class="panel-footer">
+      <%= submit_tag 'Desmembrar', class: 'btn btn-primary' %>
+      ou
+      <%= link_to "Cancelar", pedido_operacao_path(@operacao), class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

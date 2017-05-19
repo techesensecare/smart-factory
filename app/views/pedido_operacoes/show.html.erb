@@ -26,6 +26,9 @@
         Quantidade a produzir
         <h2>
           <%= @operacao.quantidade %> 
+          <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
+           <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'pull-right btn btn-default' %>
+          <% end %>
         </h2>
       </div>
     </div>
@@ -56,7 +59,7 @@
             <% end %>
           <% end %>
           <% if @operacao.status.executando? %>
-            <%= link_to update_status_pedido_operacao_path(status: :finalizada), class: 'btn btn-primary pull-right' do %>
+            <%= link_to finalizar_pedido_operacao_path, class: 'btn btn-primary pull-right' do %>
               Concluir
               <i class="fa fa-check"></i>
             <% end %>
@@ -160,6 +163,25 @@
         </tr>
       </table>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Matérias primas
+      </div>
+      <table class="table">
+        <tr>
+          <th>Nome</th>
+          <th>Quantidade</td>
+        </tr>
+        <% @operacao.pedido_item.produto.materia_primas.each do |m| %>
+          <tr>
+            <td><%= m.produto_usado.descricao %></td>
+            <td><%= m.quantidade %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         Histórico

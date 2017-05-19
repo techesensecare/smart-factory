@@ -59,7 +59,9 @@
   <% end %>
 </ul>
 
-
+<% if @operacoes.blank? %>
+  <h2>Nenhuma operação.</h2>
+<% else %>
 <div class="panel panel-default">
   <table class="table table-bordered">
     <tr>
@@ -69,30 +71,51 @@
       <th>Operação</th>
       <th>Quantidade</th>
       <th>Prazo Entrega</th>
-      <th>Prioridade</th>
       <th>Status</th>
-      <th>Motivo</th>
+      <% if params[:with_status] == 'pausada' %>
+        <th>Motivo</th>
+      <% end %>
+      <th>Prioridade</th>
       <th></th>
     </tr>
 
     <% @operacoes.each do |o| %>
-      <tr>
+      <tr class="<%= o.descricao_prioridade %>">
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td>
         <td><%= o.pedido_item.descricao_produto %></td>
         <td><%= o.descricao %></td>
         <td><%= o.quantidade %></td>
         <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
-        <td><%= %></td>
         <td><%= o.status.text %></td>
-        <td></td>
-        <td><%= link_to "Abrir", o %></td>
+        <% if params[:with_status] == 'pausada' %>
+          <td><%= o.historicos.last.try :motivo %></td>
+        <% end %>
+        <td>
+          <%= o.descricao_prioridade %>
+          <div class="btn-group">
+            <%= link_to "^", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_acima(o.prioridade)), class: 'btn btn-xs btn-default' %>
+            <%= link_to "v", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_abaixo(o.prioridade)), class: 'btn btn-xs btn-default' %> 
+          </div>
+        </td>
+        <td><%= link_to "Abrir", o, class: 'btn btn-primary btn-xs' %></td>
       </tr>
     <% end %>
   </table>
 </div>
+<% end %>
 
 <style>
+tr.alta {
+  background: #ff7777;
+  color: white;
+}
+tr.média {
+  background: #fff477;
+  color: black;
+}
+tr.baixa {
+}
 .status {
   float: right;
   padding: 10px;
@@ -115,5 +138,8 @@
   float: none;
   margin: 0;
     margin-left: 10px;
+}
+.table .btn-group {
+  float: right;
 }
 </style>

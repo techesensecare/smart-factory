@@ -17,6 +17,8 @@ class Produto < ApplicationRecord
 
   validates :descricao, :codigo, uniqueness: true
 
+  has_many :movimentos
+
 
   before_save :update_itens
 

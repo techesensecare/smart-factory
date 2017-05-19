@@ -9,6 +9,7 @@
       <tr>
         <th>Descrição</th>
         <th>Código</th>
+        <th>Saldo</th>
         <th>Tipo</th>
         <th>Data cadastro</th>
         <th></th>
@@ -20,6 +21,7 @@
         <tr>
           <td><%= link_to produto.descricao, produto %></td>
           <td><%= produto.codigo %></td>
+          <td><%= produto.saldo %></td>
           <td><%= produto.tipo %></td>
           <td><%= l produto.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_produto_path(produto), class: 'btn btn-default btn-xs' %></td>

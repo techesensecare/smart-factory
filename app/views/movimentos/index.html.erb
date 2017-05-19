@@ -1,0 +1,52 @@
+<div class="page-header">
+  <h1>
+    <%= link_to @produto.descricao, @produto %> / Estoque:  <strong><%= @produto.saldo %></strong>
+  </h1>
+  <div class="btn-group pull-right">
+    <%= link_to "<i class='fa fa-plus'></i> Adicionar".html_safe, 
+                new_produto_movimento_path(@produto, tipo: 'adicionar'), class: 'btn btn-primary btn-info' %>
+    <%= link_to "<i class='fa fa-minus'></i> Remover".html_safe, 
+                new_produto_movimento_path(@produto, tipo: 'remover'), class: 'btn btn-primary btn-danger' %>
+  </div>
+</div>
+
+<% if @movimentos.blank? %>
+  <p>
+    Nenhum movimento registrado no estoque deste produto.
+  </p>
+<% else %>
+  <div class="panel panel-default">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="2px"></th>
+          <th>Quantidade</th>
+          <th>Observação</th>
+          <th width="120px">Data</th>
+          <th width="10px"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @movimentos.each do |movimento| %>
+          <tr class="<%= movimento.tipo %>">
+            <td><%= movimento.tipo == 'adicionar' ? '+' : '-' %></td>
+            <td><%= movimento.quantidade %></td>
+            <td><%= movimento.observacao %></td>
+            <td><%= l movimento.created_at, format: :xshort %></td>
+            <td><%= link_to 'Editar', edit_produto_movimento_path(@produto, movimento), class: 'btn btn-default btn-xs' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<style>
+.adicionar { 
+  color: green;
+}
+.remover {
+  color: red;
+}
+</style>

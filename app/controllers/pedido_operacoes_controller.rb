@@ -1,7 +1,7 @@
 class PedidoOperacoesController < ApplicationController
   include AnexosHelper
 
-  before_action { @menu_pedidos = true }
+  before_action { @menu_painel = true }
 
   has_scope :with_status
   has_scope :with_descricao
@@ -19,6 +19,36 @@ class PedidoOperacoesController < ApplicationController
     else
       @operacoes = apply_scopes(PedidoOperacao.all)
     end
+  end
+
+  def desmembrar
+    @operacao = PedidoOperacao.find(params[:id])
+  end
+
+  def confirmar_desmembramento
+    @operacao = PedidoOperacao.find(params[:id])
+    @operacao.nova_quantidade  = params[:pedido_operacao][:nova_quantidade]
+    @operacao.nova_maquina_id  = params[:pedido_operacao][:nova_maquina_id]
+    @operacao.desmembrar
+    redirect_to @operacao
+  end
+
+  def update_prioridade
+    @operacao = PedidoOperacao.find(params[:id])
+    @operacao.update prioridade: params[:prioridade]
+    redirect_to operacoes_maquina_path(maquina_id: @operacao.maquina, with_status: @operacao.status)
+  end
+
+  def finalizar
+    @operacao = PedidoOperacao.find(params[:id])
+  end
+
+  def confirmar_finalizacao
+    @operacao = PedidoOperacao.find(params[:id])
+    @operacao.finalizar(params[:pedido_operacao].permit!, current_usuario, @operacao.maquina)
+    redirect_to @operacao
+  rescue ActiveRecord::RecordInvalid
+    render 'finalizar'
   end
 
   def update_status

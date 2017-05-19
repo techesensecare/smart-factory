@@ -1,0 +1,104 @@
+<p>
+  <%= link_to "&larr; Voltar".html_safe, @operacao %>
+</p>
+
+<% if flash[:alert] %>
+  <div class="alert alert-warning">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<h1>
+  Finalizar Operação
+</h1>
+
+<% if @operacao.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@operacao.errors.count, "erro") %></h2>
+
+    <ul>
+      <% @operacao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= simple_nested_form_for @operacao, url: confirmar_finalizacao_pedido_operacao_path(@operacao) do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Operação na <%= @operacao.maquina.descricao %>
+          <h2>
+            <%= @operacao.descricao %> 
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          Quantidade a produzir
+          <h2>
+            <%= @operacao.quantidade %> 
+            <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
+             <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'pull-right btn btn-default' %>
+            <% end %>
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div style="font-weight: bold">Quantidade Produzida</div>
+          <div style="margin: 15px 0 5px">
+            <%= f.input :quantidade_produzida, label: false, wrapper: false %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Rejeitos
+    </div>
+    <div class="panel-body">
+      <div id="rejeitos">
+        <%= f.fields_for :rejeitos do |b| %>
+          <div class="row">
+            <%= b.input :quantidade,
+                        wrapper_html: { class: 'col-md-2' },
+                        input_html: { class: '' } %>
+            <%= b.input :rejeito_id,
+                        collection: Rejeito.all,
+                        label: 'Motivo',
+                        wrapper_html: { class: 'col-md-4' } %>
+            <%= b.input :observacao,
+                        label: 'Observação',
+                        wrapper_html: { class: 'col-md-4' } %>
+            <div class="col-md-1">
+              <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe,
+                                    class: 'btn btn-default btn-sm',
+                                    style: 'margin-top: 24px' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= f.link_to_add "Incluir Rejeito", 
+                        :rejeitos,
+                        class: 'btn btn-default', 
+                        data: { target: '#rejeitos' }  %>
+    </div>
+  </div>
+
+  <%= submit_tag "Confirmar Finalização", class: 'btn btn-primary' %>
+  <%= link_to "Voltar", @operacao, class: 'btn btn-default' %>
+
+<% end %>

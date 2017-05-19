@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  produto: one
+  tipo: MyString
+  quantidade: 1
+
+two:
+  produto: two
+  tipo: MyString
+  quantidade: 1

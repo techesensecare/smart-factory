@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511182108) do
+ActiveRecord::Schema.define(version: 20170519141422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,16 @@ ActiveRecord::Schema.define(version: 20170511182108) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "movimentos", force: :cascade do |t|
+    t.integer  "produto_id"
+    t.string   "tipo"
+    t.integer  "quantidade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "observacao"
+    t.index ["produto_id"], name: "index_movimentos_on_produto_id", using: :btree
+  end
+
   create_table "operacoes", force: :cascade do |t|
     t.integer  "produto_id"
     t.integer  "ordem"
@@ -209,6 +219,17 @@ ActiveRecord::Schema.define(version: 20170511182108) do
     t.index ["usuario_id"], name: "index_pedido_operacao_historicos_on_usuario_id", using: :btree
   end
 
+  create_table "pedido_operacao_rejeitos", force: :cascade do |t|
+    t.integer  "pedido_operacao_id"
+    t.integer  "rejeito_id"
+    t.integer  "quantidade"
+    t.string   "observacao"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["pedido_operacao_id"], name: "index_pedido_operacao_rejeitos_on_pedido_operacao_id", using: :btree
+    t.index ["rejeito_id"], name: "index_pedido_operacao_rejeitos_on_rejeito_id", using: :btree
+  end
+
   create_table "pedido_operacoes", force: :cascade do |t|
     t.integer  "pedido_id"
     t.integer  "produto_id"
@@ -219,10 +240,12 @@ ActiveRecord::Schema.define(version: 20170511182108) do
     t.integer  "tempo_setup"
     t.integer  "tempo_operacao"
     t.string   "status"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "pedido_item_id"
     t.integer  "quantidade"
+    t.integer  "prioridade",           default: 0
+    t.integer  "quantidade_produzida"
     t.index ["maquina_id"], name: "index_pedido_operacoes_on_maquina_id", using: :btree
     t.index ["pedido_id"], name: "index_pedido_operacoes_on_pedido_id", using: :btree
     t.index ["produto_id"], name: "index_pedido_operacoes_on_produto_id", using: :btree
@@ -246,8 +269,9 @@ ActiveRecord::Schema.define(version: 20170511182108) do
     t.string   "descricao"
     t.string   "unidade_medida"
     t.string   "tipo"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "saldo",          default: 0
   end
 
   create_table "rejeitos", force: :cascade do |t|
@@ -315,11 +339,14 @@ ActiveRecord::Schema.define(version: 20170511182108) do
   add_foreign_key "maquina_historicos", "maquinas"
   add_foreign_key "maquina_historicos", "pedido_operacoes"
   add_foreign_key "maquina_historicos", "usuarios"
+  add_foreign_key "movimentos", "produtos"
   add_foreign_key "operacoes", "maquinas"
   add_foreign_key "operacoes", "produtos"
   add_foreign_key "pedido_operacao_historicos", "maquinas"
   add_foreign_key "pedido_operacao_historicos", "pedido_operacoes"
   add_foreign_key "pedido_operacao_historicos", "usuarios"
+  add_foreign_key "pedido_operacao_rejeitos", "pedido_operacoes"
+  add_foreign_key "pedido_operacao_rejeitos", "rejeitos"
   add_foreign_key "pedido_operacoes", "maquinas"
   add_foreign_key "pedido_operacoes", "pedidos"
   add_foreign_key "pedido_operacoes", "produtos"

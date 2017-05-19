@@ -38,7 +38,7 @@
             SM
           </div>
         </li>
-        <li>
+        <li class="<%= 'active' if @menu_painel %>">
           <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span></a>
         </li>
         <li class="<%= 'active' if @menu_pedidos %>">
@@ -72,9 +72,9 @@
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
           <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+            <form role="search" class="navbar-form-custom" method="get" action="">
               <div class="form-group">
-                <input type="text" placeholder="Pesquisar..." class="form-control" name="top-search" id="top-search">
+                <input type="text" placeholder="Pesquisar..." class="form-control" name="q" id="top-search">
               </div>
             </form>
           </div>

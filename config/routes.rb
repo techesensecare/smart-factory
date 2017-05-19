@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :ferramentas
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
-  resources :produtos
+
+  resources :ferramentas
+  resources :produtos do
+    resources :movimentos
+  end
   resources :celulas
   resources :centros
   resources :paradas
@@ -9,6 +12,11 @@ Rails.application.routes.draw do
   resources :turnos
   resources :pedido_operacoes do
     get :update_status, on: :member
+    get :update_prioridade, on: :member
+    get :desmembrar, on: :member
+    patch :confirmar_desmembramento, on: :member
+    get :finalizar, on: :member
+    patch :confirmar_finalizacao, on: :member
   end
   resources :pedidos do
     get :atualizar_status, on: :member

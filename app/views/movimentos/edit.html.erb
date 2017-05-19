@@ -1,0 +1,12 @@
+<h2>
+  <%= link_to @movimento.produto.descricao, @movimento.produto %> /
+  <%= link_to "Estoque", produto_movimentos_path(@movimento.produto) %> / 
+  <% if @movimento.tipo == 'adicionar' %>
+    Editar inclusão de itens
+  <% else %>
+    Editar remoção de itens
+  <% end %>
+</h2>
+
+
+<%= render 'form', movimento: @movimento %>
