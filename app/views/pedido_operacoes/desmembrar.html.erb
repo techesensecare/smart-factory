@@ -19,13 +19,16 @@
       <tr>
         <th>Quantidade do pedido</th> <td><%= @operacao.quantidade %></td>
       </tr>
-      <tr class="hide">
-        <th>Outra Máquina</th> 
-        <td>
-          <%= f.select :nova_maquina_id, 
-                      options_from_collection_for_select(Maquina.where('id <> ?', @operacao.maquina), :id, :descricao) %>
-        </td>
-      </tr>
+      <% if current_usuario.perfil.gestor? %>
+        <tr>
+          <th>Outra Máquina</th> 
+          <td>
+            <%= f.select :nova_maquina_id, 
+                          options_from_collection_for_select(Maquina.where('id <> ?', @operacao.maquina), :id, :descricao),
+                          include_blank: true %>
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <th>Quantidade restante</th>    <td><%= f.text_field :nova_quantidade, required: true %></td>
       </tr>
