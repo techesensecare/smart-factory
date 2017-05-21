@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519141422) do
+ActiveRecord::Schema.define(version: 20170521215532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,12 +240,14 @@ ActiveRecord::Schema.define(version: 20170519141422) do
     t.integer  "tempo_setup"
     t.integer  "tempo_operacao"
     t.string   "status"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "pedido_item_id"
     t.integer  "quantidade"
-    t.integer  "prioridade",           default: 0
+    t.integer  "prioridade",            default: 0
     t.integer  "quantidade_produzida"
+    t.string   "motivo_desmembramento"
+    t.string   "motivo_ultima_pausa"
     t.index ["maquina_id"], name: "index_pedido_operacoes_on_maquina_id", using: :btree
     t.index ["pedido_id"], name: "index_pedido_operacoes_on_pedido_id", using: :btree
     t.index ["produto_id"], name: "index_pedido_operacoes_on_produto_id", using: :btree

@@ -43,6 +43,9 @@ class PedidoOperacao < ApplicationRecord
     PedidoOperacao.transaction do
       self.update_attributes params
 
+      # Garante o número quando estiver em branco.
+      self.quantidade_produzida ||= 0
+
       if quantidade_produzida < quantidade
         quantidade_rejeitada = rejeitos.map(&:quantidade).sum
 
@@ -58,6 +61,8 @@ class PedidoOperacao < ApplicationRecord
         outro.quantidade = quantidade_restante
         outro.maquina_id = nil
         outro.status = :aguardando
+        descricao_rejeito = rejeitos.map { |r| "#{r.quantidade} #{r.rejeito.descricao} #{r.observacao}" }.join(', ')
+        outro.motivo_desmembramento = "Rejeito: #{descricao_rejeito}"
         outro.save
       end
 
@@ -83,6 +88,10 @@ class PedidoOperacao < ApplicationRecord
       if self.status.executando?
         maquina.update_status :executando, usuario, self
       elsif self.status.pausada? or self.status.finalizada?
+
+        # Guarda o motivo da pausa, para exibir no desmembramento.
+        self.update motivo_ultima_pausa: motivo
+
         if maquina.status.executando?
           maquina.update_status :disponivel, usuario, self
         end
@@ -106,9 +115,11 @@ class PedidoOperacao < ApplicationRecord
 
   def desmembrar
     outro = self.dup
-    outro.quantidade = nova_quantidade
-    outro.maquina_id = nil
-    outro.status = :aguardando
+    outro.quantidade            = nova_quantidade
+    outro.motivo_ultima_pausa   = nil
+    outro.maquina_id            = nil
+    outro.status                = :aguardando
+    outro.motivo_desmembramento = "Desmembramento: #{self.motivo_ultima_pausa || 'antes de iniciar a produção'}"
     outro.save
 
     self.quantidade = quantidade - nova_quantidade.to_i

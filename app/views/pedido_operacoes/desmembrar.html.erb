@@ -11,20 +11,23 @@
         <th width="160px">Descrição</th>  <td><%= @operacao.descricao %></td>
       </tr>
       <tr>
-        <th width="160px">Máquina</th>    <td><%= @operacao.maquina.descricao %></td>
+        <th>Máquina</th>    <td><%= @operacao.maquina.descricao %></td>
       </tr>
       <tr>
-        <th width="160px">Quantidade do pedido</th> <td><%= @operacao.quantidade %></td>
+        <th>Motivo</th> <td><%= @operacao.motivo_ultima_pausa %></td>
+      </tr>
+      <tr>
+        <th>Quantidade do pedido</th> <td><%= @operacao.quantidade %></td>
       </tr>
       <tr class="hide">
-        <th width="160px">Outra Máquina</th> 
+        <th>Outra Máquina</th> 
         <td>
           <%= f.select :nova_maquina_id, 
                       options_from_collection_for_select(Maquina.where('id <> ?', @operacao.maquina), :id, :descricao) %>
         </td>
       </tr>
       <tr>
-        <th width="160px">Quantidade restante</th>    <td><%= f.text_field :nova_quantidade %></td>
+        <th>Quantidade restante</th>    <td><%= f.text_field :nova_quantidade, required: true %></td>
       </tr>
     </table>
     <div class="panel-footer">

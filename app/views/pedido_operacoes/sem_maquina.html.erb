@@ -34,10 +34,7 @@
       <th>Operação</th>
       <th>Quantidade</th>
       <th>Prazo Entrega</th>
-      <th>Status</th>
-      <% if params[:with_status] == 'pausada' %>
-        <th>Motivo</th>
-      <% end %>
+      <th>Motivo do desmembramento</th>
       <th>Prioridade</th>
       <th></th>
     </tr>
@@ -50,10 +47,7 @@
         <td><%= o.descricao %></td>
         <td><%= o.quantidade %></td>
         <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
-        <td><%= o.status.text %></td>
-        <% if params[:with_status] == 'pausada' %>
-          <td><%= o.historicos.last.try :motivo %></td>
-        <% end %>
+        <td><%= o.motivo_desmembramento %></td>
         <td>
           <%= o.descricao_prioridade %>
           <div class="btn-group">
