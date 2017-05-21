@@ -50,6 +50,15 @@ class PedidoOperacao < ApplicationRecord
           self.errors.add(:quantidade_produzida, 'valor menor que esperado, atualize ou registre um rejeito')
           raise ActiveRecord::RecordInvalid
         end
+
+        quantidade_restante = quantidade - quantidade_produzida
+
+        # Cria a nova operação.
+        outro = self.dup
+        outro.quantidade = quantidade_restante
+        outro.maquina_id = nil
+        outro.status = :aguardando
+        outro.save
       end
 
       pedido_item.produto.materia_primas.each do |m|
