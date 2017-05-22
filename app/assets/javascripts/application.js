@@ -51,6 +51,7 @@ jQuery(function() {
   $('#check-all').click(function() { $('td.check input').prop('checked', $(this).prop('checked')); } )
 
   formatters = function() {
+    $('select.select').select2();
     $('select.select2-ferramentas').select2();
     $('select.select2-produto').select2({
       language: 'pt-br',
