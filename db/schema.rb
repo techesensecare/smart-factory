@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521215532) do
+ActiveRecord::Schema.define(version: 20170522173733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,20 @@ ActiveRecord::Schema.define(version: 20170521215532) do
     t.text     "endereco"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cronometros", force: :cascade do |t|
+    t.integer  "pedido_operacao_id"
+    t.integer  "maquina_id"
+    t.string   "tipo"
+    t.string   "motivo"
+    t.datetime "inicio"
+    t.datetime "fim"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "tempo"
+    t.index ["maquina_id"], name: "index_cronometros_on_maquina_id", using: :btree
+    t.index ["pedido_operacao_id"], name: "index_cronometros_on_pedido_operacao_id", using: :btree
   end
 
   create_table "enderecos", force: :cascade do |t|
@@ -336,6 +350,8 @@ ActiveRecord::Schema.define(version: 20170521215532) do
   end
 
   add_foreign_key "celulas", "centros"
+  add_foreign_key "cronometros", "maquinas"
+  add_foreign_key "cronometros", "pedido_operacoes"
   add_foreign_key "item_pedidos", "pedidos"
   add_foreign_key "item_pedidos", "produtos"
   add_foreign_key "maquina_historicos", "maquinas"

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pedido_operacao: one
+  maquina: one
+  tipo: MyString
+  motivo: MyString
+  inicio: 2017-05-22 11:36:45
+  fim: 2017-05-22 11:36:45
+
+two:
+  pedido_operacao: two
+  maquina: two
+  tipo: MyString
+  motivo: MyString
+  inicio: 2017-05-22 11:36:45
+  fim: 2017-05-22 11:36:45

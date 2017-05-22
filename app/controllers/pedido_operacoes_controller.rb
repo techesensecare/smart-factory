@@ -80,4 +80,8 @@ class PedidoOperacoesController < ApplicationController
     @produto  = @operacao.pedido_item.produto
     load_anexos
   end
+
+  def relatorio
+    @operacoes = apply_scopes(PedidoOperacao.all)
+  end
 end

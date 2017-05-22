@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get :definir_maquina, on: :member
     patch :confirmar_maquina, on: :member
   end
+  resources :cronometros
   resources :pedidos do
     get :atualizar_status, on: :member
     get :detalhar_projeto, on: :member

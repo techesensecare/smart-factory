@@ -191,6 +191,20 @@
           Nenhum histórico encontrado.
         </div>
       <% else %>
+        <table class="table hide">
+          <tr>
+            <th>Situação</th>
+            <th>Início</th>
+            <th>Fim</th>
+          </tr>
+          <% @operacao.cronometros.order('inicio DESC').each do |c| %>
+            <tr>
+              <td><%= c.tipo %></td>
+              <td><%= l c.inicio %></td>
+              <td><%= l c.fim if c.fim %></td>
+            </tr>
+          <% end %>
+        </table>
         <table class="table">
           <% @operacao.historicos.order('created_at DESC').each do |h| %>
             <tr>

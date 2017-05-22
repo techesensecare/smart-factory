@@ -1,0 +1,126 @@
+<h1>Relatório de Produção</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_maquina, "Máquina" %>
+            <%= text_field_tag :with_maquina, params[:with_maquina], class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_numero, "Número do pedido" %>
+            <%= text_field_tag :with_numero, params[:with_numero], class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_operacao, "Operação" %>
+            <%= text_field_tag :with_operacao, params[:with_operacao], class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_tipo, "Situação" %>
+            <%= select_tag :with_tipo, options_for_select(Cronometro.tipo.values), 
+                           include_blank: true, 
+                           selected: params[:with_tipo], 
+                           class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "A partir de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "Até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<% if @cronometros.blank? %>
+
+  <h3>
+    Nenhum registro encontrado.
+  </h3>
+<% else %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Motivos de parada 
+        </div>
+        <div class="panel-body">
+          <%= pie_chart @cronometros.with_tipo(:pausada).group(:motivo).sum(:tempo) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Tempo de produção ao longo dos dias
+        </div>
+        <div class="panel-body">
+          <% dados = [[
+                { name: 'Produção', 
+                  data: @cronometros.with_tipo(:executando).group_by_day(:inicio, 'sum', :tempo) }, 
+                { name: 'Parada', 
+                  data: @cronometros.with_tipo(:pausada).group_by_day(:inicio, 'sum', :tempo) }, 
+                ], colors: ['#449d44', '#ff1414']] %>
+          <%= line_chart *dados %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Registros
+    </div>
+    <table class="table table-striped">
+      <tr>
+        <th>Máquina</th>
+        <th>Ordem</th>
+        <th>Operação</th>
+        <th>Situação</th>
+        <th>Início</th>
+        <th>Fim</th>
+        <th>Tempo (s)</th>
+      </tr>
+      <% @cronometros.order('inicio DESC').each do |c| %>
+        <tr>
+          <td><%= c.maquina.descricao %></td>
+          <td><%= c.pedido_operacao.pedido.numero %></td>
+          <td><%= c.pedido_operacao.descricao %></td>
+          <td><%= c.tipo %></td>
+          <td><%= l c.inicio %></td>
+          <td><%= l c.fim if c.fim %></td>
+          <td><%= c.tempo %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+<% end %>

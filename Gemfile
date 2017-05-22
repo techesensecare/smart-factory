@@ -72,3 +72,7 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 gem 'brazilian-rails'
 gem 'pdfjs_viewer-rails'
+
+# Gráficos
+gem 'chartkick'
+gem 'dateslices'

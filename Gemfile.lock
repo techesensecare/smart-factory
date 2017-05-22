@@ -83,6 +83,7 @@ GEM
       activesupport (>= 3.0.0)
     builder (3.2.2)
     byebug (9.0.6)
+    chartkick (2.2.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -95,6 +96,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.4)
+    dateslices (0.0.4)
+      rails (> 4)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -257,7 +260,9 @@ DEPENDENCIES
   brazilian-rails
   brcobranca (~> 6.2.2)
   byebug
+  chartkick
   coffee-rails (~> 4.2)
+  dateslices
   devise
   enumerize
   figaro

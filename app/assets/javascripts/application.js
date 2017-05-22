@@ -34,6 +34,10 @@
 //= require select2.js
 //= require select2_locale_pt-BR.js
 //
+// Gráficos:
+//= require highcharts
+//= require chartkick
+//
 //= require_self
 
 jQuery(function() {

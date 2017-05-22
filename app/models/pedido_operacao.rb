@@ -18,6 +18,12 @@ class PedidoOperacao < ApplicationRecord
   has_many :rejeitos, dependent: :destroy, class_name: "PedidoOperacaoRejeito"
   accepts_nested_attributes_for :rejeitos, allow_destroy: true
 
+
+  has_many :cronometros
+
+  after_save :update_cronometro
+
+
   attr_accessor :nova_maquina_id
   attr_accessor :nova_quantidade
 
@@ -90,7 +96,9 @@ class PedidoOperacao < ApplicationRecord
       elsif self.status.pausada? or self.status.finalizada?
 
         # Guarda o motivo da pausa, para exibir no desmembramento.
-        self.update motivo_ultima_pausa: motivo
+        if self.status.pausada? 
+          self.update motivo_ultima_pausa: motivo
+        end
 
         if maquina.status.executando?
           maquina.update_status :disponivel, usuario, self
@@ -100,6 +108,47 @@ class PedidoOperacao < ApplicationRecord
       historicos.create(status: status, usuario: usuario, maquina: maquina, motivo: motivo)
 
       atualizar_status_pedido
+    end
+  end
+  
+
+  def update_cronometro
+    if changes[:status]
+      antes, depois = changes[:status]
+
+      # Opções: aguardando na_fila executando pausada finalizada
+
+      if antes == 'na_fila' and depois == :executando 
+        self.cronometros.create!(
+          tipo:    :executando,
+          maquina: self.maquina,
+          inicio:  DateTime.current  
+        )
+      end
+
+      if antes == 'pausada' and depois == :executando 
+        self.cronometros.where(tipo:  :pausada, fim: nil).update_all(fim: DateTime.current)
+        self.cronometros.create!(
+          tipo:    :executando,
+          maquina: self.maquina,
+          inicio:  DateTime.current  
+        )
+      end
+
+      if antes == 'executando' and depois == :pausada
+        self.cronometros.where(tipo:  :executando, fim: nil).update_all(fim: DateTime.current)
+        self.cronometros.create!(
+          tipo:    :pausada,
+          maquina: self.maquina,
+          motivo:  self.motivo_ultima_pausa,
+          inicio:  DateTime.current  
+        )
+      end
+
+      if antes == 'executando' and depois == :finalizada
+        self.cronometros.where(tipo:  :executando, fim: nil).update_all(fim: DateTime.current)
+      end
+
     end
   end
 
