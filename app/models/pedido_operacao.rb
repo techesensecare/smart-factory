@@ -127,7 +127,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'pausada' and depois == :executando 
-        self.cronometros.where(tipo:  :pausada, fim: nil).update_all(fim: DateTime.current)
+        self.cronometros.where(tipo:  :pausada, fim: nil).update(fim: DateTime.current)
         self.cronometros.create!(
           tipo:    :executando,
           maquina: self.maquina,
@@ -136,7 +136,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'executando' and depois == :pausada
-        self.cronometros.where(tipo:  :executando, fim: nil).update_all(fim: DateTime.current)
+        self.cronometros.where(tipo:  :executando, fim: nil).update(fim: DateTime.current)
         self.cronometros.create!(
           tipo:    :pausada,
           maquina: self.maquina,
@@ -146,7 +146,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'executando' and depois == :finalizada
-        self.cronometros.where(tipo:  :executando, fim: nil).update_all(fim: DateTime.current)
+        self.cronometros.where(tipo:  :executando, fim: nil).update(fim: DateTime.current)
       end
 
     end
