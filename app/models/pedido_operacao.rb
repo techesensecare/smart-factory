@@ -153,7 +153,7 @@ class PedidoOperacao < ApplicationRecord
   end
 
   def atualizar_status_pedido
-    if pedido.operacoes.where("pedido_operacoes.status <> ?", 'finalizado').blank?
+    if pedido.operacoes.where("pedido_operacoes.status <> ?", 'finalizada').blank?
       pedido.update status: :finalizado
     end
   end
