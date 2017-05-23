@@ -3,6 +3,10 @@ class PedidoPolicy < ApplicationPolicy
     %w(administrador vendas engenharia pcp).include? @user.perfil
   end
 
+  def atualizar_status?
+    %w(administrador vendas engenharia pcp operador).include? @user.perfil
+  end
+
   def create?
     %w(administrador vendas).include? @user.perfil
   end
