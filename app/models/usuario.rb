@@ -8,7 +8,7 @@ class Usuario < ActiveRecord::Base
 
   validates :nome, presence: true
 
-  enumerize :perfil, in: [:administrador, :gestor, :comum], default: :comum, predicates: true, scope: true
+  enumerize :perfil, in: [:administrador, :vendas, :engenharia, :pcp, :operador], default: :operador, predicates: true, scope: true
   enumerize :tipo_sanguineo, in: %w(a+ a- b+ b- ab+ ab- o+ o-)
 
   scope :ativo, -> { where(ativo: true) }
@@ -25,7 +25,7 @@ class Usuario < ActiveRecord::Base
   end
 
   def minhas_maquinas
-    if perfil.comum?
+    if perfil.operador?
       maquinas
     else
       Maquina.all

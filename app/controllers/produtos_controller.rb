@@ -1,34 +1,39 @@
 class ProdutosController < ApplicationController
   include AnexosHelper
 
-  before_action { @configuracoes = true }
+  before_action { @menu_produtos = true }
   before_action :set_produto, only: [:show, :edit, :update, :destroy]
 
   # GET /produtos
   # GET /produtos.json
   def index
+    authorize Produto
     @produtos = Produto.all
   end
 
   # GET /produtos/1
   # GET /produtos/1.json
   def show
+    authorize @produto
     load_anexos
   end
 
   # GET /produtos/new
   def new
+    authorize Produto
     @produto = Produto.new
     @produto.descricao = params[:descricao]
   end
 
   # GET /produtos/1/edit
   def edit
+    authorize @produto
   end
 
   # POST /produtos
   # POST /produtos.json
   def create
+    authorize Produto
     @produto = Produto.new(produto_params)
 
     respond_to do |format|
@@ -51,6 +56,7 @@ class ProdutosController < ApplicationController
   # PATCH/PUT /produtos/1
   # PATCH/PUT /produtos/1.json
   def update
+    authorize @produto
     respond_to do |format|
       if @produto.update(produto_params)
         format.html { redirect_to @produto, notice: 'Produto atualizado.' }
@@ -65,6 +71,7 @@ class ProdutosController < ApplicationController
   # DELETE /produtos/1
   # DELETE /produtos/1.json
   def destroy
+    authorize @produto
     @produto.destroy
     respond_to do |format|
       format.html { redirect_to produtos_url, notice: 'Produto was successfully destroyed.' }

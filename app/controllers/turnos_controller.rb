@@ -1,4 +1,5 @@
 class TurnosController < ApplicationController
+  before_action { authorize :admin }
   before_action { @configuracoes = true }
   before_action :set_turno, only: [:show, :edit, :update, :destroy]
 

@@ -1,4 +1,5 @@
 class FornecedoresController < ApplicationController
+  before_action { authorize :admin }
   before_action { @configuracoes = true }
   before_action :set_fornecedor, only: [:show, :edit, :update, :destroy]
 

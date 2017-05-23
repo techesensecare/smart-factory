@@ -76,3 +76,5 @@ gem 'pdfjs_viewer-rails'
 # Gráficos
 gem 'chartkick'
 gem 'dateslices'
+
+gem 'pundit'

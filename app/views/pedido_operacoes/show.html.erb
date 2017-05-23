@@ -27,7 +27,9 @@
         <h2>
           <%= @operacao.quantidade %> 
           <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
-           <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'pull-right btn btn-default' %>
+            <% if policy(@operacao).desmembrar? %>
+             <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'pull-right btn btn-default' %>
+           <% end %>
           <% end %>
         </h2>
       </div>
@@ -40,29 +42,39 @@
         Situação
         <h2>
           <small><%= @operacao.status.text %> </small>
-          <% if @operacao.status.aguardando? %>
+          <% if policy(@operacao).enviar_para_fila? %>
             <%= link_to update_status_pedido_operacao_path(status: :na_fila), class: 'btn btn-primary pull-right' do %>
               Enviar para Fila
               <i class="fa fa-play"></i>
             <% end %>
           <% end %>
-          <% if @operacao.status.na_fila? %>
+
+          <%# if @operacao.status.na_fila? %>
+          <% if policy(@operacao).iniciar? %>
             <%= link_to update_status_pedido_operacao_path(status: :executando), class: 'btn btn-primary pull-right' do %>
               Iniciar
               <i class="fa fa-play"></i>
             <% end %>
           <% end %>
-          <% if @operacao.status.pausada? %>
+
+          <%# if @operacao.status.pausada? %>
+          <% if policy(@operacao).continuar? %>
             <%= link_to update_status_pedido_operacao_path(status: :executando), class: 'btn btn-primary pull-right' do %>
               Continuar
               <i class="fa fa-play"></i>
             <% end %>
           <% end %>
-          <% if @operacao.status.executando? %>
+
+          <%# if @operacao.status.executando? %>
+          <% if policy(@operacao).finalizar? %>
             <%= link_to finalizar_pedido_operacao_path, class: 'btn btn-primary pull-right' do %>
               Concluir
               <i class="fa fa-check"></i>
             <% end %>
+
+          <% end %>
+
+          <% if policy(@operacao).pausar? %>
             <%= link_to '', data: { toggle: :modal, target: '#pausarModal' } , class: 'btn btn-info pull-right', style: "margin-right: 5px" do %>
               Pausar
               <i class="fa fa-pause"></i>

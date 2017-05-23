@@ -15,9 +15,13 @@
   <div class="status <%= @maquina.status %>">
     <%= @maquina.status.text %>
     <% if @maquina.status.setup? %>
-      <%= link_to 'Finalizar setup <i class="fa fa-check"></i>'.html_safe, finalizar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+      <% if policy(@maquina).finalizar_setup? %>
+        <%= link_to 'Finalizar setup <i class="fa fa-check"></i>'.html_safe, finalizar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+      <% end %>
     <% elsif @maquina.status.disponivel? %>
-      <%= link_to 'Iniciar setup <i class="fa fa-play"></i>'.html_safe, iniciar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+      <% if policy(@maquina).iniciar_setup? %>
+        <%= link_to 'Iniciar setup <i class="fa fa-play"></i>'.html_safe, iniciar_setup_maquina_path(@maquina), class: 'btn btn-primary'  %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -93,12 +97,20 @@
         <% end %>
         <td>
           <%= o.descricao_prioridade %>
-          <div class="btn-group">
-            <%= link_to "^", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_acima(o.prioridade)), class: 'btn btn-xs btn-default' %>
-            <%= link_to "v", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_abaixo(o.prioridade)), class: 'btn btn-xs btn-default' %> 
-          </div>
+          <% if policy(o).update_prioridade? %>
+            <div class="btn-group">
+              <%= link_to "^", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_acima(o.prioridade)), 
+                               class: 'btn btn-xs btn-default' %>
+              <%= link_to "v", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_abaixo(o.prioridade)), 
+                               class: 'btn btn-xs btn-default' %> 
+            </div>
+          <% end %>
         </td>
-        <td><%= link_to "Abrir", o, class: 'btn btn-primary btn-xs' %></td>
+        <td>
+          <% if policy(o).show? %>
+            <%= link_to "Abrir", o, class: 'btn btn-primary btn-xs' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

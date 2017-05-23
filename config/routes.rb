@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :pedidos do
     get :atualizar_status, on: :member
     get :detalhar_projeto, on: :member
+    patch :confirmar_detalhes, on: :member
   end
   resources :clientes
   resources :terminais
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   devise_for :usuarios, :path_prefix => 'auth'
   root to: 'welcome#index'
   get 'welcome/index'
+  get 'welcome/painel'
   get '/operacoes/sem_maquina/', to: 'pedido_operacoes#sem_maquina' , as: :operacoes_sem_maquina
   get '/operacoes/:maquina_id/', to: 'pedido_operacoes#index' , as: :operacoes_maquina
 

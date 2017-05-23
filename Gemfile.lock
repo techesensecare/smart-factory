@@ -170,6 +170,8 @@ GEM
       sass-rails (~> 5.0)
     pg (0.19.0)
     puma (3.6.2)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -278,6 +280,7 @@ DEPENDENCIES
   pdfjs_viewer-rails
   pg
   puma (~> 3.0)
+  pundit
   rails (~> 5.0.1)
   rghost
   rghost_barcode

@@ -5,7 +5,7 @@
 </h1>
 
 <% pedido = @pedido %>
-<%= simple_nested_form_for(pedido, multipart: true) do |f| %>
+<%= simple_nested_form_for(pedido, url: confirmar_detalhes_pedido_path(@pedido), multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <% if pedido.errors.any? %>

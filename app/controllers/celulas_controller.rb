@@ -1,4 +1,5 @@
 class CelulasController < ApplicationController
+  before_action { authorize :admin }
   before_action { @configuracoes = true }
   before_action :set_celula, only: [:show, :edit, :update, :destroy]
 

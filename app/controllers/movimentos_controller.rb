@@ -1,4 +1,5 @@
 class MovimentosController < ApplicationController
+  before_action { @menu_produtos = true }
   before_action :set_movimento, only: [:show, :edit, :update, :destroy]
   before_action :set_produto
 

@@ -38,34 +38,55 @@
             SF
           </div>
         </li>
-        <li class="<%= 'active' if @menu_painel %>">
-          <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span></a>
-        </li>
-        <li class="<%= 'active' if @menu_relatorios %>">
-          <a href="/cronometros"><i class="fa fa-pie-chart"></i> <span class="nav-label">Relatórios</span></a>
-        </li>
-        <li class="<%= 'active' if @menu_pedidos %>">
-          <a href="/pedidos"><i class="fa fa-list-ol"></i> <span class="nav-label">Pedidos</span></a>
-        </li>
-        <li class="<%= 'active' if @menu_clientes %>">
-          <a href="/clientes"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
-        </li>
-        <li class="<%= 'active' if @configuracoes %>">
-          <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Configurações</span> <span class="fa arrow"></span></a>
-          <ul class="nav nav-second-level">
-            <li class="<%= 'active' if controller_name == 'produtos' %>"><%= link_to "Produtos", produtos_path %></li>
-            <li class="<%= 'active' if controller_name == 'usuarios' %>"><%= link_to "Usuários", usuarios_path %></li>
-            <li class="<%= 'active' if controller_name == 'terminais' %>"><%= link_to "Terminais", terminais_path %></li>
-            <li class="<%= 'active' if controller_name == 'maquinas' %>"><%= link_to "Máquinas", maquinas_path %></li>
-            <li class="<%= 'active' if controller_name == 'ferramentas' %>"><%= link_to "Ferramentas", ferramentas_path %></li>
-            <li class="<%= 'active' if controller_name == 'fornecedores' %>"><%= link_to "Fornecedores", fornecedores_path %></li>
-            <li class="<%= 'active' if controller_name == 'turnos' %>"><%= link_to "Turnos", turnos_path %></li>
-            <li class="<%= 'active' if controller_name == 'rejeitos' %>"><%= link_to "Rejeitos", rejeitos_path %></li>
-            <li class="<%= 'active' if controller_name == 'paradas' %>"><%= link_to "Paradas", paradas_path %></li>
-            <li class="<%= 'active' if controller_name == 'centros' %>"><%= link_to "Centros de Custo", centros_path %></li>
-            <li class="<%= 'active' if controller_name == 'celulas' %>"><%= link_to "Células", celulas_path %></li>
-          </ul>
-        </li>
+
+        <% if policy(PedidoOperacao).index? %>
+          <li class="<%= 'active' if @menu_painel %>">
+            <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span></a>
+          </li>
+        <% end %>
+
+        <% if policy(Cronometro).index? %>
+          <li class="<%= 'active' if @menu_relatorios %>">
+            <a href="/cronometros"><i class="fa fa-pie-chart"></i> <span class="nav-label">Relatório</span></a>
+          </li>
+        <% end %>
+
+        <% if policy(Pedido).index? %>
+          <li class="<%= 'active' if @menu_pedidos %>">
+            <a href="/pedidos"><i class="fa fa-list-ol"></i> <span class="nav-label">Pedidos</span></a>
+          </li>
+        <% end %>
+
+        <% if policy(Produto).index? %>
+          <li class="<%= 'active' if @menu_produtos %>">
+            <a href="/produtos"><i class="fa fa-clipboard"></i> <span class="nav-label">Produtos</span></a>
+          </li>
+        <% end %>
+
+
+        <% if policy(Cliente).index? %>
+          <li class="<%= 'active' if @menu_clientes %>">
+            <a href="/clientes"><i class="fa fa-users"></i> <span class="nav-label">Clientes</span></a>
+          </li>
+        <% end %>
+
+        <% if policy(:admin).index? %>
+          <li class="<%= 'active' if @configuracoes %>">
+            <a href="#"><i class="fa fa-cog"></i> <span class="nav-label">Configurações</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li class="<%= 'active' if controller_name == 'usuarios' %>"><%= link_to "Usuários", usuarios_path %></li>
+              <li class="<%= 'active' if controller_name == 'terminais' %>"><%= link_to "Terminais", terminais_path %></li>
+              <li class="<%= 'active' if controller_name == 'maquinas' %>"><%= link_to "Máquinas", maquinas_path %></li>
+              <li class="<%= 'active' if controller_name == 'ferramentas' %>"><%= link_to "Ferramentas", ferramentas_path %></li>
+              <li class="<%= 'active' if controller_name == 'fornecedores' %>"><%= link_to "Fornecedores", fornecedores_path %></li>
+              <li class="<%= 'active' if controller_name == 'turnos' %>"><%= link_to "Turnos", turnos_path %></li>
+              <li class="<%= 'active' if controller_name == 'rejeitos' %>"><%= link_to "Rejeitos", rejeitos_path %></li>
+              <li class="<%= 'active' if controller_name == 'paradas' %>"><%= link_to "Paradas", paradas_path %></li>
+              <li class="<%= 'active' if controller_name == 'centros' %>"><%= link_to "Centros de Custo", centros_path %></li>
+              <li class="<%= 'active' if controller_name == 'celulas' %>"><%= link_to "Células", celulas_path %></li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
     </div>
   </nav>
@@ -99,6 +120,12 @@
       </div>
 
       <div class="wrapper wrapper-content">
+        <% if flash[:alert] %>
+          <div class="alert alert-warning">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+
         <%= yield %>
       </div>
 

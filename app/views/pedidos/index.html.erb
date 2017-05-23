@@ -1,6 +1,8 @@
 <div class="page-header">
   <h1>Pedidos</h1>
-  <%= link_to "Novo Pedido", new_pedido_path, class: 'btn btn-primary' %>
+  <% if policy(Pedido).new? %>
+    <%= link_to "Novo Pedido", new_pedido_path, class: 'btn btn-primary' %>
+  <% end %>
 </div>
 
 

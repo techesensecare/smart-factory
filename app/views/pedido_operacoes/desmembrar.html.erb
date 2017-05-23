@@ -19,7 +19,7 @@
       <tr>
         <th>Quantidade do pedido</th> <td><%= @operacao.quantidade %></td>
       </tr>
-      <% if current_usuario.perfil.gestor? %>
+      <% if policy(@operacao).definir_maquina? %>
         <tr>
           <th>Outra Máquina</th> 
           <td>

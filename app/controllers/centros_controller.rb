@@ -1,4 +1,5 @@
 class CentrosController < ApplicationController
+  before_action { authorize :admin }
   before_action { @configuracoes = true }
   before_action :set_centro, only: [:show, :edit, :update, :destroy]
 

@@ -1,4 +1,5 @@
 class FerramentasController < ApplicationController
+  before_action { authorize :admin }
   before_action :set_ferramenta, only: [:show, :edit, :update, :destroy]
   before_action { @configuracoes = true }
 

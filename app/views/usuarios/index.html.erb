@@ -14,6 +14,7 @@
       <thead>
         <tr>
             <th>Nome</th>
+            <th>Perfil</th>
             <th>E-mail</th>
             <th>Último acesso</th>
             <th>Situação</th>
@@ -24,6 +25,7 @@
       <% @usuarios.each do |usuario| %>
           <tr class="odd gradeX">
             <td  style="border-left: 3px solid #eee"><%= link_to usuario.nome, usuario %></td>
+            <td><%= usuario.perfil.text %></td>
             <td><%= usuario.email %></td>
             <td><%= l usuario.current_sign_in_at, :format => '%d/%m/%Y %H:%M' if usuario.current_sign_in_at %></td>
             <td><%= usuario.ativo ? 'Ativo' : 'Inativo' %></td>
