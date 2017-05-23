@@ -14,6 +14,7 @@ class PedidosController < ApplicationController
     end
 
     @pedidos = apply_scopes(Pedido.all)
+    @hide_top_search = true
   end
 
   # GET /pedidos/1
