@@ -1,7 +1,9 @@
 class MaquinasController < ApplicationController
-  before_action { authorize :admin }
+  before_action { authorize Maquina }
   before_action { @configuracoes = true }
   before_action :set_maquina, only: [:show, :edit, :update, :destroy, :monitor]
+
+  has_scope :with_status, default: :na_fila
 
   # GET /maquinas
   # GET /maquinas.json
@@ -39,18 +41,19 @@ class MaquinasController < ApplicationController
     end
   end
 
-  has_scope :with_status, default: :na_fila
   def monitor
     @operacoes = apply_scopes(@maquina.pedido_operacoes)
   end
 
   def finalizar_setup
+    policy Maquina
     @maquina = Maquina.find(params[:id])
     @maquina.update_status :disponivel, current_usuario
     redirect_to :back
   end
 
   def iniciar_setup
+    policy Maquina
     @maquina = Maquina.find(params[:id])
     @maquina.update_status :setup, current_usuario
     redirect_to :back

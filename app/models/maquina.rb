@@ -16,10 +16,49 @@ class Maquina < ApplicationRecord
 
   has_many :pedido_operacoes
 
+  has_many :cronometros
+
+  after_save :update_cronometro
+
   def update_status(status, usuario, operacao=nil)
     Maquina.transaction do
       self.update status: status
       historicos.create(status: status, usuario: usuario, pedido_operacao: operacao)
+    end
+  end
+
+
+  protected
+
+  def update_cronometro
+    if changes[:status]
+      antes, depois = changes[:status]
+
+      # Opções: disponivel executando setup manutencao)
+
+      if antes == 'disponivel' and depois == :setup
+        self.cronometros.create!(
+          tipo:    :pausada,
+          motivo:  'Setup',
+          inicio:  DateTime.current  
+        )
+      end
+
+      if antes == 'setup' and depois == :disponivel
+        self.cronometros.where(tipo: :pausada, fim: nil).update(fim: DateTime.current)
+      end
+
+      if antes == 'disponivel' and depois == :manutencao
+        self.cronometros.create!(
+          tipo:    :manutencao,
+          motivo:  "Manutenção",
+          inicio:  DateTime.current  
+        )
+      end
+
+      if antes == 'manutencao' and depois == :disponivel
+        self.cronometros.where(tipo: :manutencao, fim: nil).update(fim: DateTime.current)
+      end
     end
   end
 end

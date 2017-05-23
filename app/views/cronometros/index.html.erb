@@ -112,9 +112,9 @@
       <% @cronometros.order('inicio DESC').each do |c| %>
         <tr>
           <td><%= c.maquina.descricao %></td>
-          <td><%= c.pedido_operacao.pedido.numero %></td>
-          <td><%= c.pedido_operacao.descricao %></td>
-          <td><%= c.tipo %></td>
+          <td><%= c.pedido_operacao.pedido.numero if c.pedido_operacao %></td>
+          <td><%= c.pedido_operacao.descricao     if c.pedido_operacao %></td>
+          <td><%= c.tipo %> <%= '- ' + c.motivo   if c.motivo %></td>
           <td><%= l c.inicio %></td>
           <td><%= l c.fim if c.fim %></td>
           <td><%= c.tempo %></td>
