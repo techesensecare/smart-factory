@@ -54,14 +54,14 @@ class Maquina < ApplicationRecord
 
       if antes == 'disponivel' and depois == :manutencao
         self.cronometros.create!(
-          tipo:    :manutencao,
+          tipo:    :pausada,
           motivo:  "Manutenção",
           inicio:  DateTime.current  
         )
       end
 
       if antes == 'manutencao' and depois == :disponivel
-        self.cronometros.where(tipo: :manutencao, fim: nil).update(fim: DateTime.current)
+        self.cronometros.where(tipo: :pausada, fim: nil).update(fim: DateTime.current)
       end
     end
   end
