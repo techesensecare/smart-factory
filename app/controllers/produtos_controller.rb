@@ -4,11 +4,13 @@ class ProdutosController < ApplicationController
   before_action { @menu_produtos = true }
   before_action :set_produto, only: [:show, :edit, :update, :destroy]
 
+  has_scope :with_query
+
   # GET /produtos
   # GET /produtos.json
   def index
     authorize Produto
-    @produtos = Produto.all
+    @produtos = apply_scopes(Produto.all)
   end
 
   # GET /produtos/1

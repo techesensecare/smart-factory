@@ -3,12 +3,12 @@ class MaquinasController < ApplicationController
   before_action { @configuracoes = true }
   before_action :set_maquina, only: [:show, :edit, :update, :destroy, :monitor]
 
-  has_scope :with_status, default: :na_fila
+  has_scope :with_status
 
   # GET /maquinas
   # GET /maquinas.json
   def index
-    @maquinas = Maquina.order('descricao ASC').all
+    @maquinas = apply_scopes(Maquina.order('descricao ASC'))
   end
 
   # GET /maquinas/1

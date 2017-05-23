@@ -21,6 +21,8 @@ class Produto < ApplicationRecord
 
   default_scope { order('descricao ASC') }
 
+  scope :with_query, -> (q) { where("descricao ilike '%' || ? || '%'", q) }
+
 
   before_save :update_itens
 

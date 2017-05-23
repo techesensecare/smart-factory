@@ -6,7 +6,7 @@ class ParadasController < ApplicationController
   # GET /paradas
   # GET /paradas.json
   def index
-    @paradas = Parada.all
+    @paradas = apply_scopes(Parada.all)
   end
 
   # GET /paradas/1

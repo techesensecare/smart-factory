@@ -96,9 +96,11 @@
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
           <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="get" action="">
+            <form role="search" class="navbar-form-custom <%= 'hide' if action_name != 'index' or @hide_top_search %>" method="get" action="">
+              <%= hidden_field_tag :with_status, params[:with_status] %>
               <div class="form-group">
-                <input type="text" placeholder="Pesquisar..." class="form-control" name="q" id="top-search">
+                <input type="text" placeholder="Pesquisar..." class="form-control" name="with_query" id="top-search" 
+                       value="<%= params[:with_query] %>">
               </div>
             </form>
           </div>

@@ -6,7 +6,7 @@ class CentrosController < ApplicationController
   # GET /centros
   # GET /centros.json
   def index
-    @centros = Centro.all
+    @centros = apply_scopes(Centro.all)
   end
 
   # GET /centros/1

@@ -6,7 +6,7 @@ class TerminaisController < ApplicationController
   # GET /terminais
   # GET /terminais.json
   def index
-    @terminais = Terminal.all
+    @terminais = apply_scopes(Terminal.all)
   end
 
   # GET /terminais/1

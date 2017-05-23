@@ -4,8 +4,10 @@ class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
   respond_to :html
 
+  has_scope :with_query
+
   def index
-    @usuarios = Usuario.all
+    @usuarios = apply_scopes(Usuario.all)
   end
 
   def show

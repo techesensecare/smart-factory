@@ -20,6 +20,8 @@ class Usuario < ActiveRecord::Base
 
   belongs_to :turno
 
+  scope :with_query, -> (q) { where("nome ilike '%' || ? || '%'", q) }
+
   def active_for_authentication?
     ativo
   end

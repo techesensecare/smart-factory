@@ -8,6 +8,7 @@ class CronometrosController < ApplicationController
   has_scope :with_fim
 
   def index
-    @cronometros = apply_scopes(Cronometro)
+    @hide_top_search = true
+    @cronometros     = apply_scopes(Cronometro)
   end
 end

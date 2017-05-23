@@ -6,7 +6,7 @@ class ClientesController < ApplicationController
   # GET /clientes.json
   def index
     authorize Cliente
-    @clientes = Cliente.all
+    @clientes = apply_scopes(Cliente.all)
   end
 
   # GET /clientes/1

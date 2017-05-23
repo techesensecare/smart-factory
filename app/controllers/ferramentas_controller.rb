@@ -6,7 +6,7 @@ class FerramentasController < ApplicationController
   # GET /ferramentas
   # GET /ferramentas.json
   def index
-    @ferramentas = Ferramenta.all
+    @ferramentas = apply_scopes(Ferramenta.all)
   end
 
   # GET /ferramentas/1

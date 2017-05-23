@@ -20,6 +20,8 @@ class Maquina < ApplicationRecord
 
   after_save :update_cronometro
 
+  scope :with_query, -> (q) { where("descricao ilike '%' || ? || '%'", q) }
+
   def update_status(status, usuario, operacao=nil)
     Maquina.transaction do
       self.update status: status

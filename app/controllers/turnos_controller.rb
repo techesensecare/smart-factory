@@ -6,7 +6,7 @@ class TurnosController < ApplicationController
   # GET /turnos
   # GET /turnos.json
   def index
-    @turnos = Turno.all
+    @turnos = apply_scopes(Turno.all)
   end
 
   # GET /turnos/1

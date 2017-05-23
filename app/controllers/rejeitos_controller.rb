@@ -6,7 +6,7 @@ class RejeitosController < ApplicationController
   # GET /rejeitos
   # GET /rejeitos.json
   def index
-    @rejeitos = Rejeito.all
+    @rejeitos = apply_scopes(Rejeito.all)
   end
 
   # GET /rejeitos/1

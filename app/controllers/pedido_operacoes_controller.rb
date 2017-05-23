@@ -21,6 +21,8 @@ class PedidoOperacoesController < ApplicationController
     else
       @operacoes = apply_scopes(PedidoOperacao.all)
     end
+
+    @hide_top_search = true
   end
 
   def desmembrar

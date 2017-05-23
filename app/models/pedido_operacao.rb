@@ -18,7 +18,6 @@ class PedidoOperacao < ApplicationRecord
   has_many :rejeitos, dependent: :destroy, class_name: "PedidoOperacaoRejeito"
   accepts_nested_attributes_for :rejeitos, allow_destroy: true
 
-
   has_many :cronometros
 
   after_save :update_cronometro

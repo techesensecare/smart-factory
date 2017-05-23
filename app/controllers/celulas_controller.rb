@@ -6,7 +6,7 @@ class CelulasController < ApplicationController
   # GET /celulas
   # GET /celulas.json
   def index
-    @celulas = Celula.all
+    @celulas = apply_scopes(Celula.all)
   end
 
   # GET /celulas/1
