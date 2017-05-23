@@ -11,7 +11,13 @@
           </div>
         </div>
         <div class="foto">
-          <%= image_tag m.foto if m.foto %>
+          <% if m.foto.present? %>
+            <%= image_tag m.foto if m.foto.present? %>
+          <% else %>
+            <div style="font-size: 30px; padding: 30px; text-align: center; background: #676a6c; color: white">
+              <%= m.descricao.first %>
+            </div>
+          <% end %>
         </div>
         <div class="panel-footer">
           <%= link_to "Ver operações", operacoes_maquina_path(maquina_id: m), class: 'btn btn-outline btn-default btn-block' %>
@@ -20,12 +26,12 @@
     </div>
   <% end %>
   <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="panel panel-default <%= 'panel-info' if @operacoes_sem_maquina.count > 0 %>">
+      <div class="panel-heading" style="height: 55px">
         Operações sem máquina
       </div>
-      <div class="panel-body text-center" style="height: 117px">
-        <h1><%= @operacoes_sem_maquina.count %></h1>
+      <div style="font-size: 30px; padding: 30px; text-align: center; background: white; color: 676a6c">
+        <%= @operacoes_sem_maquina.count %>
       </div>
       <div class="panel-footer">
         <%= link_to "Ver operações", operacoes_sem_maquina_path, class: 'btn btn-outline btn-default btn-block' %>
