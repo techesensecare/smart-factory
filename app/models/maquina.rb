@@ -22,6 +22,8 @@ class Maquina < ApplicationRecord
 
   scope :with_query, -> (q) { where("descricao ilike '%' || ? || '%'", q) }
 
+  default_scope -> { order('descricao ASC') }
+
   def update_status(status, usuario, operacao=nil)
     Maquina.transaction do
       self.update status: status
