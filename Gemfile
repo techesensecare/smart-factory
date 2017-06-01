@@ -72,6 +72,8 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 gem 'brazilian-rails'
 gem 'pdfjs_viewer-rails'
+# Solução para usar pdfjs com arquivos na S3;
+gem "rack-reverse-proxy", require: "rack/reverse_proxy"
 
 # Gráficos
 gem 'chartkick'

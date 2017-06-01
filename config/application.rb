@@ -17,5 +17,12 @@ module SmartFactory
       g.stylesheets false
       g.javascripts false
     end
+
+    # Proxy para acessar S3 como se fossem no mesmo domínio.
+    # Ref: https://github.com/waterlink/rack-reverse-proxy
+    config.middleware.insert(0, Rack::ReverseProxy) do
+      reverse_proxy_options preserve_host: false
+      reverse_proxy '/smart-factory', 'http://s3.amazonaws.com/smart-factory'
+    end
   end
 end
