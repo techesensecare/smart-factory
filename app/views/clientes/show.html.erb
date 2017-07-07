@@ -18,16 +18,50 @@
           <td class="">Email</td> <td><%= @cliente.email %></td>
         </tr>
         <tr>
+          <td class="">Site</td> <td><%= @cliente.website %></td>
+        </tr>
+        <tr>
+          <td class="">CNPJ</td> <td><%= @cliente.cnpj %></td>
+        </tr>
+        <tr>
+          <td class="">IE</td> <td><%= @cliente.ie %></td>
+        </tr>
+        <tr>
           <td class="">Endereço</td> <td><%= @cliente.endereco %></td>
         </tr>
         <tr>
           <td>Data do cadastro</td> <td><%= l @cliente.created_at %></td>
+        </tr>
+        <tr>
+          <td colspan="2">Observações: <%= @cliente.observacoes %></td>
         </tr>
       </table>
     </div>
   </div>
 
   <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Contatos
+      </div>
+      <% if @cliente.contatos.blank? %>
+        <div class="panel-body">
+          Nenhum contato para o cliente. <%= link_to "Cadastrar o primeiro contato", new_contato_path(cliente_id: @cliente) %>
+        </div>
+      <% end %>
+      <table class="table table-striped">
+        <% @cliente.contatos.each do |c| %>
+          <tr>
+            <td><%= c.descricao %></td>
+            <td><%= c.email %></td>
+            <td><%= c.telefone_fixo %></td>
+            <td><%= c.telefone_celular %></td>
+            <td width="80px"><%= link_to "Abrir", edit_contato_path(c) %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         Pedidos
@@ -40,7 +74,7 @@
             <td><%= p.descricao %></td>
             <td><%= p.status %></td>
             <td><%= l(p.prazo) if p.prazo %></td>
-            <td><%= link_to "Abrir", p %></td>
+            <td width="80px"><%= link_to "Abrir", p %></td>
           </tr>
         <% end %>
       </table>

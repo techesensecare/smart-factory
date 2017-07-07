@@ -1,0 +1,42 @@
+<%= simple_nested_form_for(contato, multipart: true) do |f| %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if contato.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(contato.errors.count, "erro") %></h2>
+
+          <ul>
+          <% contato.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.hidden_field :cliente_id %>
+      <%= f.input :nome %>
+
+      <div class="row">
+        <%= f.input :telefone_fixo, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :telefone_celular, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>
+      </div>
+      <div class="row">
+        <%= f.input :cargo, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :departamento, wrapper_html: { class: 'col-md-6' } %>
+      </div>
+      <%= f.input :observacoes, label: "Observações" %>
+
+      <%= render 'enderecos_field', f: f %>
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+      <%= link_to "Apagar", @contato, 
+                  method: :delete, 
+                  class: 'btn btn-danger pull-right',
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @contato.persisted? %> 
+    </div>
+  </div>
+<% end %>

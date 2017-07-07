@@ -80,3 +80,5 @@ gem 'chartkick'
 gem 'dateslices'
 
 gem 'pundit'
+
+gem 'jquery_mask_rails'

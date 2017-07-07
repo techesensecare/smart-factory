@@ -1,4 +1,4 @@
-<%= simple_form_for(cliente, multipart: true) do |f| %>
+<%= simple_nested_form_for(cliente, multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <% if cliente.errors.any? %>
@@ -15,9 +15,17 @@
 
       <%= codigo_field f %>
       <%= f.input :nome %>
-      <%= f.input :email %>
-      <%= f.input :telefone %>
+      <div class="row">
+        <%= f.input :email, wrapper_html: {class: 'col-md-6'} %>
+        <%= f.input :website, wrapper_html: {class: 'col-md-6'} %>
+      </div>
+      <div class="row">
+        <%= f.input :cnpj, wrapper_html: {class: 'col-md-6'} %>
+        <%= f.input :ie, label: "IE", wrapper_html: {class: 'col-md-6'} %>
+      </div>
       <%= f.input :endereco, label: 'Endereço' %>
+      <%= f.input :observacoes, label: 'Observações', as: :text %>
+      <%= render 'enderecos_field', f: f %>
     </div>
 
     <div class="panel-footer">

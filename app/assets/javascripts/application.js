@@ -33,6 +33,7 @@
 //= require jquery-maskmoney.js
 //= require select2.js
 //= require select2_locale_pt-BR.js
+//= require jquery.mask
 //
 // Gráficos:
 //= require highcharts
@@ -46,12 +47,16 @@ jQuery(function() {
   $('.money').maskMoney({prefix: "", allowZero: true, allowNegative: false, thousands: ".", decimal: ",", affixesStay: false});
   $('.nota').maskMoney({prefix: "", allowZero: true, allowNegative: false, thousands: ".", decimal: ",", affixesStay: false, precision: 1});
 
+  $('.cpf').mask('000.000.000-00');
+  $('.cep').mask('00.000-000');
+  $('#cliente_cnpj, .cnpj').mask('00.000.000/0000-00');
+
   $('form.disabled').find('input, select, a, button').attr('disabled', true);
 
   $('#check-all').click(function() { $('td.check input').prop('checked', $(this).prop('checked')); } )
 
   formatters = function() {
-    $('select.select').select2();
+    $("select.select:not('.no-select2')").select2();
     $('select.select2-ferramentas').select2();
     $('select.select2-produto').select2({
       language: 'pt-br',

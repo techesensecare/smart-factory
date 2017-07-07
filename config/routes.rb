@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contatos
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
 
   resources :ferramentas
