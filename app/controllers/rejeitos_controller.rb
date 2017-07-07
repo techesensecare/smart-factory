@@ -71,6 +71,6 @@ class RejeitosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rejeito_params
-      params.require(:rejeito).permit(:descricao)
+      params.require(:rejeito).permit(:descricao, :codigo, :codigo_automatico)
     end
 end

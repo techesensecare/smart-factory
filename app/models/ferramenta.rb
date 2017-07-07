@@ -1,9 +1,11 @@
 class Ferramenta < ApplicationRecord
+  include Codigo
+
   extend Enumerize
 
   enumerize :tipo, in: %w(tipo1 tipo2), default: :tipo1, scope: true
 
-  validates :descricao, :codigo, presence: true
+  validates :descricao, presence: true
 
   default_scope { order('descricao ASC') }
 

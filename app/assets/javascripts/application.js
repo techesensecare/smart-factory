@@ -64,6 +64,18 @@ jQuery(function() {
     formatters();
   });
 
+  $('input[id*=codigo_automatico').change(function() {
+    codigoElm = $('input[id$=codigo');
+    if ($(this).val() == 'true') {
+      codigoElm.attr('readonly', true);
+      objectId = $(this).parents('form').attr('id').replace(/[a-zA-Z_]/g, '');
+      codigoElm.val(objectId);
+    } else {
+      codigoElm.removeAttr('readonly');
+      document.getElementById(codigoElm.attr('id')).focus();
+    }
+  });
+
   // TODO 
   // Fechar menu lateral
   // $('.sidebar').animate({'margin-left': '-100%'}); $('#page-wrapper').animate({'margin-left': '0'})

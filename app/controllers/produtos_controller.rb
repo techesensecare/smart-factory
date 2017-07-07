@@ -91,6 +91,7 @@ class ProdutosController < ApplicationController
     def produto_params
       params.require(:produto).permit(
         :codigo, 
+        :codigo_automatico,
         :descricao,
         :unidade_medida,
         :tipo,

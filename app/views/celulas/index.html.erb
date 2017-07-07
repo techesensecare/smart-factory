@@ -7,6 +7,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Código</th>
         <th>Descrição</th>
         <th>Máquinas</th>
         <th>Data cadastro</th>
@@ -17,6 +18,7 @@
     <tbody>
       <% @celulas.each do |celula| %>
         <tr>
+          <td><%= celula.codigo %></td>
           <td><%= link_to celula.descricao, celula %></td>
           <td><%= celula.maquinas.map(&:descricao).join(', ') %></td>
           <td><%= l celula.created_at, format: :xshort %></td>

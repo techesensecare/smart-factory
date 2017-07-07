@@ -7,6 +7,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Código</th>
         <th>Descrição</th>
         <th>Data cadastro</th>
         <th></th>
@@ -16,6 +17,7 @@
     <tbody>
       <% @paradas.each do |parada| %>
         <tr>
+          <td><%= parada.codigo %></td>
           <td><%= link_to parada.descricao, parada %></td>
           <td><%= l parada.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_parada_path(parada), class: 'btn btn-default btn-xs' %></td>

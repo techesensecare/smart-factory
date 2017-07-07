@@ -7,6 +7,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Código</th>
         <th>Nome</th>
         <th>Telefone</th>
         <th>Email</th>
@@ -18,6 +19,7 @@
     <tbody>
       <% @fornecedores.each do |fornecedor| %>
         <tr>
+          <td><%= fornecedor.codigo %></td>
           <td><%= link_to fornecedor.nome, fornecedor %></td>
           <td><%= fornecedor.telefone %></td>
           <td><%= fornecedor.email %></td>

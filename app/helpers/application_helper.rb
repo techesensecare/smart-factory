@@ -43,4 +43,16 @@ module ApplicationHelper
     result = values + [valor_atual]
     result = result - ['']
   end
+
+  def codigo_field(form)
+    codigo_automatico = form.input(
+      :codigo_automatico, 
+      label: 'Código', 
+      as: :radio_buttons,
+      required: true,
+      collection: [['Gerar código automático', true], ['Inserir código manual', false]]
+    ) 
+    codigo = form.input(:codigo, label: false, input_html: { readonly: form.object.codigo_automatico})
+    codigo_automatico + codigo
+  end
 end

@@ -1,4 +1,6 @@
 class Usuario < ActiveRecord::Base
+  include Codigo
+
   extend Enumerize
 
   # Include default devise modules. Others available are:

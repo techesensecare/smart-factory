@@ -71,6 +71,6 @@ class FerramentasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ferramenta_params
-      params.require(:ferramenta).permit(:descricao, :codigo, :um, :tipo, :quantidade, :observacao)
+      params.require(:ferramenta).permit(:descricao, :codigo, :codigo_automatico, :um, :tipo, :quantidade, :observacao)
     end
 end

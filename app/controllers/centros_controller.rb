@@ -71,6 +71,6 @@ class CentrosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def centro_params
-      params.require(:centro).permit(:descricao)
+      params.require(:centro).permit(:descricao, :codigo, :codigo_automatico)
     end
 end

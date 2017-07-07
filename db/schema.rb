@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522173733) do
+ActiveRecord::Schema.define(version: 20170707131618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,19 +21,22 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.string   "descricao"
     t.string   "codigo"
     t.integer  "revisao",              default: 1
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "arquivo_file_name"
     t.string   "arquivo_content_type"
     t.integer  "arquivo_file_size"
     t.datetime "arquivo_updated_at"
+    t.boolean  "codigo_automatico",    default: true
   end
 
   create_table "celulas", force: :cascade do |t|
     t.string   "descricao"
     t.integer  "centro_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
     t.index ["centro_id"], name: "index_celulas_on_centro_id", using: :btree
   end
 
@@ -44,8 +47,10 @@ ActiveRecord::Schema.define(version: 20170522173733) do
 
   create_table "centros", force: :cascade do |t|
     t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -53,8 +58,10 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.string   "telefone"
     t.string   "email"
     t.text     "endereco"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
   end
 
   create_table "cronometros", force: :cascade do |t|
@@ -106,8 +113,9 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.string   "tipo"
     t.integer  "quantidade"
     t.text     "observacao"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
   end
 
   create_table "ferramentas_operacoes", id: false, force: :cascade do |t|
@@ -124,12 +132,14 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.string   "nome"
     t.string   "telefone"
     t.string   "email"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "cnpj"
     t.string   "ie"
     t.text     "observacoes"
     t.string   "site"
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
   end
 
   create_table "item_pedidos", force: :cascade do |t|
@@ -157,8 +167,8 @@ ActiveRecord::Schema.define(version: 20170522173733) do
 
   create_table "maquinas", force: :cascade do |t|
     t.string   "descricao"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "modelo"
     t.string   "fabricante"
     t.string   "ano_fabricacao"
@@ -170,6 +180,8 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.integer  "foto_file_size"
     t.datetime "foto_updated_at"
     t.string   "status"
+    t.string   "codigo"
+    t.boolean  "codigo_automatico", default: true
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|
@@ -216,8 +228,10 @@ ActiveRecord::Schema.define(version: 20170522173733) do
 
   create_table "paradas", force: :cascade do |t|
     t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
   end
 
   create_table "pedido_operacao_historicos", force: :cascade do |t|
@@ -285,15 +299,18 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.string   "descricao"
     t.string   "unidade_medida"
     t.string   "tipo"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "saldo",          default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "saldo",             default: 0
+    t.boolean  "codigo_automatico", default: true
   end
 
   create_table "rejeitos", force: :cascade do |t|
     t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "codigo_automatico", default: true
+    t.string   "codigo"
   end
 
   create_table "terminais", force: :cascade do |t|
@@ -312,18 +329,18 @@ ActiveRecord::Schema.define(version: 20170522173733) do
   end
 
   create_table "usuarios", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "nome"
     t.string   "perfil"
     t.boolean  "ativo"
@@ -344,6 +361,8 @@ ActiveRecord::Schema.define(version: 20170522173733) do
     t.date     "data_admissao"
     t.text     "observacoes"
     t.integer  "turno_id"
+    t.boolean  "codigo_automatico",      default: true
+    t.string   "codigo"
     t.index ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
     t.index ["turno_id"], name: "index_usuarios_on_turno_id", using: :btree

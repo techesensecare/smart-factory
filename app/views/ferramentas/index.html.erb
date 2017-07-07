@@ -7,8 +7,8 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Descrição</th>
         <th>Código</th>
+        <th>Descrição</th>
         <th>Data cadastro</th>
         <th></th>
       </tr>
@@ -17,8 +17,8 @@
     <tbody>
       <% @ferramentas.each do |ferramenta| %>
         <tr>
-          <td><%= link_to ferramenta.descricao, ferramenta %></td>
           <td><%= ferramenta.codigo %></td>
+          <td><%= link_to ferramenta.descricao, ferramenta %></td>
           <td><%= l ferramenta.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_ferramenta_path(ferramenta), class: 'btn btn-default btn-xs' %></td>
         </tr>

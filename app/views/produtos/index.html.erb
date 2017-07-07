@@ -7,8 +7,8 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Descrição</th>
         <th>Código</th>
+        <th>Descrição</th>
         <th>Saldo</th>
         <th>Tipo</th>
         <th>Data cadastro</th>
@@ -19,8 +19,8 @@
     <tbody>
       <% @produtos.each do |produto| %>
         <tr>
-          <td><%= link_to produto.descricao, produto %></td>
           <td><%= produto.codigo %></td>
+          <td><%= link_to produto.descricao, produto %></td>
           <td><%= produto.saldo %></td>
           <td><%= produto.tipo %></td>
           <td><%= l produto.created_at, format: :xshort %></td>

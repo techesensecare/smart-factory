@@ -15,9 +15,10 @@
         </div>
       <% end %>
 
+      <%= codigo_field f %>
+
       <div class="row">
         <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-3' } %>
-        <%= f.input :codigo, wrapper_html: { class: 'col-md-2' } %>
         <%= f.input :unidade_medida, wrapper_html: { class: 'col-md-2' } %>
         <%= f.input :tipo, wrapper_html: { class: 'col-md-2' } %>
       </div>

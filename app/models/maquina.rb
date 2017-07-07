@@ -1,4 +1,6 @@
 class Maquina < ApplicationRecord
+  include Codigo
+
   extend Enumerize
 
   enumerize :status, in: %w(disponivel executando setup manutencao), default: :disponivel, scope: true

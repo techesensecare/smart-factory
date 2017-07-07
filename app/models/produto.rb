@@ -1,10 +1,12 @@
 class Produto < ApplicationRecord
+  include Codigo
+
   extend Enumerize
 
   enumerize :tipo, in: [:fabricado, :comprado, :comprado_fabricado], default: :comprado
   enumerize :unidade_medida, in: [:unidade, :kg, :l, :m2], default: :unidade
 
-  validates :tipo, :descricao, :codigo, :tipo, :unidade_medida,  presence: true
+  validates :tipo, :descricao, :tipo, :unidade_medida,  presence: true
 
   has_many :anexos, as: :anexavel
   accepts_nested_attributes_for :anexos, :allow_destroy => true
@@ -15,7 +17,7 @@ class Produto < ApplicationRecord
   has_many :operacoes
   accepts_nested_attributes_for :operacoes, :allow_destroy => true
 
-  validates :descricao, :codigo, uniqueness: true
+  validates :descricao, uniqueness: true
 
   has_many :movimentos
 

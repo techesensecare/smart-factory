@@ -13,10 +13,8 @@
         </div>
       <% end %>
 
-      <div class="row">
-        <%= f.input :descricao, wrapper_html: { class: 'col-md-9' }  %>
-        <%= f.input :codigo, wrapper_html: { class: 'col-md-3'} %>
-      </div>
+      <%= codigo_field f %>
+      <%= f.input :descricao %>
       <div class="row">
         <%= f.input :tipo, wrapper_html: { class: 'col-md-3' }  %>
       </div>

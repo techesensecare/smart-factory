@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>
-    <%= @produto.codigo + " - " unless @produto.codigo.blank? %> <%= @produto.descricao %>
+    <%= @produto.codigo %> - <%= @produto.descricao %>
 
     <small>
       <%= link_to "Estoque: #{@produto.saldo}", produto_movimentos_path(@produto), class: 'btn btn-default btn-sm' %>

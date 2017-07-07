@@ -1,4 +1,6 @@
 class Cliente < ApplicationRecord
+  include Codigo
+
   validates :nome, presence: true
 
   has_many :pedidos
