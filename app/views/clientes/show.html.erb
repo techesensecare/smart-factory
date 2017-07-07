@@ -42,7 +42,7 @@
   <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Contatos
+        Contatos <%= link_to "Adicionar Contato", new_contato_path(cliente_id: @cliente), class: 'pull-right btn btn-primary btn-xs' %>
       </div>
       <% if @cliente.contatos.blank? %>
         <div class="panel-body">
