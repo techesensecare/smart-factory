@@ -15,7 +15,7 @@
 
       <%= codigo_field f %>
       <%= f.input :descricao %>
-      <%= f.input :centro_id, collection: Centro.all, label: "Centro de custo" %>
+      <%= f.input :centro_id, collection: Centro.all, label: "Centro de trabalho" %>
 
       <% tags_array = Maquina.all.map { |tag| [tag.descricao, tag.id] } %>
       <%= f.input :maquina_ids, collection: tags_array, label: 'Máquinas que compõem esta célula',
