@@ -21,8 +21,8 @@
         <tr><th>Célula</th> <td><%= @maquina.celulas.map(&:descricao).join(', ') %></td></tr>
         <tr><th>Modelo</th> <td><%= @maquina.modelo %></td></tr>
         <tr><th>Fabricante</th> <td><%= @maquina.fabricante %></td></tr>
-        <tr><th>Ano Fabricação</th> <td><%= @maquina.ano_fabricacao %></td></tr>
-        <tr><th>Ano Compra</th> <td><%= @maquina.ano_compra %></td></tr>
+        <tr><th>Data Fabricação</th> <td><%= l @maquina.data_fabricacao if @maquina.data_fabricacao %></td></tr>
+        <tr><th>Data Compra</th> <td><%= l @maquina.data_compra if @maquina.data_compra %></td></tr>
         <tr><th>Código Interno</th> <td><%= @maquina.codigo_interno %></td></tr>
       </table>
     </div>

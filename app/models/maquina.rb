@@ -3,7 +3,7 @@ class Maquina < ApplicationRecord
 
   extend Enumerize
 
-  enumerize :status, in: %w(disponivel executando setup manutencao), default: :disponivel, scope: true
+  enumerize :status, in: %w(disponivel executando setup manutencao inativa), default: :disponivel, scope: true
 
   # TODO Remover etapas, está depreciado, agora usamos pedido_operacoes.
   has_many :etapas

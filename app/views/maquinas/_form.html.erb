@@ -15,18 +15,22 @@
 
       <%= codigo_field(f) %>
 
-      <%= f.input :descricao %>
-      <%= f.input :status %>
+      <div class="row">
+        <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-8' } %>
+        <%= f.input :status, wrapper_html: { class: 'col-md-4' } %>
+      </div>
+
       <%= link_ver_arquivo @maquina, :foto %>
       <%= f.input :foto %>
+
       <div class="row">
         <%= f.input :modelo, wrapper_html: { class: 'col-md-4' } %>
         <%= f.input :fabricante, wrapper_html: { class: 'col-md-4' } %>
-        <%= f.input :ano_fabricacao, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :codigo_interno, label: "Código interno", wrapper_html: { class: 'col-md-4' } %>
       </div>
       <div class="row">
-        <%= f.input :ano_compra, wrapper_html: { class: 'col-md-4' } %>
-        <%= f.input :codigo_interno, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :data_compra, include_blank: true, start_year: 1900, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :data_fabricacao, label: "Data fabricação", start_year: 1900, include_blank: true, wrapper_html: { class: 'col-md-6' } %>
       </div>
       <%= f.input :observacao, label: "Observação" %>
     </div>

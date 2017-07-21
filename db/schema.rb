@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707175949) do
+ActiveRecord::Schema.define(version: 20170721120935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(version: 20170707175949) do
     t.string   "status"
     t.string   "codigo"
     t.boolean  "codigo_automatico", default: true
+    t.date     "data_fabricacao"
+    t.date     "data_compra"
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|
