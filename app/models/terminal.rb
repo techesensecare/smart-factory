@@ -1,4 +1,6 @@
 class Terminal < ApplicationRecord
+  include Codigo
+
   validates :descricao, presence: true
 
   has_and_belongs_to_many :maquinas

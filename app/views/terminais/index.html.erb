@@ -7,6 +7,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Código</th>
         <th>Descrição</th>
         <th>Máquinas</th>
         <th>Data cadastro</th>
@@ -17,7 +18,8 @@
     <tbody>
       <% @terminais.each do |terminal| %>
         <tr>
-          <td><%= link_to terminal.descricao, terminal %></td>
+          <td><%= terminal.codigo %></td>
+          <td><%= terminal.descricao %></td>
           <td><%= terminal.maquinas.map(&:descricao).join(', ') %></td>
           <td><%= l terminal.created_at, format: :xshort %></td>
           <td><%= link_to 'Editar', edit_terminal_path(terminal), class: 'btn btn-default btn-xs' %></td>
