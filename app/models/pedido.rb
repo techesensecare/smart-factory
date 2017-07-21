@@ -19,6 +19,8 @@ class Pedido < ApplicationRecord
 
   validates :cliente_id, :descricao, presence: true
 
+  validate :validar_prazo
+
   after_create :set_numero
 
   belongs_to :responsavel, class_name: "Usuario"
@@ -26,5 +28,14 @@ class Pedido < ApplicationRecord
   def set_numero
     numero = "#{created_at.strftime('%Y.%m.%d')}.#{cliente_id}.#{id}"
     update_attributes numero: numero
+  end
+
+
+  protected
+
+  def validar_prazo
+    if changes[:prazo] and prazo and prazo.past?
+      errors.add :prazo, "deve ser uma data futura"
+    end
   end
 end
