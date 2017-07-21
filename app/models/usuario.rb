@@ -1,5 +1,6 @@
 class Usuario < ActiveRecord::Base
   include Codigo
+  include Enderecos
 
   extend Enumerize
 

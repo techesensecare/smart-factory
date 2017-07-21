@@ -1,4 +1,4 @@
-<%= simple_form_for(@usuario) do |f| %>
+<%= simple_nested_form_for(@usuario) do |f| %>
   <% if @usuario.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@usuario.errors.count, "erro") %>:</h2>
@@ -28,15 +28,14 @@
     <%= f.input :passaporte, wrapper_html: { class: 'col-md-3' } %>
   </div>
   <div class="row">
-    <%= f.input :endereco, label: 'Endereço', wrapper_html: { class: 'col-md-12' } %>
-  </div>
-  <div class="row">
     <%= f.input :telefone_fixo, wrapper_html: { class: 'col-md-3' } %>
     <%= f.input :telefone_movel, wrapper_html: { class: 'col-md-3' } %>
   </div>
 
   <%= f.input :escolaridade %>
   <%= f.input :cursos, input_html: { rows: 5 } %>
+
+  <%= render 'enderecos_field', f: f, tipos: false %>
 
   <legend>Dados na Empresa</legend>
 

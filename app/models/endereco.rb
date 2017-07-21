@@ -31,9 +31,9 @@ class Endereco < ActiveRecord::Base
 	            predicates: true,
 	            scope: true
 
-	validates :tipo, 
-            :logradouro, 
+	validates :logradouro, 
             :cidade, 
+            :estado,
             presence: true
 
   def descricao_completa
