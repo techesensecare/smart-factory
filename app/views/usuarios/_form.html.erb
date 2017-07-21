@@ -17,7 +17,7 @@
 
   <div class="row">
     <%= f.input :nome, wrapper_html: { class: 'col-md-6' } %>
-    <%= f.input :data_nascimento, wrapper_html: { class: 'col-md-4' } %>
+    <%= f.input :data_nascimento, start_year: 1900, end_year: Date.today.year, wrapper_html: { class: 'col-md-4' } %>
     <%= f.input :tipo_sanguineo, wrapper_html: { class: 'col-md-2' } %>
   </div>
   
@@ -34,6 +34,9 @@
     <%= f.input :telefone_fixo, wrapper_html: { class: 'col-md-3' } %>
     <%= f.input :telefone_movel, wrapper_html: { class: 'col-md-3' } %>
   </div>
+
+  <%= f.input :escolaridade %>
+  <%= f.input :cursos, input_html: { rows: 5 } %>
 
   <legend>Dados na Empresa</legend>
 

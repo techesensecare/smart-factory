@@ -18,6 +18,20 @@ pt-BR:
         '4': Quinta
         '5': Sexta
         '6': Sábado
+    usuario:
+      escolaridade:
+        '01': Fundamental - Incompleto
+        '02': Fundamental - Completo
+        '03': Médio - Incompleto
+        '04': Médio - Completo
+        '05': Superior - Incompleto
+        '06': Superior - Completo
+        '07': Pós-graduação (Lato senso) - Incompleto
+        '08': Pós-graduação (Lato senso) - Completo
+        '09': Pós-graduação (Stricto sensu, nível mestrado) - Incompleto
+        '10': Pós-graduação (Stricto sensu, nível mestrado) - Completo
+        '11': Pós-graduação (Stricto sensu, nível doutor) - Incompleto
+        '12': Pós-graduação (Stricto sensu, nível doutor) - Completo
     aluno:
       dias_pretendido:
         segundas_quartas: 'Segundas/Quartas'

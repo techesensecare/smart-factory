@@ -10,6 +10,7 @@ class Usuario < ActiveRecord::Base
 
   validates :nome, presence: true
 
+  enumerize :escolaridade, in: %w(01 02 03 04 05 06 07 08 09 10 11 12)
   enumerize :perfil, in: [:administrador, :vendas, :engenharia, :pcp, :operador], default: :operador, predicates: true, scope: true
   enumerize :tipo_sanguineo, in: %w(a+ a- b+ b- ab+ ab- o+ o-)
 
