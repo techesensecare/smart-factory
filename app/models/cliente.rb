@@ -8,4 +8,8 @@ class Cliente < ApplicationRecord
   has_many :contatos, dependent: :destroy
 
   scope :with_query, -> (q) { where("nome ilike '%' || ? || '%'", q) }
+
+  def codigo_nome
+    "#{codigo} - #{nome}"
+  end
 end

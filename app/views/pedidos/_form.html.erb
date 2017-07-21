@@ -18,7 +18,7 @@
         <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-9' } %>
         <%= f.input :status, include_blank: false, wrapper_html: { class: 'col-md-3' } %>
       </div>
-      <%= f.input :cliente_id, collection: Cliente.all, input_html: { class: 'select2' } %>
+      <%= f.input :cliente_id, collection: Cliente.order_by_codigo.all, label_method: :codigo_nome, input_html: { class: 'select2' } %>
       <%= f.input :prazo, include_blank: true %>
 
       <label>

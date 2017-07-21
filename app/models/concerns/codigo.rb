@@ -8,6 +8,8 @@ module Codigo
     validates :codigo, uniqueness: true
     after_save :gerar_codigo, if: "codigo_automatico and codigo.blank?"
 
+    scope :order_by_codigo, -> { reorder("lpad(codigo, 5, '0') ASC") }
+
     def gerar_codigo
       self.update_attribute :codigo, self.id.to_s
     end
