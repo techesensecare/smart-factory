@@ -4,7 +4,7 @@ class Produto < ApplicationRecord
   extend Enumerize
 
   enumerize :tipo, in: [:fabricado, :comprado, :comprado_fabricado], default: :comprado
-  enumerize :unidade_medida, in: [:unidade, :kg, :l, :m2], default: :unidade
+  enumerize :unidade_medida, in: [:unidade, :kg, :grama, :m, :m2, :cm, :mm, :polegada, :l, :ml], default: :unidade
 
   validates :tipo, :descricao, :tipo, :unidade_medida,  presence: true
 
