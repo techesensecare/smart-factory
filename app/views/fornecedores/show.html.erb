@@ -7,36 +7,64 @@
   </div>
 </div>
 
-<div class="panel panel-default">
-  <table class="table">
-    <tr>
-      <td class="col-md-2">Telefone</td> <td><%= @fornecedor.telefone %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Email</td> <td><%= @fornecedor.email %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">CNPJ</td> <td><%= @fornecedor.cnpj %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Inscrição Estadual</td> <td><%= @fornecedor.ie %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Site</td> <td><%= @fornecedor.site %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Observações</td> <td><%= @fornecedor.observacoes %></td>
-    </tr>
-    <tr>
-      <td class="col-md-2">Endereços</td> 
-      <td>
-        <% @fornecedor.enderecos.each do |e| %>
-          <p><%= e.descricao_completa %></p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <table class="table">
+        <tr>
+          <td class="col-md-2">Telefone</td> <td><%= @fornecedor.telefone %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">Email</td> <td><%= @fornecedor.email %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">CNPJ</td> <td><%= @fornecedor.cnpj %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">Inscrição Estadual</td> <td><%= @fornecedor.ie %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">Site</td> <td><%= @fornecedor.site %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">Observações</td> <td><%= @fornecedor.observacoes %></td>
+        </tr>
+        <tr>
+          <td class="col-md-2">Endereços</td> 
+          <td>
+            <% @fornecedor.enderecos.each do |e| %>
+              <p><%= e.descricao_completa %></p>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>Data do cadastro</td> <td><%= l @fornecedor.created_at %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Contatos <%= link_to "Adicionar Contato", new_contato_path(fornecedor_id: @fornecedor), class: 'pull-right btn btn-primary btn-xs' %>
+      </div>
+      <% if @fornecedor.contatos.blank? %>
+        <div class="panel-body">
+          Nenhum contato para o cliente. <%= link_to "Cadastrar o primeiro contato", new_contato_path(fornecedor_id: @fornecedor) %>
+        </div>
+      <% end %>
+      <table class="table table-striped">
+        <% @fornecedor.contatos.each do |c| %>
+          <tr>
+            <td><%= c.descricao %></td>
+            <td><%= c.email %></td>
+            <td><%= c.telefone_fixo %></td>
+            <td><%= c.telefone_celular %></td>
+            <td width="80px"><%= link_to "Abrir", edit_contato_path(c) %>
+          </tr>
         <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>Data do cadastro</td> <td><%= l @fornecedor.created_at %></td>
-    </tr>
-  </table>
+      </table>
+    </div>
+  </div>
 </div>

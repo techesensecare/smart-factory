@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721122901) do
+ActiveRecord::Schema.define(version: 20170721131415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170721122901) do
     t.integer  "cliente_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "fornecedor_id"
   end
 
   create_table "cronometros", force: :cascade do |t|

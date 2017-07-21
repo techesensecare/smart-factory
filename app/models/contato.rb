@@ -2,6 +2,8 @@ class Contato < ApplicationRecord
   include Enderecos
 
   belongs_to :cliente
+  belongs_to :fornecedor
+
   validates :nome, presence: true
 
   def descricao

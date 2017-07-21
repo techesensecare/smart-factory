@@ -16,6 +16,7 @@ class ContatosController < ApplicationController
   def new
     @contato = Contato.new
     @contato.cliente_id = params[:cliente_id]
+    @contato.fornecedor_id = params[:fornecedor_id]
   end
 
   # GET /contatos/1/edit
@@ -29,7 +30,7 @@ class ContatosController < ApplicationController
 
     respond_to do |format|
       if @contato.save
-        format.html { redirect_to @contato.cliente, notice: 'Contato cadastrado' }
+        format.html { redirect_to @contato.cliente || @contato.fornecedor, notice: 'Contato cadastrado' }
         format.json { render :show, status: :created, location: @contato }
       else
         format.html { render :new }
@@ -43,7 +44,7 @@ class ContatosController < ApplicationController
   def update
     respond_to do |format|
       if @contato.update(contato_params)
-        format.html { redirect_to @contato.cliente, notice: 'Contato atualizado.' }
+        format.html { redirect_to @contato.cliente || @contato.fornecedor, notice: 'Contato atualizado.' }
         format.json { render :show, status: :ok, location: @contato }
       else
         format.html { render :edit }
@@ -57,7 +58,7 @@ class ContatosController < ApplicationController
   def destroy
     @contato.destroy
     respond_to do |format|
-      format.html { redirect_to @contato.cliente notice: 'Contato deletado.' }
+      format.html { redirect_to @contato.cliente || @contato.fornecedor,  notice: 'Contato deletado.' }
       format.json { head :no_content }
     end
   end
@@ -75,7 +76,7 @@ class ContatosController < ApplicationController
                                    :bairro, :cidade, :estado, :cep,
                                    :_destroy]},
         :nome, :cargo, :departamento, :telefone_fixo, :telefone_celular,
-        :email, :observacoes, :cliente_id
+        :email, :observacoes, :cliente_id, :fornecedor_id
       )
     end
 end
