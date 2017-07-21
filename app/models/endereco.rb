@@ -21,11 +21,6 @@ class Endereco < ActiveRecord::Base
 
 	belongs_to :enderecable, polymorphic: true
 
-	enumerize :tipo, in: {:principal => 'P', :comercial => 'C', :residencial => 'R'}, 
-	            default: :principal, 
-	            predicates: true,
-	            scope: true
-
 	enumerize :estado, in: {:acre => 'AC', :alagoas => 'AL', :amapa => 'AP', :amazonas => 'AM',
 							:bahia => 'BA', :ceara => 'CE', :distrito_federal => 'DF', :espirito_santo => 'ES',
 							:goias => 'GO', :maranhao => 'MA', :mato_grosso => 'MT', :mato_grosso_do_sul => 'MS',

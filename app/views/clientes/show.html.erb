@@ -27,7 +27,15 @@
           <td class="">IE</td> <td><%= @cliente.ie %></td>
         </tr>
         <tr>
-          <td class="">Endereço</td> <td><%= @cliente.endereco %></td>
+          <td class="">Personalizado</td> <td><%= @cliente.personalizado %></td>
+        </tr>
+        <tr>
+          <td class="">Endereço</td> 
+          <td>
+            <% @cliente.enderecos.each_with_index do |e, i| %>
+              <div><span><%= e.tipo %>: </span> <%= e.descricao_completa %></div>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <td>Data do cadastro</td> <td><%= l @cliente.created_at %></td>

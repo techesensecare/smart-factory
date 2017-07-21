@@ -5,7 +5,12 @@
       <div id="addresses">
         <%= f.fields_for :enderecos do |endereco| %>
           <%= endereco.hidden_field :id %>
-          <div class="address">
+          <div class="address" style="margin-bottom: 20px; border-left: 2px solid #1ab394; padding: 10px;">
+            <% if tipos %>
+              <div class="row">
+                <%= endereco.input :tipo, label: false, collection: tipos, placeholder: "Tipo de Endereço", wrapper_html: { class: 'col-md-5' } %>
+              </div>
+            <% end %>
             <div class="row">
               <%= endereco.input :logradouro,  placeholder: 'Logradouro', label: false, wrapper_html: {class: 'col-md-5'} %>
               <%= endereco.input :numero,  placeholder: 'Número', label: false, wrapper_html: {class: 'col-md-2'} %>
@@ -17,12 +22,10 @@
               <%= endereco.input :cidade,  placeholder: 'Cidade', label: false, wrapper_html: {class: 'col-md-3'} %>
               <%= endereco.input :estado,  placeholder: 'Estado', label: false, input_html: { class: 'no-select2'}, wrapper_html: {class: 'col-md-2'} %>
               <%= endereco.input :cep,  placeholder: 'Cep', label: false, input_html: {class: 'cep_field'}, wrapper_html: {class: 'col-md-2'} %>
-              <div class="form-group col-md-2">
-                <%= endereco.link_to_remove "<i class='fa fa-minus'></i>".html_safe, 
-                          :class => "btn btn-primary btn-danger btn-xs", 
-                          :title => "Excluir", :alt => "Excluir" %>
-              </div>
             </div>
+            <%= endereco.link_to_remove "<i class='fa fa-times'></i> Remover".html_safe, 
+                                        :class => "btn btn-primary btn-danger btn-xs", 
+                                        :title => "Excluir", :alt => "Excluir" %>
           </div>
         <% end %>
       </div>
