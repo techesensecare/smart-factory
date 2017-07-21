@@ -4,7 +4,7 @@
   </div>
   <% if @anexo %>
     <div class="panel-body">
-      <%= @anexo.descricao %> - Revisão <%= @anexo.revisao %>
+      <%= @anexo.codigo_descricao %> - Revisão <%= @anexo.revisao %>
       <div class="btn-group pull-right">
         <%= link_to "Anterior", {anexo_id: @anterior}, class: "btn btn-xs btn-primary #{'btn-default' if @anterior.nil? }" %>
         <%= link_to "Próximo", {anexo_id: @proximo}, class: "btn btn-xs btn-primary #{'btn-default' if @proximo.nil? }" %>

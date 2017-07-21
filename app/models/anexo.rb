@@ -1,4 +1,6 @@
 class Anexo < ApplicationRecord
+  include Codigo
+
   belongs_to :anexavel, polymorphic: true
 
   has_attached_file :arquivo

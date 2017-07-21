@@ -31,6 +31,9 @@
       <div class="anexos-wrapper" style="padding: 10px 15px; background: #eee">
         <div id="anexos">
           <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-1">
+              Código
+            </div>
             <div class="col-md-3">
               Descrição do desenho
             </div>
@@ -44,6 +47,7 @@
           <%= f.fields_for :anexos do |b| %>
             <%= b.hidden_field :id %>
             <div class="row">
+              <%= b.input :codigo, label: false, placeholder: 'Cód.', wrapper_html: { class: 'col-md-1' } %>
               <%= b.input :descricao, label: false, placeholder: 'Descrição do desenho', wrapper_html: { class: 'col-md-3' } %>
               <%= b.input :revisao, label: false, placeholder: 'Revisão', wrapper_html: { class: 'col-md-1' } %>
               <%= b.input :arquivo, 
