@@ -46,7 +46,8 @@
   <div class="row">
     <%= f.input :cargo, label: 'Cargo', wrapper_html: { class: 'col-md-3' } %>
     <%= f.input :turno_id, collection: Turno.all, label: 'Turno', wrapper_html: { class: 'col-md-3' } %>
-    <%= f.input :data_admissao, include_blank: true, label: 'Data de admissão', wrapper_html: { class: 'col-md-6' } %>
+    <%= f.input :data_admissao, include_blank: true, start_year: 1900, end_year: Date.today.year, 
+                label: 'Data de admissão', wrapper_html: { class: 'col-md-6' } %>
   </div>
 
   <div class="row">
