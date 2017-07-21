@@ -26,7 +26,7 @@
       <% @usuarios.each do |usuario| %>
           <tr class="odd gradeX">
             <td><%= usuario.codigo %></td>
-            <td  style="border-left: 3px solid #eee"><%= link_to usuario.nome, usuario %></td>
+            <td><%= link_to usuario.nome, usuario %></td>
             <td><%= usuario.perfil.text %></td>
             <td><%= usuario.email %></td>
             <td><%= l usuario.current_sign_in_at, :format => '%d/%m/%Y %H:%M' if usuario.current_sign_in_at %></td>
