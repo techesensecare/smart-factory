@@ -96,6 +96,7 @@ class ProdutosController < ApplicationController
         :classificacao_fiscal,
         :unidade_medida,
         :tipo,
+        :composto,
         {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
         {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :_destroy]},
         {:operacoes_attributes => [:id, :ordem, :descricao, :maquina_id, :tempo_setup, :tempo_operacao, {:ferramenta_ids => []}, 

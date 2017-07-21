@@ -2,9 +2,15 @@
   <h1>
     <%= @produto.codigo %> - <%= @produto.descricao %>
 
-    <small>
-      <%= link_to "Estoque: #{@produto.saldo}", produto_movimentos_path(@produto), class: 'btn btn-default btn-sm' %>
-    </small>
+    <% if @produto.composto %>
+      <small class="badge badge-success">
+        Produto
+      </small>
+    <% else %>
+      <small>
+        <%= link_to "Estoque: #{@produto.saldo}", produto_movimentos_path(@produto), class: 'btn btn-default btn-sm' %>
+      </small>
+    <% end %>
   </h1>
   <div class="pull-right">
     <div class="btn-group">

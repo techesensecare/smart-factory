@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721144619) do
+ActiveRecord::Schema.define(version: 20170721150649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(version: 20170721144619) do
     t.integer  "saldo",                default: 0
     t.boolean  "codigo_automatico",    default: true
     t.string   "classificacao_fiscal"
+    t.boolean  "composto"
   end
 
   create_table "rejeitos", force: :cascade do |t|
