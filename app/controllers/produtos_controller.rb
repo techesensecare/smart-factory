@@ -93,6 +93,7 @@ class ProdutosController < ApplicationController
         :codigo, 
         :codigo_automatico,
         :descricao,
+        :classificacao_fiscal,
         :unidade_medida,
         :tipo,
         {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
