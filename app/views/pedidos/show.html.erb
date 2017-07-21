@@ -26,9 +26,11 @@
           <th>Cliente</th> <td><%= link_to @pedido.cliente.nome, @pedido.cliente %></td>
         </tr>
         <tr>
-          <th>Descrição</th> <td><%= @pedido.descricao %></td>
+          <th>Código para cliente</th> <td><%= @pedido.codigo_pedido_cliente %></td>
         </tr>
         <tr>
+          <th>Descrição</th> <td><%= @pedido.descricao %></td>
+        </tr>
         <tr>
           <th>Observação</th> <td><%= @pedido.observacao %></td>
         </tr>

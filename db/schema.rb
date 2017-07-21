@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721131415) do
+ActiveRecord::Schema.define(version: 20170721134552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -306,12 +306,13 @@ ActiveRecord::Schema.define(version: 20170721131415) do
     t.integer  "cliente_id"
     t.string   "numero"
     t.text     "observacao"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.date     "prazo"
     t.string   "status"
     t.string   "descricao"
     t.integer  "responsavel_id"
+    t.string   "codigo_pedido_cliente"
     t.index ["cliente_id"], name: "index_pedidos_on_cliente_id", using: :btree
   end
 

@@ -20,6 +20,7 @@
       </div>
       <%= f.input :cliente_id, collection: Cliente.order_by_codigo.all, label_method: :codigo_nome, input_html: { class: 'select2' } %>
       <%= f.input :prazo, include_blank: true %>
+      <%= f.input :codigo_pedido_cliente, label: "Código do pedido para o cliente", hint: "Código usado pelo cliente rastrear a entrega ou na nota fiscal." %>
 
       <label>
         Itens do Pedido
