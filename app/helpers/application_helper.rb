@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def select2_collection_tags(collection, metodo, valor_atual)
-    values = Produto.all.map { |a| a.send(metodo) }
+    values = collection.map { |a| a.send(metodo) }
     result = values + [valor_atual]
     result = result - ['']
   end
