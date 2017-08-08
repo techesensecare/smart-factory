@@ -1,5 +1,5 @@
 class CronometrosController < ApplicationController
-  before_filter { @menu_relatorios = true } 
+  before_action { @menu_relatorios = true } 
   has_scope :with_maquina
   has_scope :with_numero
   has_scope :with_operacao
