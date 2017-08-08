@@ -2,10 +2,12 @@
 
 one:
   cliente: one
-  numero: MyString
+  numero: 001
+  descricao: Pedido 1
   observacao: MyText
 
 two:
   cliente: two
-  numero: MyString
+  numero: 002
+  descricao: Pedido 2
   observacao: MyText

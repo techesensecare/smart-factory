@@ -30,7 +30,7 @@ class FerramentasController < ApplicationController
 
     respond_to do |format|
       if @ferramenta.save
-        format.html { redirect_to @ferramenta, notice: 'Ferramenta was successfully created.' }
+        format.html { redirect_to ferramentas_path, notice: 'Ferramenta was successfully created.' }
         format.json { render :show, status: :created, location: @ferramenta }
       else
         format.html { render :new }

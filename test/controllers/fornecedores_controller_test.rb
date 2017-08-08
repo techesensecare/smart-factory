@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class FornecedoresControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @fornecedor = fornecedores(:one)
   end
 
@@ -17,10 +20,15 @@ class FornecedoresControllerTest < ActionDispatch::IntegrationTest
 
   test "should create fornecedor" do
     assert_difference('Fornecedor.count') do
-      post fornecedores_url, params: { fornecedor: { email: @fornecedor.email, nome: @fornecedor.nome, telefone: @fornecedor.telefone } }
+      post fornecedores_url, params: { fornecedor: { 
+        codigo: '999',
+        email: @fornecedor.email, 
+        nome: @fornecedor.nome, 
+        telefone: @fornecedor.telefone 
+      } }
     end
 
-    assert_redirected_to fornecedor_url(Fornecedor.last)
+    assert_redirected_to fornecedor_url(Fornecedor.reorder('id DESC').first)
   end
 
   test "should show fornecedor" do
@@ -39,8 +47,9 @@ class FornecedoresControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy fornecedor" do
+    fornecedor = Fornecedor.create! nome: 'Novo fornecedor'
     assert_difference('Fornecedor.count', -1) do
-      delete fornecedor_url(@fornecedor)
+      delete fornecedor_url(fornecedor)
     end
 
     assert_redirected_to fornecedores_url

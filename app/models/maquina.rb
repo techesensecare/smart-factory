@@ -37,8 +37,8 @@ class Maquina < ApplicationRecord
   protected
 
   def update_cronometro
-    if changes[:status]
-      antes, depois = changes[:status]
+    if saved_changes[:status]
+      antes, depois = saved_changes[:status]
 
       # Opções: disponivel executando setup manutencao)
 

@@ -34,7 +34,7 @@ class Pedido < ApplicationRecord
   protected
 
   def validar_prazo
-    if changes[:prazo] and prazo and prazo.past?
+    if saved_changes[:prazo] and prazo and prazo.past?
       errors.add :prazo, "deve ser uma data futura"
     end
   end

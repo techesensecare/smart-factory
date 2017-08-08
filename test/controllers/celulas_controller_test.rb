@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class CelulasControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @celula = celulas(:one)
   end
 
@@ -17,10 +20,10 @@ class CelulasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create celula" do
     assert_difference('Celula.count') do
-      post celulas_url, params: { celula: { centro_id: @celula.centro_id, descricao: @celula.descricao } }
+      post celulas_url, params: { celula: { centro_id: @celula.centro_id, descricao: 'Nova célula' } }
     end
 
-    assert_redirected_to celula_url(Celula.last)
+    assert_redirected_to celulas_url
   end
 
   test "should show celula" do
@@ -35,7 +38,7 @@ class CelulasControllerTest < ActionDispatch::IntegrationTest
 
   test "should update celula" do
     patch celula_url(@celula), params: { celula: { centro_id: @celula.centro_id, descricao: @celula.descricao } }
-    assert_redirected_to celula_url(@celula)
+    assert_redirected_to celulas_url
   end
 
   test "should destroy celula" do

@@ -30,7 +30,7 @@ class CelulasController < ApplicationController
 
     respond_to do |format|
       if @celula.save
-        format.html { redirect_to @celula, notice: 'Celula was successfully created.' }
+        format.html { redirect_to celulas_url, notice: 'Celula was successfully created.' }
         format.json { render :show, status: :created, location: @celula }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class CelulasController < ApplicationController
   def update
     respond_to do |format|
       if @celula.update(celula_params)
-        format.html { redirect_to @celula, notice: 'Celula was successfully updated.' }
+        format.html { redirect_to celulas_url, notice: 'Celula was successfully updated.' }
         format.json { render :show, status: :ok, location: @celula }
       else
         format.html { render :edit }

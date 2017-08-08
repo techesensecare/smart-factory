@@ -22,8 +22,6 @@ module Codigo
       if name.to_s.include?("codigo_")
         field = name.to_s.split("_").last
         "#{ codigo } - #{ send(field) }"
-      else
-        super
       end
     end
   end

@@ -41,7 +41,7 @@
         <% @maquina.historicos.order('created_at DESC').each do |e| %>
           <tr>
             <td><%= e.status %></td>
-            <td><%= e.usuario.nome %></td>
+            <td><%= e.usuario.try(:nome) %></td>
             <td><%= e.pedido_operacao.try(:descricao) %></td>
             <td><%= e.pedido_operacao.try(:pedido).try(:numero) %></td>
             <td><%= l e.created_at, format: :short %></td>

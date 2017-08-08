@@ -25,4 +25,8 @@ class PedidoPolicy < ApplicationPolicy
 
     %w(administrador vendas).include?(@user.perfil) and @record.status.vendas?
   end
+
+  def destroy?
+    @user.perfil == :administrador
+  end
 end

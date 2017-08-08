@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class CentrosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @centro = centros(:one)
   end
 
@@ -17,10 +20,10 @@ class CentrosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create centro" do
     assert_difference('Centro.count') do
-      post centros_url, params: { centro: { descricao: @centro.descricao } }
+      post centros_url, params: { centro: { codigo: '999',  descricao: 'Novo centro' } }
     end
 
-    assert_redirected_to centro_url(Centro.last)
+    assert_redirected_to centro_url(Centro.reorder('id DESC').first)
   end
 
   test "should show centro" do
@@ -39,8 +42,9 @@ class CentrosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy centro" do
+    centro = Centro.create codigo: '999', descricao: 'Novo'
     assert_difference('Centro.count', -1) do
-      delete centro_url(@centro)
+      delete centro_url(centro)
     end
 
     assert_redirected_to centros_url

@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class MaquinasControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @maquina = maquinas(:one)
   end
 
@@ -17,10 +20,10 @@ class MaquinasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create maquina" do
     assert_difference('Maquina.count') do
-      post maquinas_url, params: { maquina: { descricao: @maquina.descricao } }
+      post maquinas_url, params: { maquina: { codigo: '999', descricao: 'Nova Máquina' } }
     end
 
-    assert_redirected_to maquina_url(Maquina.last)
+    assert_redirected_to maquinas_url
   end
 
   test "should show maquina" do
@@ -34,11 +37,15 @@ class MaquinasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update maquina" do
-    patch maquina_url(@maquina), params: { maquina: { descricao: @maquina.descricao } }
-    assert_redirected_to maquina_url(@maquina)
+    patch maquina_url(@maquina), params: { maquina: { descricao: 'Nova Descrição' } }
+    assert_redirected_to maquinas_url
   end
 
-  test "should destroy maquina" do
+  test "should destroy maquina if it has not dependents" do
+    @maquina.cronometros.delete_all
+    @maquina.historicos.delete_all
+    @maquina.pedido_operacoes.delete_all
+
     assert_difference('Maquina.count', -1) do
       delete maquina_url(@maquina)
     end

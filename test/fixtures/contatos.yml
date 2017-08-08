@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nome: MyString
-  cargo: MyString
-  departamento: MyString
-  telefone_fixo: MyString
-  telefone_celular: MyString
-  email: MyString
-  observacoes: MyText
-  cliente_id: 1
+  nome: Fulano
+  cargo: 
+  departamento: 
+  telefone_fixo:
+  telefone_celular:
+  email: 
+  observacoes: 
+  cliente: one
 
 two:
-  nome: MyString
-  cargo: MyString
-  departamento: MyString
-  telefone_fixo: MyString
-  telefone_celular: MyString
-  email: MyString
-  observacoes: MyText
-  cliente_id: 1
+  nome: Beltrano
+  cargo: 
+  departamento: 
+  telefone_fixo: (21) 33392-8819
+  telefone_celular: 
+  email: 
+  observacoes: 
+  cliente: one

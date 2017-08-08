@@ -2,10 +2,10 @@
 
 one:
   produto: one
-  tipo: MyString
+  tipo: adicionar
   quantidade: 1
 
 two:
   produto: two
-  tipo: MyString
+  tipo: remover
   quantidade: 1

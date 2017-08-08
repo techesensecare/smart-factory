@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class PedidosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @pedido = pedidos(:one)
   end
 
@@ -17,7 +20,12 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create pedido" do
     assert_difference('Pedido.count') do
-      post pedidos_url, params: { pedido: { cliente_id: @pedido.cliente_id, numero: @pedido.numero, observacao: @pedido.observacao } }
+      post pedidos_url, params: { pedido: { 
+        descricao: 'Pedido 1',
+        cliente_id: @pedido.cliente_id, 
+        numero: @pedido.numero, 
+        observacao: @pedido.observacao 
+      } }
     end
 
     assert_redirected_to pedido_url(Pedido.last)
@@ -39,8 +47,9 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy pedido" do
+    pedido = Pedido.create!(descricao: 'Novo pedido', cliente_id: @pedido.cliente_id)
     assert_difference('Pedido.count', -1) do
-      delete pedido_url(@pedido)
+      delete pedido_url(pedido)
     end
 
     assert_redirected_to pedidos_url

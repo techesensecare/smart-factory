@@ -1,48 +1,47 @@
 require 'test_helper'
 
 class MovimentosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @movimento = movimentos(:one)
+    @produto = @movimento.produto
   end
 
   test "should get index" do
-    get movimentos_url
+    get produto_movimentos_url(@produto)
     assert_response :success
   end
 
   test "should get new" do
-    get new_movimento_url
+    get new_produto_movimento_url(@produto)
     assert_response :success
   end
 
   test "should create movimento" do
     assert_difference('Movimento.count') do
-      post movimentos_url, params: { movimento: { produto_id: @movimento.produto_id, quantidade: @movimento.quantidade, tipo: @movimento.tipo } }
+      post produto_movimentos_url(@produto), params: { movimento: { produto_id: @movimento.produto_id, quantidade: @movimento.quantidade, tipo: @movimento.tipo } }
     end
 
-    assert_redirected_to movimento_url(Movimento.last)
-  end
-
-  test "should show movimento" do
-    get movimento_url(@movimento)
-    assert_response :success
+    assert_redirected_to produto_movimentos_url(@produto)
   end
 
   test "should get edit" do
-    get edit_movimento_url(@movimento)
+    get edit_produto_movimento_url(@produto, @movimento)
     assert_response :success
   end
 
   test "should update movimento" do
-    patch movimento_url(@movimento), params: { movimento: { produto_id: @movimento.produto_id, quantidade: @movimento.quantidade, tipo: @movimento.tipo } }
-    assert_redirected_to movimento_url(@movimento)
+    patch produto_movimento_url(@produto, @movimento), params: { movimento: { produto_id: @movimento.produto_id, quantidade: @movimento.quantidade, tipo: @movimento.tipo } }
+    assert_redirected_to produto_movimentos_url(@produto)
   end
 
   test "should destroy movimento" do
     assert_difference('Movimento.count', -1) do
-      delete movimento_url(@movimento)
+      delete produto_movimento_url(@produto, @movimento)
     end
 
-    assert_redirected_to movimentos_url
+    assert_redirected_to produto_movimentos_url(@produto)
   end
 end

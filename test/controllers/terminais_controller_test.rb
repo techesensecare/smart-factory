@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class TerminaisControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @terminal = terminais(:one)
   end
 
@@ -17,10 +20,10 @@ class TerminaisControllerTest < ActionDispatch::IntegrationTest
 
   test "should create terminal" do
     assert_difference('Terminal.count') do
-      post terminais_url, params: { terminal: { descricao: @terminal.descricao } }
+      post terminais_url, params: { terminal: { codigo: '999', descricao: 'Novo terminal' } }
     end
 
-    assert_redirected_to terminal_url(Terminal.last)
+    assert_redirected_to terminais_url
   end
 
   test "should show terminal" do
@@ -34,8 +37,8 @@ class TerminaisControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update terminal" do
-    patch terminal_url(@terminal), params: { terminal: { descricao: @terminal.descricao } }
-    assert_redirected_to terminal_url(@terminal)
+    patch terminal_url(@terminal), params: { terminal: { codigo: '999', descricao: @terminal.descricao } }
+    assert_redirected_to terminais_url
   end
 
   test "should destroy terminal" do

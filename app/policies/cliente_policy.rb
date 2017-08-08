@@ -10,4 +10,8 @@ class ClientePolicy < ApplicationPolicy
   def update?
     create?
   end
+
+  def destroy?
+    create? and record.pedidos.blank?
+  end
 end

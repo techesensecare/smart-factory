@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.2'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use Puma as the app server
@@ -56,7 +56,7 @@ gem 'devise'
 gem 'will_paginate'
 gem 'enumerize'
 gem 'pg'
-gem 'simple_form', '~> 3.2.1'
+gem 'simple_form'
 gem 'nested_form'
 gem 'has_scope'
 gem 'rghost'
@@ -65,7 +65,7 @@ gem 'parseline'
 gem 'brcobranca', '~> 6.2.2'
 gem 'figaro'
 gem 'paperclip', '~> 4.2'
-gem 'aws-sdk', '< 2.0'
+gem 'aws-sdk', '~> 2.0'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'wkhtmltopdf-binary'

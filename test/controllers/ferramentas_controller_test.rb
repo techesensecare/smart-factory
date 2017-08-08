@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class FerramentasControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @ferramenta = ferramentas(:one)
   end
 
@@ -17,10 +20,16 @@ class FerramentasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create ferramenta" do
     assert_difference('Ferramenta.count') do
-      post ferramentas_url, params: { ferramenta: { codigo: @ferramenta.codigo, descricao: @ferramenta.descricao, observacao: @ferramenta.observacao, quantidade: @ferramenta.quantidade, tipo: @ferramenta.tipo, um: @ferramenta.um } }
+      post ferramentas_url, params: { ferramenta: { 
+        codigo: '999', 
+        descricao: 'Nova ferramenta', 
+        observacao: @ferramenta.observacao, 
+        quantidade: @ferramenta.quantidade, 
+        tipo: @ferramenta.tipo 
+      } }
     end
 
-    assert_redirected_to ferramenta_url(Ferramenta.last)
+    assert_redirected_to ferramentas_url
   end
 
   test "should show ferramenta" do
@@ -34,7 +43,13 @@ class FerramentasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update ferramenta" do
-    patch ferramenta_url(@ferramenta), params: { ferramenta: { codigo: @ferramenta.codigo, descricao: @ferramenta.descricao, observacao: @ferramenta.observacao, quantidade: @ferramenta.quantidade, tipo: @ferramenta.tipo, um: @ferramenta.um } }
+    patch ferramenta_url(@ferramenta), params: { ferramenta: { 
+      codigo: @ferramenta.codigo, 
+      descricao: @ferramenta.descricao, 
+      observacao: @ferramenta.observacao, 
+      quantidade: @ferramenta.quantidade, 
+      tipo: @ferramenta.tipo 
+    } }
     assert_redirected_to ferramenta_url(@ferramenta)
   end
 

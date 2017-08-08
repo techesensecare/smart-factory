@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  codigo: MyString
-  descricao: MyString
-  materia_prima: MyString
-  tipo: MyString
+  codigo: 001
+  descricao: One
+  tipo: comprado
+  unidade_medida: m2
+  composto: false
 
-two:
-  codigo: MyString
-  descricao: MyString
-  materia_prima: MyString
-  tipo: MyString
+tecido_acento:
+  codigo: 002
+  descricao: Tecido Acento
+  tipo: comprado
+  unidade_medida: m2
+  composto: false

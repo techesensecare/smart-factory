@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class RejeitosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @rejeito = rejeitos(:one)
   end
 

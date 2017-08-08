@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class ParadasControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @parada = paradas(:one)
   end
 
@@ -17,10 +20,10 @@ class ParadasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create parada" do
     assert_difference('Parada.count') do
-      post paradas_url, params: { parada: { descricao: @parada.descricao } }
+      post paradas_url, params: { parada: { descricao: 'Nova parada' } }
     end
 
-    assert_redirected_to parada_url(Parada.last)
+    assert_redirected_to parada_url(Parada.reorder('id DESC').first)
   end
 
   test "should show parada" do

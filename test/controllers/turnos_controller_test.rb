@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class TurnosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    sign_in usuarios(:alexandre)
     @turno = turnos(:one)
   end
 

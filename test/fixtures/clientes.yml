@@ -1,12 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  codigo: 1
   nome: MyString
   telefone: MyString
   email: MyString
   endereco: MyText
 
 two:
+  codigo: 2
   nome: MyString
   telefone: MyString
   email: MyString

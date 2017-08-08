@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  codigo: 001
   descricao: MyString
   centro: one
 
 two:
+  codigo: 002
   descricao: MyString
   centro: two
