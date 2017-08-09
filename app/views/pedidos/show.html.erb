@@ -42,6 +42,15 @@
         </tr>
       </table>
     </div>
+    <table class="table">
+      <% @pedido.versions.each do |p| %>
+        <tr>
+          <td><%= p.event == 'create' ? 'Criado' : 'Atualizado' %></td>
+          <td><%= l p.created_at %></td>
+          <td><%= Usuario.find(p.whodunnit).nome if p.whodunnit %>
+        </tr>
+      <% end %>
+    </table>
   </div>
 
   <div class="col-md-8">

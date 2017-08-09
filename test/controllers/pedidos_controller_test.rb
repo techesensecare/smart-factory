@@ -73,4 +73,5 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
     @pedido.reload
     assert @usuario == @pedido.responsavel
   end
+
 end

@@ -82,3 +82,4 @@ gem 'dateslices'
 gem 'pundit'
 
 gem 'jquery_mask_rails'
+gem 'paper_trail', '~> 7.0.0'
