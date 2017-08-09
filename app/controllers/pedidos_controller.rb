@@ -70,6 +70,7 @@ class PedidosController < ApplicationController
   def create
     authorize Pedido
     @pedido = Pedido.new(pedido_params)
+    @pedido.responsavel = current_usuario
 
     respond_to do |format|
       if @pedido.save
@@ -86,6 +87,7 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1.json
   def update
     authorize @pedido
+    pedido_params[:responsavel_id] = current_usuario.id
     respond_to do |format|
       if @pedido.update(pedido_params)
         format.html { redirect_to @pedido, notice: 'Pedido was successfully updated.' }

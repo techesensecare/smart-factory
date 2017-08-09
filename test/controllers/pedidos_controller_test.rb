@@ -4,8 +4,9 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    sign_in usuarios(:alexandre)
-    @pedido = pedidos(:one)
+    @usuario = usuarios(:alexandre)
+    @pedido  = pedidos(:one)
+    sign_in @usuario
   end
 
   test "should get index" do
@@ -53,5 +54,23 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to pedidos_url
+  end
+
+  test "on create should save current user as its responsible" do
+    post pedidos_url, params: { pedido: { 
+      descricao: 'Pedido 1',
+      cliente_id: @pedido.cliente_id, 
+      numero: @pedido.numero, 
+      observacao: @pedido.observacao 
+    } }
+    pedido = Pedido.reorder('id DESC').first
+    assert_equal @usuario, pedido.responsavel
+  end
+
+  test "on update should save current user as its responsible" do
+    assert @usuario != @pedido.responsavel
+    patch pedido_url(@pedido), params: { pedido: { descricao: 'Nova descrição' } }
+    @pedido.reload
+    assert @usuario == @pedido.responsavel
   end
 end
