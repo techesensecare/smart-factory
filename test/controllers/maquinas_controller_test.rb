@@ -42,12 +42,10 @@ class MaquinasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy maquina if it has not dependents" do
-    @maquina.cronometros.delete_all
-    @maquina.historicos.delete_all
-    @maquina.pedido_operacoes.delete_all
+    m = Maquina.create! descricao: 'Nova Máquina'
 
     assert_difference('Maquina.count', -1) do
-      delete maquina_url(@maquina)
+      delete maquina_url(m)
     end
 
     assert_redirected_to maquinas_url

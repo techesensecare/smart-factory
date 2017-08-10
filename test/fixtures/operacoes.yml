@@ -1,0 +1,11 @@
+pintar_acento:
+  produto: acento
+  descricao: "Pintar acento"
+  ordem: 1
+  maquina: one
+
+cortar_tecido_acento:
+  produto: tecido_acento
+  descricao: "Cortar tecido do acento"
+  ordem: 1
+  maquina: one

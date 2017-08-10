@@ -13,3 +13,10 @@ tecido_acento:
   tipo: comprado
   unidade_medida: m2
   composto: false
+
+acento:
+  codigo: 003
+  descricao: Acento
+  tipo: fabricado
+  unidade_medida: unidade
+  composto: true
