@@ -36,6 +36,10 @@
                 <%= b.input :status, label: "Status", include_blank: false, wrapper_html: { class: 'col-md-2' } %>
               </div>
               <div class="row">
+                <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
+                <%= b.input :tempo_operacao, label: "Tempo de Operação (min)", wrapper_html: { class: 'col-md-4' } %>
+              </div>
+              <div class="row">
                 <%= b.input :quantidade, wrapper_html: {class: 'col-md-6'} %>
                 <% tags_array = Ferramenta.all.map { |tag| [tag.codigo + ' - ' + tag.descricao, tag.id] } %>
                 <%= b.input :ferramenta_ids, collection: tags_array, label: 'Ferramentas', wrapper_html: {class: 'col-md-6'},

@@ -18,6 +18,6 @@ two:
   descricao: MyString
   maquina: two
   observacao: MyText
-  tempo_setup: 1
-  tempo_operacao: 1
+  tempo_setup: 2
+  tempo_operacao: 2
   status: MyString

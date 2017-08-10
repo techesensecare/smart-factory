@@ -74,4 +74,23 @@ class PedidosControllerTest < ActionDispatch::IntegrationTest
     assert @usuario == @pedido.responsavel
   end
 
+  test "should show the script of manufacture" do
+    @pedido.update! status: :engenharia
+
+    get detalhar_projeto_pedido_url(@pedido)
+
+    assert_response :success
+    assert_select 'h1', /Roteiro de Fabricação/
+    assert_select 'label', 'Referente ao item'
+    assert_select 'label', 'Ordem'
+    assert_select 'label', 'Descrição da operação'
+    assert_select 'label', 'Máquina'
+    assert_select 'label', 'Status'
+    assert_select 'label', 'Tempo de Setup (min)'
+    assert_select 'label', 'Tempo de Operação (min)'
+    assert_select 'label', 'Quantidade'
+    assert_select 'label', 'Ferramentas'
+    assert_select 'textarea'
+  end
+
 end

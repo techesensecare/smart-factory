@@ -47,13 +47,15 @@ class PedidosController < ApplicationController
       @pedido.item_pedidos.each do |item|
         item.produto.todas_operacoes.each do |operacao|
           @pedido.operacoes.build(
-            pedido_item: item,
-            ordem:       operacao.ordem,
-            descricao:   operacao.descricao,
-            maquina:     operacao.maquina,
-            observacao:  operacao.observacao,
-            ferramentas: operacao.ferramentas,
-            quantidade:  item.quantidade * operacao.quantidade_materia_prima 
+            pedido_item:    item,
+            ordem:          operacao.ordem,
+            descricao:      operacao.descricao,
+            maquina:        operacao.maquina,
+            tempo_setup:    operacao.tempo_setup,
+            tempo_operacao: operacao.tempo_operacao,
+            observacao:     operacao.observacao,
+            ferramentas:    operacao.ferramentas,
+            quantidade:     item.quantidade * operacao.quantidade_materia_prima 
           )
         end
       end
