@@ -13,6 +13,10 @@
 
     <% if @anexo.arquivo.content_type.include? 'pdf' %>
       <iframe class="arquivo-pdf" src="<%= pdfjs.full_path(file: "/smart-factory/#{@anexo.arquivo.path}") %>"></iframe>
+      <%= link_to "Abrir pelo visualizador do navegador", '', 
+                  onclick: "window.open('#{@anexo.arquivo.url}', 'newwindow', 'width=400,height=400'); return false;", 
+                  target: :blank,
+                  style: 'display: block; padding: 10px' %>
     <% else %>
       <div class="panel-body">
         <%= link_to "Abrir arquivo (Formato não PDF)", @anexo.arquivo.url %>
