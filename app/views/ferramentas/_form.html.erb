@@ -1,4 +1,4 @@
-<%= simple_form_for(ferramenta, multipart: true) do |f| %>
+<%= simple_nested_form_for(ferramenta, multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
       <% if ferramenta.errors.any? %>
@@ -27,6 +27,55 @@
       <div class="row">
         <%= f.input :observacao, label: "Observação", wrapper_html: { class: 'col-md-12'} %>
       </div>
+
+      <div class="anexos-wrapper" style="padding: 10px 15px; background: #eee">
+        <div id="anexos">
+          <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-1">
+              Código
+            </div>
+            <div class="col-md-3">
+              Descrição do desenho
+            </div>
+            <div class="col-md-1">
+              Revisão
+            </div>
+            <div class="col-md-5">
+              Arquivo
+            </div>
+          </div>
+          <%= f.fields_for :anexos do |b| %>
+            <%= b.hidden_field :id %>
+            <div class="row">
+              <%= b.input :codigo, label: false, placeholder: 'Cód.', wrapper_html: { class: 'col-md-1' } %>
+              <%= b.input :descricao, label: false, placeholder: 'Descrição do desenho', wrapper_html: { class: 'col-md-3' } %>
+              <%= b.input :revisao, label: false, placeholder: 'Revisão', wrapper_html: { class: 'col-md-1' } %>
+              <%= b.input :arquivo, 
+                          label: false, 
+                          wrapper_html: { class: 'col-md-5', style: 'margin-top: 5px' } %>
+
+              <div class="col-md-1">
+                <% if b.object.arquivo_file_name %>
+                  <%= link_to "Visualizar", b.object.arquivo.url, 
+                              title: b.object.arquivo_file_name, 
+                              target: '_blank',
+                              class: 'btn btn-default btn-xs', style: 'margin-top: 5px' %>
+                <% end %>
+              </div>
+              <div class="col-md-1">
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
+                                      class: 'btn btn-danger btn-xs', 
+                                      style: 'margin-top: 5px' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Desenho", 
+                          :anexos, 
+                          class: 'btn btn-default', 
+                          data: { target: '#anexos' }  %>
+      </div>
+
     </div>
 
     <div class="panel-footer">
