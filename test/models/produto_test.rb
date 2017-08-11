@@ -11,4 +11,8 @@ class ProdutoTest < ActiveSupport::TestCase
       ], 
       produto.todas_operacoes)
   end
+
+  test ".materias_primas deveria trazer apenas os produtos com o campo composto = true" do
+    assert_equal [produtos(:acento)], Produto.materias_primas.to_a
+  end
 end

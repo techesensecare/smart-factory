@@ -81,7 +81,7 @@
         <label style="">Matérias-Primas</label>
         <div id="materia_primas">
           <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
+            <div class="col-md-6">
               Matéria-Prima
             </div>
             <div class="col-md-2">
@@ -92,8 +92,9 @@
             <%= b.hidden_field :id %>
             <div class="row">
               <%= b.input :produto_usado_id, 
-                    collection: Produto.where("id <> ?", @produto.id).order('descricao'), 
-                    label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-4' } %>
+                    collection: Produto.materias_primas.where("id <> ?", @produto.id).order('descricao'), 
+                    label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
+                    label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
               <%= b.input :quantidade, label: false, placeholder: 'Quantidade', wrapper_html: { class: 'col-md-2' } %>
               <div class="col-md-1">
                 <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 

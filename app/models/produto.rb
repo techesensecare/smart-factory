@@ -25,6 +25,8 @@ class Produto < ApplicationRecord
 
   scope :with_query, -> (q) { where("descricao ilike '%' || ? || '%'", q) }
 
+  scope :materias_primas, -> { where("composto = ?", true) }
+
 
   before_save :update_itens
 
