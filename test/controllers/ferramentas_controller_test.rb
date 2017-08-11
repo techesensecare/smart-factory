@@ -50,7 +50,7 @@ class FerramentasControllerTest < ActionDispatch::IntegrationTest
       quantidade: @ferramenta.quantidade, 
       tipo: @ferramenta.tipo 
     } }
-    assert_redirected_to ferramenta_url(@ferramenta)
+    assert_redirected_to ferramentas_url
   end
 
   test "should destroy ferramenta" do

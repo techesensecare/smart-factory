@@ -44,7 +44,7 @@ class FerramentasController < ApplicationController
   def update
     respond_to do |format|
       if @ferramenta.update(ferramenta_params)
-        format.html { redirect_to @ferramenta, notice: 'Ferramenta was successfully updated.' }
+        format.html { redirect_to ferramentas_path, notice: 'Ferramenta was successfully updated.' }
         format.json { render :show, status: :ok, location: @ferramenta }
       else
         format.html { render :edit }
@@ -71,6 +71,15 @@ class FerramentasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ferramenta_params
-      params.require(:ferramenta).permit(:descricao, :codigo, :codigo_automatico, :um, :tipo, :quantidade, :observacao)
+      params.require(:ferramenta).permit(
+        :descricao, 
+        :codigo, 
+        :codigo_automatico, 
+        :um, 
+        :tipo, 
+        :quantidade, 
+        :observacao,
+        {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
+      )
     end
 end
