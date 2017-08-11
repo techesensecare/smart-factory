@@ -5,9 +5,27 @@
 </h1>
 
 <% pedido = @pedido %>
-<%= simple_nested_form_for(pedido, url: confirmar_detalhes_pedido_path(@pedido), multipart: true) do |f| %>
+<%= simple_nested_form_for(@pedido, url: confirmar_detalhes_pedido_path(@pedido), multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
+
+      <% anexos = @pedido.item_pedidos.map {|i| i.produto.anexos }.flatten.reject(&:nil?) %>
+      <% if anexos.any? %>
+        <h3>Desenhos</h3>
+
+        <ul style="padding-bottom: 10px; border-bottom: 1px solid #eee">
+        <% anexos.each do |anexo| %>
+          <li>
+            <%= link_to "#{anexo.anexavel.descricao} - #{anexo.descricao}", '', 
+                        onclick: "window.open('#{anexo.arquivo.url}', 'newwindow', 'width=400,height=400'); return false;", target: :blank %>
+          </li>
+        <% end %>
+        </ul>
+
+        <h3>Operações</h3>
+      <% end %>
+
+
       <% if pedido.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(pedido.errors.count, "erro") %></h2>
