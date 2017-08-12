@@ -29,6 +29,7 @@
         <%= filtro :with_turno,   "Turno",    Turno.por_descricao, :descricao %>
         <%= filtro :with_celula,  "Célula",   Celula.por_descricao, :descricao %>
         <%= filtro :with_usuario, "Usuário",  Usuario.por_nome, :nome %>
+        <%= filtro :with_numero,  "Número do pedido" %>
       </div>
     </div>
     <div class="panel-footer">
@@ -49,6 +50,7 @@
       <th>Turno</th>
       <th>Célula</th>
       <th>Usuário</th>
+      <th>Pedido</th>
     </tr>
     <% @historicos.each do |i| %>
       <tr>
@@ -60,6 +62,7 @@
         <td><%= i.usuario.turno.try(:descricao) %></td>
         <td><%= i.maquina.celulas.first.try(:descricao) %></td>
         <td><%= i.usuario.nome %></td>
+        <td><%= i.pedido_operacao.pedido.numero %></td>
       </tr>
     <% end %>
     <% if @historicos.blank? %>

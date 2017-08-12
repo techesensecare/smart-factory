@@ -9,6 +9,7 @@ class RelatoriosController < ApplicationController
   has_scope :with_inicio
   has_scope :with_fim
   has_scope :with_status
+  has_scope :with_numero
 
   def pedidos
     @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC'))
