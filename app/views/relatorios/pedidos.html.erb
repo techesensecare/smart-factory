@@ -1,0 +1,76 @@
+<h1>Relatório de Pedidos Finalizados</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <%= filtro :with_cliente, "Cliente", Cliente.por_nome, :nome %>
+        <%= filtro :with_maquina, "Máquina", Maquina.por_descricao, :descricao %>
+        <%= filtro :with_produto, "Produto", Produto.por_descricao, :descricao %>
+        <%= filtro :with_turno,   "Turno",   Turno.por_descricao, :descricao %>
+        <%= filtro :with_celula,  "Célula",  Celula.por_descricao, :descricao %>
+        <%= filtro :with_usuario, "Usuário", Usuario.por_nome, :nome %>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "A partir de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "Até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <tr>
+      <th>Data/Hora</th>
+      <th>Cliente</th>
+      <th>Máquina</th>
+      <th>Produto</th>
+      <th>Turno</th>
+      <th>Célula</th>
+      <th>Usuário</th>
+    </tr>
+    <% @historicos.each do |i| %>
+      <tr>
+        <td><%= link_to l(i.created_at), i.pedido_operacao %></td>
+        <td><%= i.pedido_operacao.pedido.cliente.nome %></td>
+        <td><%= i.pedido_operacao.maquina.descricao %></td>
+        <td><%= i.pedido_operacao.pedido_item.descricao_produto %></td>
+        <td><%= i.usuario.turno.try(:descricao) %></td>
+        <td><%= i.maquina.celulas.first.try(:descricao) %></td>
+        <td><%= i.usuario.nome %></td>
+      </tr>
+    <% end %>
+    <% if @historicos.blank? %>
+      <tr>
+        <td colspan="999">Nenhum registro encontrado.</td>
+      </tr>
+    <% else %>
+      <tfoot>
+        <tr>
+          <td colspan="999">
+            Total de registros: <%= @historicos.count %>
+          </td>
+        </tr>
+      </tfoot>
+    <% end %>
+  </table>
+</div>

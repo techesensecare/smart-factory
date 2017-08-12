@@ -24,6 +24,8 @@ class Maquina < ApplicationRecord
 
   scope :with_query, -> (q) { where("descricao ilike '%' || ? || '%'", q) }
 
+  scope :por_descricao, -> { order('descricao ASC') }
+
   default_scope -> { order('descricao ASC') }
 
   def update_status(status, usuario, operacao=nil)

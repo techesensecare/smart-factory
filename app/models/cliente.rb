@@ -9,6 +9,8 @@ class Cliente < ApplicationRecord
 
   scope :with_query, -> (q) { where("nome ilike '%' || ? || '%'", q) }
 
+  scope :por_nome, -> { order('nome ASC') }
+
   def codigo_nome
     "#{codigo} - #{nome}"
   end

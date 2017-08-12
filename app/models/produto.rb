@@ -27,6 +27,7 @@ class Produto < ApplicationRecord
 
   scope :materias_primas, -> { where("composto = ?", true) }
 
+  scope :por_descricao, -> { order('descricao ASC') }
 
   before_save :update_itens
 
