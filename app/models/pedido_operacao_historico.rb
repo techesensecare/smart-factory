@@ -15,5 +15,6 @@ class PedidoOperacaoHistorico < ApplicationRecord
   scope :with_usuario, -> (usuario_id) { where('pedido_operacao_historicos.usuario_id': usuario_id) } 
   scope :with_inicio,  -> (inicio)     { where('pedido_operacao_historicos.created_at >= ?', inicio.to_datetime.beginning_of_day) }
   scope :with_fim,     -> (fim)        { where('pedido_operacao_historicos.created_at <= ?', fim.to_datetime.end_of_day) }
+  scope :with_status,  -> (status)     { where('pedido_operacao_historicos.status = ?', status) }
 
 end

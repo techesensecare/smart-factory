@@ -1,4 +1,4 @@
-<h1>Relatório de Pedidos Finalizados</h1>
+<h1>Relatório de Pedidos</h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -7,15 +7,7 @@
   <%= form_tag '', method: :get do |f| %>
     <div class="panel-body">
       <div class="row">
-        <%= filtro :with_cliente, "Cliente", Cliente.por_nome, :nome %>
-        <%= filtro :with_maquina, "Máquina", Maquina.por_descricao, :descricao %>
-        <%= filtro :with_produto, "Produto", Produto.por_descricao, :descricao %>
-        <%= filtro :with_turno,   "Turno",   Turno.por_descricao, :descricao %>
-        <%= filtro :with_celula,  "Célula",  Celula.por_descricao, :descricao %>
-        <%= filtro :with_usuario, "Usuário", Usuario.por_nome, :nome %>
-      </div>
-      <hr />
-      <div class="row">
+        <%= filtro :with_status,  "Situação", PedidoOperacaoHistorico.status.options %>
         <div class="col-md-3">
           <div class="form-group">
             <%= label_tag :with_inicio, "A partir de" %>
@@ -29,6 +21,15 @@
           </div>
         </div>
       </div>
+      <hr />
+      <div class="row">
+        <%= filtro :with_cliente, "Cliente",  Cliente.por_nome, :nome %>
+        <%= filtro :with_maquina, "Máquina",  Maquina.por_descricao, :descricao %>
+        <%= filtro :with_produto, "Produto",  Produto.por_descricao, :descricao %>
+        <%= filtro :with_turno,   "Turno",    Turno.por_descricao, :descricao %>
+        <%= filtro :with_celula,  "Célula",   Celula.por_descricao, :descricao %>
+        <%= filtro :with_usuario, "Usuário",  Usuario.por_nome, :nome %>
+      </div>
     </div>
     <div class="panel-footer">
       <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
@@ -41,6 +42,7 @@
   <table class="table table-striped">
     <tr>
       <th>Data/Hora</th>
+      <th>Situação</th>
       <th>Cliente</th>
       <th>Máquina</th>
       <th>Produto</th>
@@ -51,6 +53,7 @@
     <% @historicos.each do |i| %>
       <tr>
         <td><%= link_to l(i.created_at), i.pedido_operacao %></td>
+        <td><%= i.status_text %></td>
         <td><%= i.pedido_operacao.pedido.cliente.nome %></td>
         <td><%= i.pedido_operacao.maquina.descricao %></td>
         <td><%= i.pedido_operacao.pedido_item.descricao_produto %></td>

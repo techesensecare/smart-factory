@@ -8,9 +8,10 @@ class RelatoriosController < ApplicationController
   has_scope :with_usuario
   has_scope :with_inicio
   has_scope :with_fim
+  has_scope :with_status
 
   def pedidos
-    @historicos = apply_scopes(PedidoOperacaoHistorico.with_status(:finalizada).order('created_at ASC'))
+    @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC'))
   end
 
   def maquinas
