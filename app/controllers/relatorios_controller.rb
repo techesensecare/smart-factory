@@ -12,7 +12,7 @@ class RelatoriosController < ApplicationController
   has_scope :with_numero
 
   def pedidos
-    @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC'))
+    @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC')).page params[:page]
   end
 
   def maquinas

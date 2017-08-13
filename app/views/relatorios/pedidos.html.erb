@@ -73,7 +73,8 @@
       <tfoot>
         <tr>
           <td colspan="999">
-            Total de registros: <%= @historicos.count %>
+            <%= will_paginate @historicos %> |
+            <%= page_entries_info @historicos, style: 'pull-right' %>
           </td>
         </tr>
       </tfoot>

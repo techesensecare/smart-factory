@@ -3,7 +3,7 @@ pt-BR:
     next_label: Próximos &#8594;
     page_entries_info:
       multi_page: Exibindo %{model} %{from} - %{to} de %{count} no total
-      multi_page_html: Exibindo %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
+      multi_page_html: Exibindo <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>
         no total
       single_page:
         one: Exibindo 1 %{model}
