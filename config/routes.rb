@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'relatorios/pedidos'
   get 'relatorios/maquinas'
   get 'relatorios/maquinas/futuro' => 'relatorios#maquinas_futuro'
+  get 'relatorios/maquinas/paradas' => 'relatorios#maquinas_paradas'
   get 'relatorios/usuarios'
   get 'relatorios/producao'
   get 'relatorios/estoque'

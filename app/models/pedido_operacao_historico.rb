@@ -17,5 +17,11 @@ class PedidoOperacaoHistorico < ApplicationRecord
   scope :with_fim,     -> (fim)        { where('pedido_operacao_historicos.created_at <= ?', fim.to_datetime.end_of_day) }
   scope :with_status,  -> (status)     { where('pedido_operacao_historicos.status = ?', status) }
   scope :with_numero,  -> (numero)     { joins(:pedido_operacao => :pedido).where('pedidos.numero': numero) }
+  scope :with_parada,  -> (parada_id)  { where('pedido_operacao_historicos.motivo': Parada.find(parada_id).descricao) }
 
+  def minutos
+    if segundos
+      (segundos / 60.0).round(2)
+    end
+  end
 end

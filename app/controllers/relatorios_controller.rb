@@ -10,6 +10,7 @@ class RelatoriosController < ApplicationController
   has_scope :with_fim
   has_scope :with_status
   has_scope :with_numero
+  has_scope :with_parada
 
   def pedidos
     @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC')).page params[:page]
@@ -21,6 +22,10 @@ class RelatoriosController < ApplicationController
 
   def maquinas_futuro
     @maquinas = apply_scopes(Maquina.order('descricao ASC')).page params[:page]
+  end
+
+  def maquinas_paradas
+    @historicos = apply_scopes(PedidoOperacaoHistorico.where(status: :pausada).order('created_at ASC')).page params[:page]
   end
 
   def usuarios
