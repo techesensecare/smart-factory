@@ -22,6 +22,8 @@ module Codigo
       if name.to_s.include?("codigo_")
         field = name.to_s.split("_").last
         "#{ codigo } - #{ send(field) }"
+      else
+        # FIXME This code is hiding errors.
       end
     end
   end
