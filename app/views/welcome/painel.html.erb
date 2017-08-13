@@ -6,6 +6,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <%= m.descricao %>
+          <% if m.pedidos_na_fila.any? %>
+            <span class="label label-warning pull-right"><%= m.pedidos_na_fila.size %></span>
+          <% end %>
           <div class="status <%= m.status %>">
             <%= m.status.text %>
           </div>

@@ -35,6 +35,10 @@ class Maquina < ApplicationRecord
     end
   end
 
+  def pedidos_na_fila
+    pedido_operacoes.where(status: :na_fila)
+  end
+
   def horas_a_trabalhar
     minutos = pedido_operacoes.where(status: [:aguardando, :na_fila]).sum("tempo_operacao + tempo_setup")
     horas = minutos / 60
