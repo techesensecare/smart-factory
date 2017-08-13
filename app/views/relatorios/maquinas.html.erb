@@ -1,2 +1,75 @@
-<h1>Relatorios#maquinas</h1>
-<p>Find me in app/views/relatorios/maquinas.html.erb</p>
+<h1>Relatório de Máquinas</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <%= filtro :with_maquina, "Máquina",  Maquina.por_descricao, :descricao %>
+        <%= filtro :with_status,  "Situação", Maquina.status.options %>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "Iniciado de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <%= filtro :with_usuario, "Usuário",  Usuario.por_nome, :nome %>
+        <%= filtro :with_turno,   "Turno",    Turno.por_descricao, :descricao %>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= number_with_delimiter(@historicos.sum(:segundos) / 60) %> minutos
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <tr>
+      <th>Máquina</th>
+      <th>Situação</th>
+      <th>Início</th>
+      <th>Fim</th>
+      <th>Usuário</th>
+      <th>Turno</th>
+      <th class="text-right">Tempo (min)</th>
+    </tr>
+    <% @historicos.each do |i| %>
+      <tr>
+        <td><%= i.maquina.descricao %></td>
+        <td><%= i.status_text  %></td>
+        <td><%= l i.created_at %></td>
+        <td><%= l i.fim if i.fim %></td>
+        <td><%= i.usuario.nome %></td>
+        <td><%= i.usuario.turno.try :descricao %></td>
+        <td class="text-right"><%= i.minutos if i.fim %></td>
+      </tr>
+    <% end %>
+    <tfoot>
+      <tr>
+        <td colspan="999">
+        <%= page_entries_info @historicos %>
+          <%= will_paginate @historicos %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

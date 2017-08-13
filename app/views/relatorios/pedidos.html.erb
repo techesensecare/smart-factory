@@ -10,13 +10,13 @@
         <%= filtro :with_status,  "Situação", PedidoOperacaoHistorico.status.options %>
         <div class="col-md-3">
           <div class="form-group">
-            <%= label_tag :with_inicio, "A partir de" %>
+            <%= label_tag :with_inicio, "Iniciado de" %>
             <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <%= label_tag :with_fim, "Até" %>
+            <%= label_tag :with_fim, "até" %>
             <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
           </div>
         </div>
@@ -65,19 +65,13 @@
         <td><%= i.pedido_operacao.pedido.numero %></td>
       </tr>
     <% end %>
-    <% if @historicos.blank? %>
+    <tfoot>
       <tr>
-        <td colspan="999">Nenhum registro encontrado.</td>
+        <td colspan="999">
+        <%= page_entries_info @historicos %>
+          <%= will_paginate @historicos %>
+        </td>
       </tr>
-    <% else %>
-      <tfoot>
-        <tr>
-          <td colspan="999">
-            <%= will_paginate @historicos %> |
-            <%= page_entries_info @historicos, style: 'pull-right' %>
-          </td>
-        </tr>
-      </tfoot>
-    <% end %>
+    </tfoot>
   </table>
 </div>

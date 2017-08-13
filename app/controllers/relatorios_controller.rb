@@ -16,6 +16,7 @@ class RelatoriosController < ApplicationController
   end
 
   def maquinas
+    @historicos = apply_scopes(MaquinaHistorico.order('created_at ASC')).page params[:page]
   end
 
   def usuarios

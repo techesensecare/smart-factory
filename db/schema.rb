@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809013509) do
+ActiveRecord::Schema.define(version: 20170813024630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,8 @@ ActiveRecord::Schema.define(version: 20170809013509) do
     t.integer "pedido_operacao_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "fim"
+    t.integer "segundos"
     t.index ["maquina_id"], name: "index_maquina_historicos_on_maquina_id"
     t.index ["pedido_operacao_id"], name: "index_maquina_historicos_on_pedido_operacao_id"
     t.index ["usuario_id"], name: "index_maquina_historicos_on_usuario_id"
@@ -263,6 +265,8 @@ ActiveRecord::Schema.define(version: 20170809013509) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "maquina_id"
+    t.datetime "fim"
+    t.integer "segundos"
     t.index ["maquina_id"], name: "index_pedido_operacao_historicos_on_maquina_id"
     t.index ["pedido_operacao_id"], name: "index_pedido_operacao_historicos_on_pedido_operacao_id"
     t.index ["usuario_id"], name: "index_pedido_operacao_historicos_on_usuario_id"

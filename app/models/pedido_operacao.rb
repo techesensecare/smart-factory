@@ -104,6 +104,7 @@ class PedidoOperacao < ApplicationRecord
         end
       end
 
+      historicos.where(fim: nil).update_all(fim: Time.current)
       historicos.create(status: status, usuario: usuario, maquina: maquina, motivo: motivo)
 
       atualizar_status_pedido
