@@ -107,7 +107,11 @@ class PedidoOperacao < ApplicationRecord
         end
       end
 
-      historicos.where(fim: nil).update_all(fim: Time.current)
+      historicos.where(fim: nil).each do |h|
+        h.fim = Time.current
+        h.segundos = (h.fim - h.created_at).to_i
+        h.save
+      end
       historicos.create(status: status, usuario: usuario, maquina: maquina, motivo: motivo)
 
       atualizar_status_pedido
