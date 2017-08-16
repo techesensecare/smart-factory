@@ -134,6 +134,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'pausada' and depois == :executando 
+        # TODO Renomear tempo para segundos e setá-lo
         self.cronometros.where(tipo:  :pausada, fim: nil).update(fim: DateTime.current)
         self.cronometros.create!(
           tipo:    :executando,
@@ -143,6 +144,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'executando' and depois == :pausada
+        # TODO Renomear tempo para segundos e setá-lo
         self.cronometros.where(tipo:  :executando, fim: nil).update(fim: DateTime.current)
         self.cronometros.create!(
           tipo:    :pausada,
@@ -153,6 +155,7 @@ class PedidoOperacao < ApplicationRecord
       end
 
       if antes == 'executando' and depois == :finalizada
+        # TODO Renomear tempo para segundos e setá-lo
         self.cronometros.where(tipo:  :executando, fim: nil).update(fim: DateTime.current)
       end
 

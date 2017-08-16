@@ -63,6 +63,7 @@ class Maquina < ApplicationRecord
       end
 
       if antes == 'setup' and depois == :disponivel
+        # TODO Renomear tempo para segundos e setá-lo
         self.cronometros.where(tipo: :pausada, fim: nil).update(fim: DateTime.current)
       end
 
@@ -75,6 +76,7 @@ class Maquina < ApplicationRecord
       end
 
       if antes == 'manutencao' and depois == :disponivel
+        # TODO Renomear tempo para segundos e setá-lo
         self.cronometros.where(tipo: :pausada, fim: nil).update(fim: DateTime.current)
       end
     end
