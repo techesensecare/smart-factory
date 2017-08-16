@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170813024630) do
+ActiveRecord::Schema.define(version: 20170814011340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(version: 20170813024630) do
     t.string "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "usuario_id"
     t.index ["pedido_operacao_id"], name: "index_pedido_operacao_rejeitos_on_pedido_operacao_id"
     t.index ["rejeito_id"], name: "index_pedido_operacao_rejeitos_on_rejeito_id"
   end

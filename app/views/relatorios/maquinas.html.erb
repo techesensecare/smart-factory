@@ -35,8 +35,9 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-body">
-    <%= number_with_delimiter(@historicos.sum(:segundos) / 60) %> minutos
+  <div class="panel-body" style="font-size: 1.5em">
+    <%= number_with_delimiter(@historicos.sum(:segundos) / 60) %> minutos 
+    <strong> de acordo com o filtro</strong>
   </div>
 </div>
 

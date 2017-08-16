@@ -1,4 +1,4 @@
-<h1>Relatório de Tempo de Produção dos Usuários</h1>
+<h1>Relatório de Rejeitos por Usuários</h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -31,7 +31,7 @@
 
 <div class="panel panel-default">
   <div class="panel-body" style="font-size: 1.5em">
-    <%= number_with_delimiter(@historicos.sum(:segundos) / 60) %> minutos
+    <%= @rejeitos.sum(:quantidade) %> peças rejeitadas 
     <strong>de acordo com o filtro</strong>
   </div>
 </div>
@@ -41,15 +41,17 @@
     <tr>
       <th>Usuário</th>
       <th>Turno</th>
-      <th>Máquinas operadas</th>
-      <th>Tempo de produção (min)</th>
+      <th>Motivo</th>
+      <th>Operação</th>
+      <th>Quantidade de peças</th>
     </tr>
-    <% @usuarios.each do |usuario, historicos| %>
+    <% @usuarios.each do |usuario, rejeitos| %>
       <tr>
         <td><%= usuario.nome %></td>
         <td><%= usuario.turno.try :descricao %></td>
-        <td><%= historicos.map {|h| h.maquina.descricao }.uniq.join(', ') %></td>
-        <td><%= historicos.sum(&:segundos) / 60 %></td>
+        <td><%= rejeitos.map {|h| h.rejeito.descricao }.uniq.join(', ') %></td>
+        <td><%= rejeitos.map {|h| h.pedido_operacao.descricao }.uniq.join(', ') %></td>
+        <td><%= rejeitos.sum(&:quantidade) %></td>
       </tr>
     <% end %>
   </table>

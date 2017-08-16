@@ -29,6 +29,21 @@ class RelatoriosController < ApplicationController
   end
 
   def usuarios
+    scope       = PedidoOperacaoHistorico.where(status: [:executando, :setup])
+    @historicos = apply_scopes(scope).page params[:page]
+    @usuarios   = @historicos.group_by { |h| h.usuario }.sort
+  end
+
+  def usuarios_tempo_ocioso
+    scope       = PedidoOperacaoHistorico.where(status: :pausada)
+    @historicos = apply_scopes(scope).page params[:page]
+    @usuarios   = @historicos.group_by { |h| h.usuario }.sort
+  end
+
+  def usuarios_rejeitos
+    scope     = PedidoOperacaoRejeito
+    @rejeitos = apply_scopes(scope).page params[:page]
+    @usuarios = @rejeitos.group_by { |h| h.usuario }.sort
   end
 
   def producao

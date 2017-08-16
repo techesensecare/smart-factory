@@ -51,8 +51,11 @@
             <ul class="nav nav-second-level">
               <li class="<%= 'active' if action_name == 'pedidos' %>"><%= link_to "Pedidos", relatorios_pedidos_path %></li>
               <li class="<%= 'active' if action_name == 'maquinas' %>"><%= link_to "Máquinas", relatorios_maquinas_path %></li>
-              <li class="<%= 'active' if action_name == 'maquinas_futuro' %>"><%= link_to "Máquinas - A trabalhar", relatorios_maquinas_futuro_path %></li>
+              <li class="<%= 'active' if action_name == 'maquinas_futuro' %>"><%= link_to "Horas a trabalhar", relatorios_maquinas_futuro_path %></li>
               <li class="<%= 'active' if action_name == 'maquinas_paradas' %>"><%= link_to "Paradas", relatorios_maquinas_paradas_path %></li>
+              <li class="<%= 'active' if action_name == 'usuarios' %>"><%= link_to "Tempo de produção", relatorios_usuarios_path %></li>
+              <li class="<%= 'active' if action_name == 'usuarios_tempo_ocioso' %>"><%= link_to "Tempo ocioso", relatorios_usuarios_tempo_ocioso_path %></li>
+              <li class="<%= 'active' if action_name == 'usuarios_rejeitos' %>"><%= link_to "Rejeitos", relatorios_usuarios_rejeitos_path %></li>
             </ul>
           </li>
         <% end %>

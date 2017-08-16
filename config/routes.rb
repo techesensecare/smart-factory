@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'relatorios/maquinas/futuro' => 'relatorios#maquinas_futuro'
   get 'relatorios/maquinas/paradas' => 'relatorios#maquinas_paradas'
   get 'relatorios/usuarios'
+  get 'relatorios/usuarios/tempo_ocioso' => 'relatorios#usuarios_tempo_ocioso'
+  get 'relatorios/usuarios/rejeitos' => 'relatorios#usuarios_rejeitos'
   get 'relatorios/producao'
   get 'relatorios/estoque'
   get 'relatorios/centro_de_trabalho'

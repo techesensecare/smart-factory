@@ -1,4 +1,4 @@
-<h1>Relatório de Máquinas - A trabalhar</h1>
+<h1>Relatório de Horas a Trabalhar</h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -30,8 +30,9 @@
 </div>
 
 <div class="panel panel-default">
-  <div class="panel-body">
+  <div class="panel-body" style="font-size: 1.5em">
     <%= number_with_delimiter(@maquinas.sum(&:horas_a_trabalhar)) %> horas
+    <strong> de acordo com o filtro</strong>
   </div>
 </div>
 
@@ -39,17 +40,17 @@
   <table class="table table-striped">
     <tr>
       <th>Máquina</th>
-      <th>Situação atual</th>
-      <th>Início</th>
       <th>Célula</th>
+      <th>Situação atual</th>
+      <th>Desde</th>
       <th class="text-right">Horas a trabalhar</th>
     </tr>
     <% @maquinas.each do |i| %>
       <tr>
         <td><%= i.descricao %></td>
+        <td><%= i.celulas.first.try :descricao %></td>
         <td><%= i.status_text  %></td>
         <td><%= l i.historicos.last.created_at if i.historicos.any? %></td>
-        <td><%= i.celulas.first.try :descricao %></td>
         <td class="text-right"><%= i.horas_a_trabalhar %></td>
       </tr>
     <% end %>

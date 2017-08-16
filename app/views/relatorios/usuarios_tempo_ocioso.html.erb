@@ -1,4 +1,4 @@
-<h1>Relatório de Tempo de Produção dos Usuários</h1>
+<h1>Relatório de Tempo Ocioso</h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -41,14 +41,14 @@
     <tr>
       <th>Usuário</th>
       <th>Turno</th>
-      <th>Máquinas operadas</th>
-      <th>Tempo de produção (min)</th>
+      <th>Motivos</th>
+      <th>Tempo de ocioso (min)</th>
     </tr>
     <% @usuarios.each do |usuario, historicos| %>
       <tr>
         <td><%= usuario.nome %></td>
         <td><%= usuario.turno.try :descricao %></td>
-        <td><%= historicos.map {|h| h.maquina.descricao }.uniq.join(', ') %></td>
+        <td><%= historicos.map {|h| h.motivo }.uniq.join(', ') %></td>
         <td><%= historicos.sum(&:segundos) / 60 %></td>
       </tr>
     <% end %>

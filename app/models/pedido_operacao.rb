@@ -52,6 +52,9 @@ class PedidoOperacao < ApplicationRecord
       self.quantidade_produzida ||= 0
 
       if quantidade_produzida < quantidade
+        rejeitos.each do |rejeito|
+          rejeito.usuario_que_rejeitou = usuario
+        end
         quantidade_rejeitada = rejeitos.map(&:quantidade).sum
 
         if quantidade_rejeitada + quantidade_produzida < quantidade
