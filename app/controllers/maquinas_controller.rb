@@ -49,14 +49,14 @@ class MaquinasController < ApplicationController
     policy Maquina
     @maquina = Maquina.find(params[:id])
     @maquina.update_status :disponivel, current_usuario
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def iniciar_setup
     policy Maquina
     @maquina = Maquina.find(params[:id])
     @maquina.update_status :setup, current_usuario
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   # Depreciado
