@@ -31,7 +31,7 @@
 
 <div class="panel panel-default">
   <div class="panel-body" style="font-size: 1.5em">
-    <%= number_with_delimiter(@historicos.sum(:segundos) / 60) %> minutos
+    <%= number_with_delimiter(@historicos.sum(&:minutos)) %> minutos
     <strong>de acordo com o filtro</strong>
   </div>
 </div>
@@ -49,7 +49,7 @@
         <td><%= usuario.nome %></td>
         <td><%= usuario.turno.try :descricao %></td>
         <td><%= historicos.map {|h| h.motivo }.uniq.join(', ') %></td>
-        <td><%= historicos.sum(&:segundos) / 60 %></td>
+        <td><%= historicos.sum(&:minutos) %></td>
       </tr>
     <% end %>
   </table>

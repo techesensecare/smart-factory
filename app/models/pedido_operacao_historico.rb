@@ -22,6 +22,8 @@ class PedidoOperacaoHistorico < ApplicationRecord
   def minutos
     if segundos
       (segundos / 60.0).round(2)
+    else
+      0
     end
   end
 end
