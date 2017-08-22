@@ -1,2 +1,107 @@
-<h1>Relatorios#producao</h1>
-<p>Find me in app/views/relatorios/producao.html.erb</p>
+<h1>Relatório de Produção</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "Iniciado de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <%= filtro :with_maquina, "Turno", Turno.por_descricao, :descricao %>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Pedidos
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Número do pedido</th>
+      <th>Cliente</th>
+      <th class="text-right">Tempo (min)</th>
+    </tr>
+    <% @pedidos.each do |pedido, itens| %>
+      <tr>
+        <td><%= link_to pedido.numero, pedido %></td>
+        <td><%= link_to pedido.cliente.nome, pedido.cliente  %></td>
+        <td class="text-right"><%= itens.sum(&:minutos).round(2) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Máquinas
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Máquina</th>
+      <th class="text-right">Tempo (min)</th>
+    </tr>
+    <% @maquinas.each do |maquina, itens| %>
+      <tr>
+        <td><%= link_to maquina.descricao, maquina %></td>
+        <td class="text-right"><%= itens.sum(&:minutos).round(2) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Usuários
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Usuário</th>
+      <th class="text-right">Tempo (min)</th>
+    </tr>
+    <% @usuarios.each do |usuario, itens| %>
+      <tr>
+        <td><%= link_to usuario.nome, usuario %></td>
+        <td class="text-right"><%= itens.sum(&:minutos).round(2) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Centros de trabalho
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Centro</th>
+      <th class="text-right">Tempo (min)</th>
+    </tr>
+    <% @centros.each do |centro, itens| %>
+      <tr>
+        <% if centro %>
+          <td><%= link_to centro.descricao, centro %></td>
+        <% else %>
+          <td>Não identificado</td>
+        <% end %>
+        <td class="text-right"><%= itens.sum(&:minutos).round(2) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

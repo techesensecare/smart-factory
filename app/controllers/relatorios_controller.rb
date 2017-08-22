@@ -47,6 +47,13 @@ class RelatoriosController < ApplicationController
   end
 
   def producao
+    # TODO Melhorar performance dessas somas.
+
+    query = apply_scopes(PedidoOperacaoHistorico.where(status: [:executando, :setup])).all
+    @pedidos  = query.group_by {|i| i.pedido_operacao.pedido }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
+    @maquinas = query.group_by {|i| i.maquina }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
+    @usuarios = query.group_by {|i| i.usuario }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
+    @centros  = query.group_by {|i| i.maquina.celulas.first.try(:centro) }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
   end
 
   def estoque
