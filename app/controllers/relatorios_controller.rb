@@ -2,6 +2,7 @@ class RelatoriosController < ApplicationController
   before_action { @menu_relatorios = true }
 
   has_scope :with_cliente
+  has_scope :with_centro
   has_scope :with_maquina
   has_scope :with_turno
   has_scope :with_celula
@@ -52,7 +53,7 @@ class RelatoriosController < ApplicationController
   def producao
     # TODO Melhorar performance dessas somas.
 
-    query = apply_scopes(PedidoOperacaoHistorico.where(status: [:executando, :setup])).all
+    query = apply_scopes(PedidoOperacaoHistorico.where(status: [:executando])).all
     @pedidos  = query.group_by {|i| i.pedido_operacao.pedido }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
     @maquinas = query.group_by {|i| i.maquina }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
     @usuarios = query.group_by {|i| i.usuario }.sort_by { |_, itens| itens.sum(&:minutos).round(2) }.reverse
@@ -79,8 +80,8 @@ class RelatoriosController < ApplicationController
         execucao = apply_scopes(m.historicos.where(status: [:executando])).sum(:segundos).to_i
         paradas  = apply_scopes(m.pedido_operacoes_historicos.where(status: [:pausada])).sum(:segundos).to_i
 
-        execucao = execucao / (60 * 60) # horas
-        paradas  = paradas  / (60 * 60) # horas
+        execucao = execucao / (60) # horas
+        paradas  = paradas  / (60) # horas
 
         total_e += execucao
         total_p += paradas

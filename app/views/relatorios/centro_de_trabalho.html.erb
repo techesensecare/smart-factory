@@ -33,8 +33,18 @@
   <% @centros.each do |centro, maquinas, total_execucao, total_paradas| %>
     <tr style="background: #efefef">
       <th colspan="1"><span style="font-size: 1.2em"><%= centro.descricao %></strong></th>
-      <th>Tempo executando: <%= total_execucao %>h</th>
-      <th>Tempo pausado: <%= total_paradas %>h</th>
+      <th>
+        Tempo produção: 
+        <%= "#{total_execucao}h" %>
+      </th>
+      <th>
+        Tempo paradas:
+        <%= "#{total_paradas}" %>
+        <% p = { with_inicio: params[:with_inicio], with_fim: params[:with_fim], with_centro: centro.id } %>
+        <% if total_paradas > 0 %>
+        (<%= link_to "ver paradas", relatorios_maquinas_paradas_path(p) %>)
+        <% end %>
+      </th>
       <th></th>
       <th></th>
     </tr>
