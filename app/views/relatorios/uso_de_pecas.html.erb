@@ -1,0 +1,70 @@
+<h1>Relatório de Uso de Peças</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <%= filtro :with_tipo_peca, "Tipo de produto",  Produto.tipo.options %>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "Movimento de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Mais usadas
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th>Descrição</th>
+          <th class="text-right">Quantidade</th>
+        </tr>
+        <% @mais_usadas.each do |movimento| %>
+          <tr>
+            <td><%= link_to movimento.produto.descricao, movimento.produto %></td>
+            <td class="text-right"><%= movimento.quantidade %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Menos usadas
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th>Descrição</th>
+          <th class="text-right">Quantidade</th>
+        </tr>
+        <% @menos_usadas.each do |movimento| %>
+          <tr>
+            <td><%= link_to movimento.produto.descricao, movimento.produto %></td>
+            <td class="text-right"><%= movimento.quantidade %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

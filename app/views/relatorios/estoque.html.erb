@@ -1,4 +1,4 @@
-<h1>Relatorios#estoque</h1>
+<h1>Relatório de Estoque</h1>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -7,20 +7,8 @@
   <%= form_tag '', method: :get do |f| %>
     <div class="panel-body">
       <div class="row">
-        <%= filtro :with_maquina, "Máquina",  Maquina.por_descricao, :descricao %>
-        <%= filtro :with_status,  "Situação", Maquina.status.options %>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= label_tag :with_inicio, "Iniciado de" %>
-            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= label_tag :with_fim, "até" %>
-            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
-          </div>
-        </div>
+        <%= filtro :with_tipo, "Tipo de produto",  Produto.tipo.options %>
+        <%= filtro :with_query, "Descrição" %>
       </div>
     </div>
     <div class="panel-footer">
@@ -29,3 +17,22 @@
   <% end %>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Peças
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Descrição</th>
+      <th>Tipo</th>
+      <th class="text-right">Unidades disponíveis</th>
+    </tr>
+    <% @pecas.each do |produto| %>
+      <tr>
+        <td><%= link_to produto.descricao, produto %></td>
+        <td><%= produto.tipo.text %></td>
+        <td class="text-right"><%= produto.saldo %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

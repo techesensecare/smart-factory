@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'relatorios/producao'
   get 'relatorios/estoque'
   get 'relatorios/centro_de_trabalho'
+  get 'relatorios/uso_de_pecas'
 
   resources :contatos
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'

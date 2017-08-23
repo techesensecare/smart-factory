@@ -8,6 +8,8 @@ class Produto < ApplicationRecord
 
   validates :tipo, :descricao, :tipo, :unidade_medida,  presence: true
 
+  scope :with_tipo, -> (tipo) { where(tipo: tipo) }
+
   has_many :anexos, as: :anexavel
   accepts_nested_attributes_for :anexos, :allow_destroy => true
 

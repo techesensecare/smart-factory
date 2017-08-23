@@ -11,6 +11,9 @@ class RelatoriosController < ApplicationController
   has_scope :with_status
   has_scope :with_numero
   has_scope :with_parada
+  has_scope :with_tipo
+  has_scope :with_tipo_peca
+  has_scope :with_query
 
   def pedidos
     @historicos = apply_scopes(PedidoOperacaoHistorico.order('created_at ASC')).page params[:page]
@@ -57,6 +60,13 @@ class RelatoriosController < ApplicationController
   end
 
   def estoque
+    @pecas = apply_scopes(Produto).all
+  end
+
+  def uso_de_pecas
+    scope = Movimento.select(:produto_id).select("sum(quantidade) quantidade").where(tipo: :remover).group(:produto_id)
+    @mais_usadas  = apply_scopes(scope.order('quantidade DESC').limit(5))
+    @menos_usadas = apply_scopes(scope.order('quantidade ASC').limit(5))
   end
 
   def centro_de_trabalho
