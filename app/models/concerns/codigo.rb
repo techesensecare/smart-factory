@@ -23,7 +23,7 @@ module Codigo
         field = name.to_s.split("_").last
         "#{ codigo } - #{ send(field) }"
       else
-        # FIXME This code is hiding errors.
+        super name, *args
       end
     end
   end
