@@ -46,7 +46,7 @@
 <h3>Alerta de falta de estoque</h3>
 
 <% if @operacoes_sem_estoque.any? %>
-<div class="panel panel-default">
+<div class="panel panel-default table-responsive">
   <table class="table table-striped">
     <tr>
       <th>Pedido</th>
@@ -61,8 +61,8 @@
       <th>Qtd Disponível</th>
     </tr>
     <% @operacoes_sem_estoque.each do |o| %>
-      <tr>
       <% o.alertas.each do |a| %>
+      <tr>
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td>
         <td><%= o.pedido_item.descricao_produto %></td>
@@ -73,8 +73,8 @@
         <td><%= a.first.descricao %> </td>
         <td><%= a.second %> </td>
         <td><%= a.last %> </td>
-      <% end %>
       </tr>
+      <% end %>
     <% end %>
   </table>
 <% else %>
