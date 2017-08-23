@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%= stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_tag do %>
+  <%= yield :js %>
+  <% end %>
+
+  <%= csrf_meta_tags %>
+  <title><%= app_name %></title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #wrapper {
+      padding: 10px 10px 0px 10px;
+    }
+  </style>
+</head>
+<body class="<%= current_usuario.perfil %> <%= controller_name %> <%= action_name %>">
+  <div id="wrapper">
+    <%= yield %>
+  </div>
+  <div class="text-center">
+    Smart Factory &copy; 2016-2017
+  </div>
+</body>
+

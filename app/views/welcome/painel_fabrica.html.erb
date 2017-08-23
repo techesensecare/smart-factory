@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <table class="table">
+    <tr>
+      <th>Pedido</th>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Prazo de entrega</th>
+      <th>Quantidade produzida</th>
+      <th>Máquina</th>
+      <th>Status</th>
+      <th>Operador</th>
+    </tr>
+    <% @maquinas.each do |m| %>
+      <tr>
+        <% op = m.historicos.last.try(:pedido_operacao) %>
+        <td><%= op.try(:pedido).try(:numero) || '-' %></td>
+        <td><%= op.try(:pedido).try(:cliente).try(:nome) || '-' %></td>
+        <td><%= op.try(:pedido_item).try(:descricao_produto) || '-' %></td>
+        <td><%= l op.try(:pedido).try(:prazo) rescue '-' %></td>
+        <td><%= op.try(:quantidade_produzida) || '-' %> de <%= op.try(:quantidade) || '-'%></td>
+        <td><%= m.descricao %></td>
+        <td class="<%= class_maquina(m) %>"><%= status_maquina(m) %></td>
+        <td>
+          <%= m.historicos.last.try(:usuario).try(:nome) || '-' %>
+          <%# "#{m.historicos.last.try(:usuario).try(:nome)}/#{m.historicos.last.try(:usuario).try(:turno).try(:descricao)}" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<script>
+$(function() {
+  setTimeout(function(){
+   window.location.reload(1);
+  }, 10000);
+})
+</script>

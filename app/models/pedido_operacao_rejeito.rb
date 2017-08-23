@@ -9,17 +9,4 @@ class PedidoOperacaoRejeito < ApplicationRecord
   scope :with_fim,     -> (fim)        { where('pedido_operacao_rejeitos.created_at <= ?', fim.to_datetime.end_of_day) }
 
   validates :quantidade, :rejeito_id, presence: true
-
-  before_create :set_usuario
-
-  private
-
-    def set_usuario
-      usuario = pedido_operacao.historicos.
-                  where(status: :finalizada).
-                  reorder('created_at DESC').first.usuario
-
-      self.usuario = usuario
-    end
-
 end

@@ -41,7 +41,12 @@
 
         <% if policy(PedidoOperacao).index? %>
           <li class="<%= 'active' if @menu_painel %>">
-            <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel</span></a>
+            <a href="/"><i class="fa fa-th-large"></i> <span class="nav-label">Painel de controle</span></a>
+          </li>
+        <% end %>
+        <% if policy(PedidoOperacao).index? %>
+          <li class="<%= 'active' if @menu_painel_fabrica %>">
+            <a href="/welcome/painel_fabrica" target="blank"><i class="fa fa-th-list"></i> <span class="nav-label">Painel de fábrica</span></a>
           </li>
         <% end %>
 

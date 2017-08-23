@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
   get 'welcome/index'
   get 'welcome/painel'
+  get 'welcome/painel_fabrica'
   get '/operacoes/sem_maquina/', to: 'pedido_operacoes#sem_maquina' , as: :operacoes_sem_maquina
   get '/operacoes/:maquina_id/', to: 'pedido_operacoes#index' , as: :operacoes_maquina
 
