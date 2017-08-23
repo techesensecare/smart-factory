@@ -1,2 +1,65 @@
-<h1>Relatorios#centro_de_trabalho</h1>
-<p>Find me in app/views/relatorios/centro_de_trabalho.html.erb</p>
+<h1>Relatório de Centro de Trabalho</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <i class="fa fa-filter"></i> Filtro
+  </div>
+  <%= form_tag '', method: :get do |f| %>
+    <div class="panel-body">
+      <div class="row">
+        <%= filtro :with_turno, "Turno",  Turno.por_descricao, :descricao %>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_inicio, "Iniciado de" %>
+            <%= text_field_tag :with_inicio, params[:with_inicio], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= label_tag :with_fim, "até" %>
+            <%= text_field_tag :with_fim, params[:with_fim], type: 'date', class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= submit_tag "Pesquisar", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="panel panel-default">
+  <table class="table">
+  <% @centros.each do |centro, maquinas, total_execucao, total_paradas| %>
+    <tr style="background: #efefef">
+      <th colspan="1"><span style="font-size: 1.2em"><%= centro.descricao %></strong></th>
+      <th>Tempo executando: <%= total_execucao %>h</th>
+      <th>Tempo pausado: <%= total_paradas %>h</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% if maquinas.any? %>
+      <tr>
+        <th>Máquina</th>
+        <th>Última situação</th>
+        <th>Desde</th>
+        <th>Usuário</th>
+        <th>Turno</th>
+      </tr>
+      <% maquinas.each do |maquina, _tempo_execucao, _tempo_parada| %>
+        <tr>
+          <td><%= maquina.descricao %></td>
+          <td><%= maquina.status %></td>
+          <td><%= l maquina.historicos.last.created_at rescue nil %></td>
+          <td><%= maquina.historicos.last.usuario.nome rescue nil %></td>
+          <td><%= maquina.historicos.last.usuario.turno.descricao rescue nil %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="999"><em>Nenhuma máquina</em></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+</div>

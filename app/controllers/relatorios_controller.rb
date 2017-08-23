@@ -70,5 +70,25 @@ class RelatoriosController < ApplicationController
   end
 
   def centro_de_trabalho
+    @centros = Centro.order('descricao ASC').map do |centro|
+      maquinas = Maquina.joins(:celulas).where('celulas_maquinas.celula_id' => centro.celula_ids).uniq
+      total_e  = 0
+      total_p  = 0
+
+      maquinas = maquinas.map do |m|
+        execucao = apply_scopes(m.historicos.where(status: [:executando])).sum(:segundos).to_i
+        paradas  = apply_scopes(m.pedido_operacoes_historicos.where(status: [:pausada])).sum(:segundos).to_i
+
+        execucao = execucao / (60 * 60) # horas
+        paradas  = paradas  / (60 * 60) # horas
+
+        total_e += execucao
+        total_p += paradas
+
+        [m, execucao, paradas]
+      end
+
+      [centro, maquinas, total_e, total_p]
+    end
   end
 end
