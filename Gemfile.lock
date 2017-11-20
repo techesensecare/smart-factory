@@ -270,7 +270,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk (~> 2.0)
+  aws-sdk (>= 2.0)
   brazilian-rails
   brcobranca (~> 6.2.2)
   byebug
@@ -289,7 +289,7 @@ DEPENDENCIES
   momentjs-rails
   nested_form
   paper_trail (~> 7.0.0)
-  paperclip (~> 4.2)
+  paperclip (>= 4.2)
   parseline
   pdfjs_viewer-rails
   pg
@@ -312,4 +312,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.15.3
+   1.16.0.pre.2
