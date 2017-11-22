@@ -18,7 +18,8 @@ Rails.application.configure do
     :storage => :s3,
     :s3_credentials => {
       :bucket => 'smart-factory'
-    }
+    },
+    :s3_region => ENV['AWS_REGION']
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
