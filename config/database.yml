@@ -16,4 +16,4 @@ test:
 
 production:
   <<: *default
-  database: smart-factory_production
+  url: <%= ENV['DATABASE_URL'] %> 
