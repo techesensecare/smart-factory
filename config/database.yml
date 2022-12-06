@@ -1,9 +1,11 @@
 default: &default
   adapter: postgresql
-  encoding: unicode
-  pool: 5
-  username: lucas
-  password: 123
+  #encoding: unicode
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> #20
+  timeout: <%= ENV.fetch("RAILS_DATABASE_TIMEOUT") { 5000 } %>
+  username: sdhtfvdqascvdg
+  password: c00ca78539ee8123e8d075dbb1c25e56966d3d322ef0f5a15977438f7d564932
   host: localhost
 
 development:
@@ -16,4 +18,4 @@ test:
 
 production:
   <<: *default
-  database: smart-factory_production
+  url: <%= ENV['DATABASE_URL'] %>
