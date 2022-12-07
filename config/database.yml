@@ -7,6 +7,7 @@ default: &default
   username: sdhtfvdqascvdg
   password: c00ca78539ee8123e8d075dbb1c25e56966d3d322ef0f5a15977438f7d564932
   host: localhost
+  database: d7fbuougqsg0lf
 
 development:
   <<: *default
