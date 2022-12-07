@@ -117,7 +117,7 @@
             <div class="operacao" style="margin-bottom: 20px; border-left: 2px solid #1ab394; padding-left: 10px;">
               <%= b.hidden_field :id %>
               <div class="row">
-                <%= b.input :ordem, wrapper_html: { class: 'col-md-1' } %>
+                <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
               </div>

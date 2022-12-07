@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20170814011340) do
   end
 
   create_table "celulas_maquinas", id: false, force: :cascade do |t|
-    t.integer "celula_id", null: false
-    t.integer "maquina_id", null: false
+    t.bigint "celula_id", null: false
+    t.bigint "maquina_id", null: false
   end
 
   create_table "centros", id: :serial, force: :cascade do |t|
@@ -138,13 +138,13 @@ ActiveRecord::Schema.define(version: 20170814011340) do
   end
 
   create_table "ferramentas_operacoes", id: false, force: :cascade do |t|
-    t.integer "ferramenta_id", null: false
-    t.integer "operacao_id", null: false
+    t.bigint "ferramenta_id", null: false
+    t.bigint "operacao_id", null: false
   end
 
   create_table "ferramentas_pedido_operacoes", id: false, force: :cascade do |t|
-    t.integer "ferramenta_id", null: false
-    t.integer "pedido_operacao_id", null: false
+    t.bigint "ferramenta_id", null: false
+    t.bigint "pedido_operacao_id", null: false
   end
 
   create_table "fornecedores", id: :serial, force: :cascade do |t|
@@ -208,13 +208,13 @@ ActiveRecord::Schema.define(version: 20170814011340) do
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|
-    t.integer "maquina_id", null: false
-    t.integer "terminal_id", null: false
+    t.bigint "maquina_id", null: false
+    t.bigint "terminal_id", null: false
   end
 
   create_table "maquinas_usuarios", id: false, force: :cascade do |t|
-    t.integer "maquina_id", null: false
-    t.integer "usuario_id", null: false
+    t.bigint "maquina_id", null: false
+    t.bigint "usuario_id", null: false
   end
 
   create_table "materia_primas", id: :serial, force: :cascade do |t|

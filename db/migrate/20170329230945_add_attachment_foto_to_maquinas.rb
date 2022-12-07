@@ -1,4 +1,4 @@
-class AddAttachmentFotoToMaquinas < ActiveRecord::Migration
+class AddAttachmentFotoToMaquinas < ActiveRecord::Migration[4.2]
   def self.up
     change_table :maquinas do |t|
       t.attachment :foto
