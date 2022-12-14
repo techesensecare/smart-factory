@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221214193559) do
+ActiveRecord::Schema.define(version: 20221214205727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20221214193559) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
+  end
+
+  create_table "composicao_produtos", force: :cascade do |t|
+    t.integer "produto_id"
+    t.integer "sub_produto_id"
+    t.integer "componente_id"
+    t.integer "materias_prima_id"
   end
 
   create_table "contatos", id: :serial, force: :cascade do |t|
