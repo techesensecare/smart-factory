@@ -1,6 +1,13 @@
+<%= stylesheet_link_tag 'global-styles' %>
+
 <div class="page-header">
   <h1>Produtos</h1>
-  <%= link_to "Novo Produto", new_produto_path, class: 'btn btn-primary' %>
+  <div class="products-add-buttons">
+    <%= link_to "Adicionar Produto", new_produto_path, class: 'btn btn-primary' %>
+    <%= link_to "Adicionar Sub-Produto", new_produto_path, class: 'btn btn-primary' %>
+    <%= link_to "Adicionar Componente", new_produto_path, class: 'btn btn-primary' %>
+    <%= link_to "Adicionar Matéria Prima", new_produto_path, class: 'btn btn-primary' %>
+  </div>
 </div>
 
 <div class="panel panel-default">

@@ -4,24 +4,18 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: <%= ENV.fetch("RAILS_DATABASE_TIMEOUT") { 5000 } %>
-  username: <%= ENV.fetch("postgres_username") %>
-  password: <%= ENV.fetch("postgres_password") %>
+  username: postgres
+  password: postgres
   host: localhost
-  database: <%= ENV.fetch("postgres_db_name") %>
+  database: smart-factory_development
 
 development:
   <<: *default
   database: smart-factory_development
-  username: postgres
-  password: postgres
-  database: postgres
 
 test:
   <<: *default
   database: smart-factory_test
-  username: postgres
-  password: postgres
-  database: postgres
 
 production:
   <<: *default
