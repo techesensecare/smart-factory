@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814011340) do
+ActiveRecord::Schema.define(version: 20221214193559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 20170814011340) do
     t.string "website"
     t.text "observacoes"
     t.string "personalizado"
+  end
+
+  create_table "componentes", force: :cascade do |t|
+    t.string "descricao"
+    t.string "unidade_de_medida"
+    t.string "tipo"
+    t.integer "saldo"
   end
 
   create_table "contatos", id: :serial, force: :cascade do |t|
@@ -225,6 +232,13 @@ ActiveRecord::Schema.define(version: 20170814011340) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "materias_primas", force: :cascade do |t|
+    t.string "descricao"
+    t.string "unidade_de_medida"
+    t.string "tipo"
+    t.integer "saldo"
+  end
+
   create_table "movimentos", id: :serial, force: :cascade do |t|
     t.integer "produto_id"
     t.string "tipo"
@@ -340,6 +354,13 @@ ActiveRecord::Schema.define(version: 20170814011340) do
     t.datetime "updated_at", null: false
     t.boolean "codigo_automatico", default: true
     t.string "codigo"
+  end
+
+  create_table "sub_produtos", force: :cascade do |t|
+    t.string "descricao"
+    t.string "unidade_de_medida"
+    t.string "tipo"
+    t.integer "saldo"
   end
 
   create_table "terminais", id: :serial, force: :cascade do |t|
