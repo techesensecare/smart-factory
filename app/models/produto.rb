@@ -13,6 +13,10 @@ class Produto < ApplicationRecord
   has_many :anexos, as: :anexavel
   accepts_nested_attributes_for :anexos, :allow_destroy => true
 
+  has_many :sub_produtos
+  has_many :componentes
+  has_many :materias_primas
+
   has_many :materia_primas
   accepts_nested_attributes_for :materia_primas, :allow_destroy => true
 
