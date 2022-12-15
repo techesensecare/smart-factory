@@ -309,6 +309,7 @@ DEPENDENCIES
   pundit
   rack-reverse-proxy
   rails (~> 5.1.2)
+  rake (>= 0.9.1)
   rghost
   rghost_barcode
   sass-rails (~> 5.0)
