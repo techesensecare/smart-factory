@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   end
   resources :fornecedores
   resources :usuarios
+  resources :materias_primas, only: [:show, :index, :new, :create]
   devise_for :usuarios, :path_prefix => 'auth'
   root to: 'welcome#index'
   get 'welcome/index'
