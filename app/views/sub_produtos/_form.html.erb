@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'global-styles' %>
 
-<%= form_with scope: :materias_prima, url: materias_primas_path, local: true do |f|%>
+<%= form_with scope: :sub_produto, url: sub_produtos_create_path, local: true do |f|%>
 <%#= simple_nested_form_for(componente, multipart: true) do |f| %>
 
   <section class="panel panel-default">
@@ -24,10 +24,10 @@
     <div class="panel-footer">
       <%= f.submit "Salvar", class: 'btn btn-primary' %>
       <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
-      <%= link_to "Apagar", @materias_prima, 
+      <%= link_to "Apagar", @sub_produto, 
                   method: :delete, 
                   class: 'btn btn-danger pull-right',
-                  data: { confirm: 'Tem certeza que quer apagar?' } if @materias_prima.persisted? %> 
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @sub_produto.persisted? %> 
     </div>
   </section>
 

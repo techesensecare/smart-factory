@@ -3,6 +3,7 @@ class SubProdutosController < ApplicationController
   end
 
   def new
+    @sub_produto = SubProduto.new
   end
 
   def create
