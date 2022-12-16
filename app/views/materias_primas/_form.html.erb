@@ -1,0 +1,162 @@
+<%= simple_nested_form_for(produto, multipart: true) do |f| %>
+  <%= hidden_field_tag :return_to, params[:return_to] %>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if produto.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(produto.errors.count, "erro") %></h2>
+
+          <ul>
+          <% produto.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= codigo_field f %>
+
+      <div class="row">
+        <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-3' } %>
+        <%= f.input :unidade_medida, wrapper_html: { class: 'col-md-2' } %>
+        <%= f.input :tipo, wrapper_html: { class: 'col-md-2' } %>
+        <%#= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", true], ["Matéria-prima", false]], 
+                    include_blank: false,
+                    wrapper_html: { class: 'col-md-3' } %>
+      </div>
+
+      <%= f.input :classificacao_fiscal, label: "Classificação fiscal" %>
+
+      <div class="anexos-wrapper" style="padding: 10px 15px; background: #eee">
+        <div id="anexos">
+          <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-1">
+              Código
+            </div>
+            <div class="col-md-3">
+              Descrição do desenho
+            </div>
+            <div class="col-md-1">
+              Revisão
+            </div>
+            <div class="col-md-5">
+              Arquivo
+            </div>
+          </div>
+          <%= f.fields_for :anexos do |b| %>
+            <%= b.hidden_field :id %>
+            <div class="row">
+              <%= b.input :codigo, label: false, placeholder: 'Cód.', wrapper_html: { class: 'col-md-1' } %>
+              <%= b.input :descricao, label: false, placeholder: 'Descrição do desenho', wrapper_html: { class: 'col-md-3' } %>
+              <%= b.input :revisao, label: false, placeholder: 'Revisão', wrapper_html: { class: 'col-md-1' } %>
+              <%= b.input :arquivo, 
+                          label: false, 
+                          wrapper_html: { class: 'col-md-5', style: 'margin-top: 5px' } %>
+
+              <div class="col-md-1">
+                <% if b.object.arquivo_file_name %>
+                  <%= link_to "Visualizar", b.object.arquivo.url, 
+                              title: b.object.arquivo_file_name, 
+                              target: '_blank',
+                              class: 'btn btn-default btn-xs', style: 'margin-top: 5px' %>
+                <% end %>
+              </div>
+              <div class="col-md-1">
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
+                                      class: 'btn btn-danger btn-xs', 
+                                      style: 'margin-top: 5px' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Desenho", 
+                          :anexos, 
+                          class: 'btn btn-default', 
+                          data: { target: '#anexos' }  %>
+      </div>
+
+
+      <div class="anexos-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
+        <label style="">Matérias-Primas</label>
+        <div id="materia_primas">
+          <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-6">
+              Matéria-Prima
+            </div>
+            <div class="col-md-2">
+              Quantidade
+            </div>
+          </div>
+          <%= f.fields_for :materia_primas do |b| %>
+            <%= b.hidden_field :id %>
+            <div class="row">
+              <%= b.input :produto_usado_id, 
+                    collection: Produto.materias_primas.where("id <> ?", @produto.id).order('descricao'), 
+                    label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
+                    label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
+              <%= b.input :quantidade, label: false, placeholder: 'Quantidade', wrapper_html: { class: 'col-md-2' } %>
+              <div class="col-md-1">
+                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
+                                      class: 'btn btn-danger btn-xs', 
+                                      style: 'margin-top: 5px' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Matéria Prima", 
+                          :materia_primas, 
+                          class: 'btn btn-default', 
+                          data: { target: '#materia_primas' }  %>
+      </div>
+
+      <div class="operacoes-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
+        <label style="">Operações</label>
+        <div id="operacoes" style="">
+          <%= f.fields_for :operacoes do |b| %>
+            <div class="operacao" style="margin-bottom: 20px; border-left: 2px solid #1ab394; padding-left: 10px;">
+              <%= b.hidden_field :id %>
+              <div class="row">
+                <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
+                <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
+                <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
+              </div>
+              <div class="row">
+                <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
+                <%= b.input :tempo_operacao, label: "Tempo de Operação (min)", wrapper_html: { class: 'col-md-4' } %>
+              </div>
+              <div class="row">
+                <% tags_array = Ferramenta.all.map { |tag| [tag.codigo + ' - ' + tag.descricao, tag.id] } %>
+                <%= b.input :ferramenta_ids, collection: tags_array, label: 'Ferramentas', wrapper_html: {class: 'col-md-12'},
+                            input_html: {multiple: true, class: 'select2-ferramentas'} %>
+              </div>
+              <%= b.input :observacao, label: "Observação" %>
+              <div class="row">
+                <div class="col-md-2">
+                  <%= b.link_to_remove "<span class='fa fa-times'><span> Remover ".html_safe, 
+                                        class: 'btn btn-danger btn-xs', 
+                                        style: 'margin-top: 5px' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <%= f.link_to_add "Acrescentar Operação", 
+                          :operacoes, 
+                          class: 'btn btn-default', 
+                          data: { target: '#operacoes' }  %>
+      </div>
+
+
+    </div>
+
+    <div class="panel-footer">
+      <%= f.submit "Salvar", class: 'btn btn-primary' %> ou
+      <%= link_to "Cancelar", :back, class: 'btn btn-default' %>
+      <%= link_to "Apagar", @produto, 
+                  method: :delete, 
+                  class: 'btn btn-danger pull-right',
+                  data: { confirm: 'Tem certeza que quer apagar?' } if @produto.persisted? %> 
+    </div>
+  </div>
+<% end %>

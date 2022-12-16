@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'sub_produtos/index'
+
+  get 'sub_produtos/new'
+
+  get 'sub_produtos/create'
+
+  get 'sub_produtos/show'
+
+  get 'sub_produtos/delete'
+
   get 'relatorios/pedidos'
   get 'relatorios/maquinas'
   get 'relatorios/maquinas/futuro' => 'relatorios#maquinas_futuro'
@@ -50,6 +60,7 @@ Rails.application.routes.draw do
   resources :fornecedores
   resources :usuarios
   resources :materias_primas, only: [:show, :index, :new, :create]
+  resources :componentes 
   devise_for :usuarios, :path_prefix => 'auth'
   root to: 'welcome#index'
   get 'welcome/index'
