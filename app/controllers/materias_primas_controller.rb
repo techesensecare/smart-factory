@@ -15,6 +15,15 @@ class MateriasPrimasController < ApplicationController
   end
 
   def create
-
+    #render plain: params[:materias_prima]
+    @materias_prima = MateriasPrima.new(params.require(:materias_prima).permit(:descricao, :unidade_de_medida, :tipo, :saldo))
+    if @materias_prima.save
+      #redirect_to materias_prima_path(@materia_prima) #ele extrai o ID sozinho
+      flash[:alert] = 'Matéria-Prima criada com sucesso.'
+      redirect_to @materias_prima
+    else
+      render 'new'
+    end
+    
   end
 end

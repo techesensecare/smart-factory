@@ -1,5 +1,14 @@
 <%= stylesheet_link_tag 'global-styles' %>
 
+<% if @materias_prima.errors.any? %>
+  <h2>Os erros a seguir impedem esse novo cadastro</h2>
+  <ul>
+    <% @materias_prima.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with scope: :materias_prima, url: materias_primas_path, local: true do |f|%>
 <%#= simple_nested_form_for(componente, multipart: true) do |f| %>
 
