@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221214205727) do
+ActiveRecord::Schema.define(version: 20221219202654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20221214205727) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
+    t.integer "preco"
+    t.string "prazo_de_entrega"
+    t.string "marcas_homologadas"
+    t.integer "lote_minimo"
+    t.integer "produto_id"
+    t.integer "sub_produto_id"
+    t.string "nivel_de_comunizacao"
   end
 
   create_table "composicao_produtos", force: :cascade do |t|
@@ -244,6 +251,13 @@ ActiveRecord::Schema.define(version: 20221214205727) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
+    t.integer "preco"
+    t.string "prazo_de_entrega"
+    t.string "marcas_homologadas"
+    t.integer "lote_minimo"
+    t.integer "produto_id"
+    t.integer "sub_produto_id"
+    t.string "nivel_de_comunizacao"
   end
 
   create_table "movimentos", id: :serial, force: :cascade do |t|
@@ -368,6 +382,13 @@ ActiveRecord::Schema.define(version: 20221214205727) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
+    t.integer "preco"
+    t.integer "preco_de_venda"
+    t.string "prazo_de_entrega"
+    t.string "marcas_homologadas"
+    t.integer "lote_minimo"
+    t.integer "produto_id"
+    t.string "nivel_de_comunizacao"
   end
 
   create_table "terminais", id: :serial, force: :cascade do |t|

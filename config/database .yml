@@ -1,0 +1,37 @@
+default: &default
+  adapter: postgresql
+  #encoding: unicode
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: <%= ENV.fetch("RAILS_DATABASE_TIMEOUT") { 5000 } %>
+  username: postgres
+  password: postgres
+  host: localhost
+  database: smart-factory_development
+
+hpm_db:
+    database: u787840538_hpm_producao
+    username: u787840538_hpm_producao
+    password: <%= ENV['ROOT_PASSWORD'] %>
+    adapter: mysql2
+
+hpm_db_replica:
+    database: u787840538_hpm_producao
+    username: u787840538_hpm_producao_readonly
+    password: <%= ENV['ROOT_READONLY_PASSWORD'] %>
+    adapter: mysql2
+    replica: true
+
+default:
+
+development:
+  <<: *default
+  database: smart-factory_development
+
+test:
+  <<: *default
+  database: smart-factory_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %> 

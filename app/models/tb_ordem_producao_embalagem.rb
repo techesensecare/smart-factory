@@ -1,0 +1,3 @@
+class TbOrdemProducaoEmbalagem < ApplicationRecord
+ 
+end

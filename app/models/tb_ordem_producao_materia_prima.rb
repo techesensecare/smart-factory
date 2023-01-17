@@ -1,0 +1,3 @@
+class TbOrdemProducaoMateriaPrima < ApplicationRecord
+ 
+end

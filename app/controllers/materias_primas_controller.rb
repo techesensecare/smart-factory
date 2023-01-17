@@ -24,6 +24,6 @@ class MateriasPrimasController < ApplicationController
     else
       render 'new'
     end
-    
   end
+  
 end
