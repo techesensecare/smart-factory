@@ -1,0 +1,29 @@
+<h1>Hello World</h1>
+
+<div class="panel panel-default">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Lote</th>
+        <th>Embalagem</th>
+        <th>Quantidade</th>
+        <th>Confirmar</th>
+        <th>Comentários</th>
+        <th>Ação/Informação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @data.each do |ordem_producao| %>
+        <tr>
+          <td><%= ordem_producao[:lote] %></td>
+          <td><%= ordem_producao[:embalagem] %></td>
+          <td><%= ordem_producao[:quantidade] %></td>
+          <td><button>Confirmar</button></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -32,11 +32,13 @@ class PedidoOperacao < ApplicationRecord
       @alertas
     else
       @alertas = []
-      pedido_item.produto.materia_primas.each do |m|
-        if not(m.produto_usado.composto)
-          quantidade_necessaria = m.quantidade * quantidade
-          if quantidade_necessaria > m.produto_usado.saldo
-            alertas << [ m.produto_usado, quantidade_necessaria, m.produto_usado.saldo]
+      unless pedido_item.nil? 
+        pedido_item.produto.materia_primas.each do |m|
+          if not(m.produto_usado.composto)
+            quantidade_necessaria = m.quantidade * quantidade
+            if quantidade_necessaria > m.produto_usado.saldo
+              alertas << [ m.produto_usado, quantidade_necessaria, m.produto_usado.saldo]
+            end
           end
         end
       end

@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   get 'relatorios/centro_de_trabalho'
   get 'relatorios/uso_de_pecas'
 
+  get 'ordem_producao', to: 'ordem_producao#index', as: :ordem_producao
+
+
   resources :contatos
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
 
