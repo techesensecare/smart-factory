@@ -12,7 +12,7 @@ module ApplicationHelper
   end
 
   def logo_width
-    '100%'
+    '75%'
   end
 
   def logo_header
