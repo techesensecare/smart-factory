@@ -10,7 +10,8 @@ class ProdutosController < ApplicationController
   # GET /produtos.json
   def index
     authorize Produto
-    @produtos = apply_scopes(Produto.all)
+    #@produtos = apply_scopes(Produto.all)
+    @produtos = Produto.where(composto:false).all
     @materias_primas = Produto.where(composto:true).all
   end
 
