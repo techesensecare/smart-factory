@@ -21,7 +21,7 @@
         <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-3' } %>
         <%= f.input :unidade_medida, wrapper_html: { class: 'col-md-2' } %>
         <%= f.input :tipo, wrapper_html: { class: 'col-md-2' } %>
-        <%= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", true], ["Matéria-prima", false]], 
+        <%= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", false], ["Matéria-prima", true]], 
                     include_blank: false,
                     wrapper_html: { class: 'col-md-3' } %>
       </div>
