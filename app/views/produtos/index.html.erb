@@ -35,76 +35,10 @@
   </table>
 </div>
 
-<div class="page-header">
-  <h1>Sub-Produtos</h1>
-    <%= link_to "Adicionar Sub-Produto", sub_produtos_new_path, class: 'btn btn-primary' %>
-</div>
-
-<div class="panel panel-default">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Descrição</th>
-        <th>Saldo</th>
-        <th>Tipo</th>
-        <th>Data cadastro</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @produtos.each do |produto| %>
-        <tr>
-          <td><%= produto.codigo %></td>
-          <td><%= link_to produto.descricao, produto %></td>
-          <td><%= produto.saldo %></td>
-          <td><%= produto.tipo %></td>
-          <td><%= l produto.created_at, format: :xshort %></td>
-          <td><%= link_to 'Editar', edit_produto_path(produto), class: 'btn btn-default btn-xs' %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-
-<div class="page-header">
-  <h1>Componentes</h1>
-    <%= link_to "Adicionar Componente", new_componente_path, class: 'btn btn-primary' %>
-</div>
-
-<div class="panel panel-default">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Descrição</th>
-        <th>Saldo</th>
-        <th>Tipo</th>
-        <th>Data cadastro</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @produtos.each do |produto| %>
-        <tr>
-          <td><%= produto.codigo %></td>
-          <td><%= link_to produto.descricao, produto %></td>
-          <td><%= produto.saldo %></td>
-          <td><%= produto.tipo %></td>
-          <td><%= l produto.created_at, format: :xshort %></td>
-          <td><%= link_to 'Editar', edit_produto_path(produto), class: 'btn btn-default btn-xs' %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
 
 <div class="page-header">
   <h1>Matérias-Primas</h1>
-    <%= link_to "Adicionar Matéria-Prima", new_materias_prima_path, class: 'btn btn-primary' %>
+    <%#= link_to "Adicionar Matéria-Prima", new_materias_prima_path, class: 'btn btn-primary' %>
 </div>
 
 <div class="panel panel-default">
@@ -121,14 +55,14 @@
     </thead>
 
     <tbody>
-      <% @produtos.each do |produto| %>
+      <% @materias_primas.each do |materia_prima| %>
         <tr>
-          <td><%= produto.codigo %></td>
-          <td><%= link_to produto.descricao, produto %></td>
-          <td><%= produto.saldo %></td>
-          <td><%= produto.tipo %></td>
-          <td><%= l produto.created_at, format: :xshort %></td>
-          <td><%= link_to 'Editar', edit_produto_path(produto), class: 'btn btn-default btn-xs' %></td>
+          <td><%= materia_prima.codigo %></td>
+          <td><%= link_to materia_prima.descricao, materia_prima %></td>
+          <td><%= materia_prima.saldo %></td>
+          <td><%= materia_prima.tipo %></td>
+          <td><%= l materia_prima.created_at, format: :xshort %></td>
+          <td><%= link_to 'Editar', edit_produto_path(materia_prima), class: 'btn btn-default btn-xs' %></td>
         </tr>
       <% end %>
     </tbody>

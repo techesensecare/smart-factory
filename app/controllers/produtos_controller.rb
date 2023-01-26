@@ -11,6 +11,7 @@ class ProdutosController < ApplicationController
   def index
     authorize Produto
     @produtos = apply_scopes(Produto.all)
+    @materias_primas = Produto.where(composto:true).all
   end
 
   # GET /produtos/1
