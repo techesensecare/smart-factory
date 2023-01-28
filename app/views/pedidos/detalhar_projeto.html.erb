@@ -48,12 +48,12 @@
                             collection: @pedido.item_pedidos, 
                             label_method: :descricao_produto,
                             label: 'Referente ao item', wrapper_html: { class: 'col-md-3' } %>
-                <%= b.input :ordem, wrapper_html: { class: 'col-md-1' } %>
+                <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-3' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
-                <%= b.input :status, label: "Status", include_blank: false, wrapper_html: { class: 'col-md-2' } %>
               </div>
               <div class="row">
+                <%= b.input :status, label: "Status", include_blank: false, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
                 <%= b.input :tempo_operacao, label: "Tempo de Operação (min)", wrapper_html: { class: 'col-md-4' } %>
               </div>

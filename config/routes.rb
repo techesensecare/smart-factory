@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get 'ordem_producao', to: 'ordem_producao#index', as: :ordem_producao
 
+  #get 'auth/usuarios/sign_out', to: 'usuario#index', as: :destroy_usuario_session
 
   resources :contatos
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'

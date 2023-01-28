@@ -86,7 +86,7 @@
     <% @operacoes.each do |o| %>
       <tr class="<%= o.descricao_prioridade %>">
         <td><%= o.pedido.numero %></td>
-        <td><%= o.pedido.cliente.nome %></td>
+        <td><%= o.pedido.cliente.nome %></td> <%# atenção, veio com nil, verificar como isso aconteceu %>
         <td><%= o.pedido_item.descricao_produto %></td>
         <td><%= o.descricao %></td>
         <td><%= o.quantidade %></td>
