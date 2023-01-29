@@ -29,9 +29,31 @@ class PedidoOperacoesController < ApplicationController
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
     @item = @operacao.pedido_item
     @items_producao = ItemsProducao.new
+    # @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
     # authorize @operacao
     # método comentado para agilizar produção. verificar depois
   end
+
+  def iniciar_operacao_create
+    @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
+    @items_producao = ItemsProducao.new(items_producao_params)
+    
+    if @operacao.quantidade_produzida == nil
+      @operacao.quantidade_produzida = 0
+      @operacao.save
+    end
+
+
+    if @items_producao.save
+      flash[:notice] = 'Registrado com sucesso'
+      @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
+      @operacao.save
+      redirect_to iniciar_operacao_path(pedido_operacao_id: params[:pedido_operacao_id])
+    else
+      flash[:error] = 'Ocorreu um erro ao tentar processar os dados. Por favor, tente novamente ou contate nosso suporte.'
+    end
+  end
+
 
   def desmembrar
     @operacao = PedidoOperacao.find(params[:id])
@@ -113,5 +135,9 @@ class PedidoOperacoesController < ApplicationController
     authorize PedidoOperacao, :relatorio?
 
     @operacoes = apply_scopes(PedidoOperacao.all)
+  end
+
+  def items_producao_params
+    params.require(:items_producao).permit(:pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao)
   end
 end

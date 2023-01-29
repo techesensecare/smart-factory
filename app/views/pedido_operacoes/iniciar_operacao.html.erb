@@ -2,7 +2,7 @@
 <% if @item.blank? %>
   <h2>Nenhuma operação.</h2>
 <% else %>
-  <h2>Operação</h2>
+  <h2>Operação: <%= @operacao.descricao %></h2>
 <% end %>
 <div class="panel panel-default">
   <table class="table table-hover table-dark">
@@ -23,6 +23,28 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= form_for @items_producao, url: iniciar_operacao_create_path, local: true do |f| %>
+      <%# :pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao %>
+
+      <div style="display: flex; flex-direction: column;" >
+        <%= f.hidden_field :pedido_id, value: @operacao.pedido_id %>
+        <%= f.hidden_field :pedido_item_id, value: @operacao.pedido_item_id %>
+        <%#= f.hidden_field :produto_id, value: @paciente.id %>
+        <%= f.label :peso, style: '' %>
+        <%= f.number_field :peso, placeholder: "Peso atual: #{ @item.descricao_produto } ", :class => 'form-control' %>
+        <%= f.label :unidade, style: 'margin-top: 20px;' %>
+        <%= f.select :unidade, [['mg', 'mg'],['g', 'g'], ['Kg', 'kg']], {}, :class => 'form-control' %>        
+      </div>
+      <div class="" style="margin-top: 20px;">
+        <%= f.submit "Submeter Peso", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <% if @operacao.blank? %>
@@ -65,11 +87,11 @@
       </tr>
       <tr>
         <td>Criado em</td>
-        <td><%= @operacao.created_at %></td>
+        <td><%= @operacao.created_at.strftime('%d.%m.%Y') %></td>
       </tr>
       <tr>
         <td>Modificado em</td>
-        <td><%= @operacao.updated_at %></td>
+        <td><%= @operacao.updated_at.strftime('%d.%m.%Y') %></td>
       </tr>
       <tr>
         <td>Quantidade a produzir</td>

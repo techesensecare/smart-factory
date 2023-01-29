@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   resources :turnos
 
   get 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao', as: :iniciar_operacao
+  post 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao_create', as: :iniciar_operacao_create
+
 
   resources :pedido_operacoes do
     get :update_status, on: :member
