@@ -73,6 +73,7 @@ class PedidoOperacao < ApplicationRecord
         outro.maquina_id = nil
         outro.status = :aguardando
         descricao_rejeito = rejeitos.map { |r| "#{r.quantidade} #{r.rejeito.descricao} #{r.observacao}" }.join(', ')
+        # bug na linha acima causado por não incluir um motivo no rejeito
         outro.motivo_desmembramento = "Rejeito: #{descricao_rejeito}"
         outro.save
       end
