@@ -25,6 +25,13 @@ class PedidoOperacoesController < ApplicationController
     @hide_top_search = true
   end
 
+  def iniciar_operacao
+    @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
+    @item = @operacao.pedido_item
+    # authorize @operacao
+    # método comentado para agilizar produção. verificar depois
+  end
+
   def desmembrar
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao

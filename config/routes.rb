@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   resources :paradas
   resources :rejeitos
   resources :turnos
+
+  get 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao', as: :iniciar_operacao
+
   resources :pedido_operacoes do
     get :update_status, on: :member
     get :update_prioridade, on: :member

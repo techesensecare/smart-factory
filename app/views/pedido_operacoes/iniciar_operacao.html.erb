@@ -1,0 +1,94 @@
+
+<% if @item.blank? %>
+  <h2>Nenhuma operação.</h2>
+<% else %>
+  <h2>Operação</h2>
+<% end %>
+<div class="panel panel-default">
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Produto</td>
+        <td><%= @item.descricao_produto %></td>
+      </tr>
+      <tr>
+        <td>Quantidade</td>
+        <td><%= @item.quantidade %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% if @operacao.blank? %>
+  <h2>Nenhuma operação.</h2>
+<% else %>
+  <h2>Informações do Pedido</h2>
+<% end %>
+<div class="panel panel-default">
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Operação</th>
+        <th scope="col"><%= @operacao.descricao %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ordem</td>
+        <td><%= @operacao.ordem %></td>
+      </tr>
+      <tr>
+        <td>Descrição</td>
+        <td><%= @operacao.descricao %></td>
+      </tr>
+      <tr>
+        <td>Observação</td>
+        <td><%= @operacao.observacao %></td>
+      </tr>
+      <tr>
+        <td>Tempo de Setup</td>
+        <td><%= @operacao.tempo_setup %></td>
+      </tr>
+      <tr>
+        <td>Tempo estimado de Operação</td>
+        <td><%= @operacao.tempo_operacao %></td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td><%= @operacao.status %></td>
+      </tr>
+      <tr>
+        <td>Criado em</td>
+        <td><%= @operacao.created_at %></td>
+      </tr>
+      <tr>
+        <td>Modificado em</td>
+        <td><%= @operacao.updated_at %></td>
+      </tr>
+      <tr>
+        <td>Quantidade a produzir</td>
+        <td><%= @operacao.quantidade %></td>
+      </tr>
+      <tr>
+        <td>Quantidade produzida</td>
+        <td><%= @operacao.quantidade_produzida %></td>
+      </tr>
+      <% if params[:with_status] == 'pausada' %>
+        <tr>
+          <td>Motivo da pausa</td>
+          <td><%= @operacao.ordem %></td>
+        </tr>
+      <% end %>
+
+      <tr>
+        <td class="hide"colspan="2">Larry the bird</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
