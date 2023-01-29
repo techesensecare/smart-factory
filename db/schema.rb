@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230129181553) do
+ActiveRecord::Schema.define(version: 20230129183925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,15 @@ ActiveRecord::Schema.define(version: 20230129181553) do
     t.datetime "updated_at", null: false
     t.index ["pedido_id"], name: "index_item_pedidos_on_pedido_id"
     t.index ["produto_id"], name: "index_item_pedidos_on_produto_id"
+  end
+
+  create_table "items_producaos", force: :cascade do |t|
+    t.integer "pedido_id"
+    t.integer "produto_id"
+    t.integer "pedido_item_id"
+    t.integer "peso"
+    t.integer "unidade"
+    t.string "observacao"
   end
 
   create_table "maquina_historicos", id: :serial, force: :cascade do |t|

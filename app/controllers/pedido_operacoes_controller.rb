@@ -28,6 +28,7 @@ class PedidoOperacoesController < ApplicationController
   def iniciar_operacao
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
     @item = @operacao.pedido_item
+    @items_producao = ItemsProducao.new
     # authorize @operacao
     # método comentado para agilizar produção. verificar depois
   end
