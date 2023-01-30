@@ -119,7 +119,7 @@
                   <th>Quantidade</th>
                   <th>Status</th>
                 </tr>
-                <% @pedido.operacoes.each do |o| %>
+                <% @pedido.operacoes.order('ordem ASC').each do |o| %>
                   <tr>
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
