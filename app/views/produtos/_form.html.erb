@@ -120,11 +120,15 @@
                 <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
-                <%= b.input :produto_usado_id, collection: Produto.where(composto: true).all, label: "Item", wrapper_html: { class: 'col-md-3' } %>
+                <%= b.input :produto_usado_id, 
+                    collection: Produto.materias_primas.where("id <> ?", @produto.id).order('descricao'), 
+                    label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
+                    label: "Item", placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
               </div>
-              <div class="row">
+              <div class="row" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;" >
                 <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
-                <%= b.input :tempo_operacao, label: "Tempo de Operação (min)", wrapper_html: { class: 'col-md-4' } %>
+                <%= b.input :tempo_operacao, label: "Tempo de Operação", wrapper_html: { class: 'col-md-4' } %>
+                <%= b.input :unidade_tempo_operacao, collection: [['segundo'], ['minuto'], ['hora']], label: "Unidade de Operação", wrapper_html: { class: 'col-md-4' }, style: "border: 1px solid #e5e6e7; border-radius: 1px;" %>
               </div>
               <div class="row">
                 <% tags_array = Ferramenta.all.map { |tag| [tag.codigo + ' - ' + tag.descricao, tag.id] } %>
