@@ -120,7 +120,7 @@
                 <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
-                <%= b.input :produto_usado_id, collection: Produto.where(composto: false).all, label: "Item", wrapper_html: { class: 'col-md-3' } %>
+                <%= b.input :produto_usado_id, collection: Produto.where(composto: true).all, label: "Item", wrapper_html: { class: 'col-md-3' } %>
               </div>
               <div class="row">
                 <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
