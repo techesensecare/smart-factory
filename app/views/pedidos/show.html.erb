@@ -116,7 +116,6 @@
                   <th>Ordem</th>
                   <th>Descrição</th>
                   <th>Máquina</th>
-                  <th>Quantidade</th>
                   <th>Status</th>
                 </tr>
                 <% @pedido.operacoes.order('ordem ASC').each do |o| %>
@@ -124,7 +123,6 @@
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
                     <td><%= o.maquina.try :descricao %></td>
-                    <td><%= o.quantidade %></td>
                     <td><%= o.status %></td>
                   </tr>
                   <%= %>

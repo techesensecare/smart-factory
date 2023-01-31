@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230129183925) do
+ActiveRecord::Schema.define(version: 20230131193557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,6 +289,8 @@ ActiveRecord::Schema.define(version: 20230129183925) do
     t.integer "tempo_operacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "produto_usado_id"
+    t.string "unidade_tempo_operacao"
     t.index ["maquina_id"], name: "index_operacoes_on_maquina_id"
     t.index ["produto_id"], name: "index_operacoes_on_produto_id"
   end
