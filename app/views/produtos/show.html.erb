@@ -84,13 +84,14 @@
       <% else %>
         <table class="table">
           <tr>
-            <th>Ordem</th> <th>Descrição</th> <th>Máquina</th>
+            <th>Ordem</th> <th>Descrição</th> <th>Máquina</th><th>Item</th>
           </tr>
           <% @produto.operacoes.order('ordem ASC').each do |m| %>
             <tr>
               <td><%= m.ordem %></td>
               <td><%= m.descricao %></td>
               <td><%= m.maquina.try(:descricao) %></td>
+              <td><%= m.produto_usado_id %></td>
             </tr>
           <% end %>
         </table>

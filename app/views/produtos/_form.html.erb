@@ -21,12 +21,15 @@
         <%= f.input :descricao, label: "Descrição", wrapper_html: { class: 'col-md-3' } %>
         <%= f.input :unidade_medida, wrapper_html: { class: 'col-md-2' } %>
         <%= f.input :tipo, wrapper_html: { class: 'col-md-2' } %>
-        <%= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", false], ["Matéria-prima", true]], 
-                    include_blank: false,
-                    wrapper_html: { class: 'col-md-3' } %>
       </div>
-
-      <%= f.input :classificacao_fiscal, label: "Classificação fiscal" %>
+      <div class="row">
+        <%= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", false], ["Matéria-prima", true]], 
+              include_blank: false,
+              wrapper_html: { class: 'col-md-3' } %>
+        <%= f.input :embalagem_id, collection: Emabalgem.all, label: "Embalagem", wrapper_html: { class: 'col-md-3' } %>
+      </div>
+      
+        <%= f.input :classificacao_fiscal, label: "Classificação fiscal" %>
 
       <div class="anexos-wrapper" style="padding: 10px 15px; background: #eee">
         <div id="anexos">
@@ -76,38 +79,39 @@
                           data: { target: '#anexos' }  %>
       </div>
 
-
       <div class="anexos-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
         <label style="">Matérias-Primas</label>
         <div id="materia_primas">
-          <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-6">
-              Matéria-Prima
+          <table class="table table-striped">
+            <div class="row" style="margin-bottom: 10px">
+              <div class="col-md-6"> Matéria-Prima</div>
+              <div class="col-md-2">Quantidade</div>
+              <div class="col-md-2" style="margin-left: -20px;">Limite Inferior</div>
+              <div class="col-md-2" style="margin-left: -20px;">Limite Superior</div>
             </div>
-            <div class="col-md-2">
-              Quantidade
-            </div>
-          </div>
-          <%= f.fields_for :materia_primas do |b| %>
-            <%= b.hidden_field :id %>
-            <div class="row">
-              <%= b.input :produto_usado_id, 
-                    collection: Produto.materias_primas.where("id <> ?", @produto.id).order('descricao'), 
-                    label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
-                    label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
-              <%= b.input :quantidade, label: false, placeholder: 'Quantidade', wrapper_html: { class: 'col-md-2' } %>
-              <div class="col-md-1">
-                <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, 
-                                      class: 'btn btn-danger btn-xs', 
-                                      style: 'margin-top: 5px' %>
+            <%= f.fields_for :materia_primas do |b| %>
+              <%= b.hidden_field :id %>
+              <div class="row" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                <%= b.input :produto_usado_id, 
+                      collection: Produto.materias_primas.where("id <> ?", @produto.id).order('descricao'), 
+                      label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
+                      label: false, placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
+                <%= b.input :quantidade, label: false, placeholder: '0', wrapper_html: { class: 'col-md-2' } %>
+                <%= b.input :tolerancia_inferior, label: false, placeholder: '0', wrapper_html: { class: 'col-md-2' } %>
+                <%= b.input :tolerancia_superior, label: false, placeholder: '0', wrapper_html: { class: 'col-md-2' } %>
+                <div class="col-md-1">
+                  <%= b.link_to_remove "<span class='fa fa-times'><span>".html_safe, class: 'btn btn-danger btn-xs' %>
+                </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </table>
         </div>
-        <%= f.link_to_add "Acrescentar Matéria Prima", 
-                          :materia_primas, 
-                          class: 'btn btn-default', 
-                          data: { target: '#materia_primas' }  %>
+          
+          <%= f.link_to_add "Acrescentar Matéria Prima", 
+                            :materia_primas, 
+                            class: 'btn btn-default', 
+                            data: { target: '#materia_primas' }  %>
+        </table>  
       </div>
 
       <div class="operacoes-wrapper" style="margin-top: 20px; padding: 10px 15px; border: 1px solid #ccc">
