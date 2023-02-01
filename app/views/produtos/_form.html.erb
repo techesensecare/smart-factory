@@ -26,7 +26,7 @@
         <%= f.input :composto, label: "Produto ou matéria-prima?", collection: [["Produto", false], ["Matéria-prima", true]], 
               include_blank: false,
               wrapper_html: { class: 'col-md-3' } %>
-        <%= f.input :embalagem_id, collection: Emabalgem.all, label: "Embalagem", wrapper_html: { class: 'col-md-3' } %>
+        <%= f.input :embalagem_id, collection: Embalagem.all, label: "Embalagem", wrapper_html: { class: 'col-md-3' } %>
       </div>
       
         <%= f.input :classificacao_fiscal, label: "Classificação fiscal" %>
