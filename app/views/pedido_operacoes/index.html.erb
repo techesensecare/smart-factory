@@ -73,7 +73,6 @@
       <th>Cliente</th>
       <th>Produto</th>
       <th>Operação</th>
-      <th>Quantidade</th>
       <th>Prazo Entrega</th>
       <th>Status</th>
       <% if params[:with_status] == 'pausada' %>
@@ -89,7 +88,6 @@
         <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
         <td><%= o.pedido_item.descricao_produto %></td>
         <td><%= o.descricao %></td>
-        <td><%= o.quantidade %></td>
         <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
         <td><%= o.status.text %></td>
         <% if params[:with_status] == 'pausada' %>

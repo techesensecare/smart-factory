@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230131193557) do
+ActiveRecord::Schema.define(version: 20230201152929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,12 @@ ActiveRecord::Schema.define(version: 20230131193557) do
     t.integer "tempo"
     t.index ["maquina_id"], name: "index_cronometros_on_maquina_id"
     t.index ["pedido_operacao_id"], name: "index_cronometros_on_pedido_operacao_id"
+  end
+
+  create_table "embalagens", force: :cascade do |t|
+    t.string "descricao"
+    t.float "massa"
+    t.string "unidade"
   end
 
   create_table "enderecos", id: :serial, force: :cascade do |t|
@@ -253,6 +259,8 @@ ActiveRecord::Schema.define(version: 20230131193557) do
     t.integer "quantidade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "tolerancia_inferior"
+    t.float "tolerancia_superior"
   end
 
   create_table "materias_primas", force: :cascade do |t|
@@ -291,6 +299,8 @@ ActiveRecord::Schema.define(version: 20230131193557) do
     t.datetime "updated_at", null: false
     t.integer "produto_usado_id"
     t.string "unidade_tempo_operacao"
+    t.float "tolerancia_inferior"
+    t.float "tolerancia_superior"
     t.index ["maquina_id"], name: "index_operacoes_on_maquina_id"
     t.index ["produto_id"], name: "index_operacoes_on_produto_id"
   end
@@ -378,6 +388,7 @@ ActiveRecord::Schema.define(version: 20230131193557) do
     t.boolean "codigo_automatico", default: true
     t.string "classificacao_fiscal"
     t.boolean "composto"
+    t.integer "embalagem_id"
   end
 
   create_table "rejeitos", id: :serial, force: :cascade do |t|

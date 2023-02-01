@@ -99,8 +99,9 @@ class ProdutosController < ApplicationController
         :unidade_medida,
         :tipo,
         :composto,
+        :embalagem_id,
         {:anexos_attributes => [:id, :tipo, :descricao, :codigo, :revisao, :arquivo, :_destroy]},
-        {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :_destroy]},
+        {:materia_primas_attributes => [:id, :produto_id, :produto_usado_id, :quantidade, :tolerancia_inferior, :tolerancia_superior,:_destroy]},
         {:operacoes_attributes => [:id, :ordem, :descricao, :maquina_id, :produto_usado_id, :tempo_setup, :tempo_operacao, :unidade_tempo_operacao, {:ferramenta_ids => []}, 
                                    :observacao, :_destroy]}
       )

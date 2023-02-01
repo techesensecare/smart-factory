@@ -16,6 +16,7 @@ class Produto < ApplicationRecord
   has_many :sub_produtos
   has_many :componentes
   has_many :materias_primas
+  has_one :embalagens
 
   has_many :materia_primas
   accepts_nested_attributes_for :materia_primas, :allow_destroy => true

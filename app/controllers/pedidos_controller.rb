@@ -56,7 +56,7 @@ class PedidosController < ApplicationController
             observacao:     operacao.observacao,
             ferramentas:    operacao.ferramentas,
             produto_id:     operacao.produto_id
-            # quantidade:     item.quantidade * operacao.quantidade_materia_prima 
+            # quantidade:   item.quantidade * operacao.quantidade_materia_prima 
           )
         end
       end
