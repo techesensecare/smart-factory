@@ -152,7 +152,12 @@
                   <th>Quantidade</th>
                   <th>Status</th>
                 </tr>
-                <% @pedido.operacoes.each do |o| %>
+
+                <%# Isso aqui ordenou de acordo com as ordens. talvez seja necessário descomentar %>
+                <%# @pedido.operacoes = @pedido.operacoes.order('ordem ASC') %>
+
+                <% @pedido.operacoes.order('ordem ASC').each do |o| %>
+
                   <tr>
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
