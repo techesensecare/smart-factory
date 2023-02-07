@@ -5,6 +5,7 @@
 </h1>
 
 <% pedido = @pedido %>
+
 <%= simple_nested_form_for(@pedido, url: confirmar_detalhes_pedido_path(@pedido), multipart: true) do |f| %>
   <div class="panel panel-default">
     <div class="panel-body">
@@ -45,8 +46,8 @@
               <%= b.hidden_field :id %>
               <div class="row">
                 <%= b.input :pedido_item_id, 
-                            collection: @pedido.item_pedidos, 
-                            label_method: :descricao_produto,
+                            collection: @items,
+                            label_method: lambda { |item| "#{item.produto_usado.id} - #{item.produto_usado.descricao}. Unidade de medida: #{item.produto_usado.unidade_medida}" },
                             label: 'Referente ao item', wrapper_html: { class: 'col-md-3' } %>
                 <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-3' } %>

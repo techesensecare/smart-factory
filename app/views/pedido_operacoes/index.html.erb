@@ -79,15 +79,18 @@
         <th>Motivo</th>
       <% end %>
       <th>Prioridade</th>
+      <th>Ingrediente</th>
       <th></th>
     </tr>
 
-    <% @operacoes.each do |o| %>
+    <% @operacoes.order('ordem ASC').each do |o| %>
       <tr class="<%= o.descricao_prioridade %>">
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
         <td><%= o.pedido_item.descricao_produto %></td>
-        <td><%= o.descricao %></td>
+        <td><% if policy(o).show? %>
+            <%= link_to o.descricao, o, style: "color: inherit;"%>
+          <% end %></td>
         <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
         <td><%= o.status.text %></td>
         <% if params[:with_status] == 'pausada' %>
@@ -105,8 +108,14 @@
           <% end %>
         </td>
         <td>
-          <% if policy(o).show? %>
-            <%= link_to "Abrir", o, class: 'btn btn-primary btn-xs' %>
+          <%= o.pedido_item.descricao_produto %>
+        </td>
+        <td>
+          <% if policy(o).enviar_para_fila? %>
+            <%= link_to update_status_pedido_operacao_path(id: o.id, status: :na_fila), class: 'btn btn-primary btn-xs' do %>
+              Enviar para Fila
+              <i class="fa fa-play"></i>
+            <% end %>
           <% end %>
         </td>
       </tr>

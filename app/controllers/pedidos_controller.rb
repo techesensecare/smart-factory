@@ -43,6 +43,14 @@ class PedidosController < ApplicationController
 
   def detalhar_projeto
     authorize @pedido
+
+    # apenas os produtos referentes ao item cadastrado
+    # esse código vai ter que ser revisto, abaixo
+    
+    @items = @pedido.item_pedidos[0].produto.materia_primas
+
+    byebug
+
     if @pedido.operacoes.blank? 
       @pedido.item_pedidos.each do |item|
         item.produto.todas_operacoes.each do |operacao|

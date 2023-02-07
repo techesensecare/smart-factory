@@ -6,7 +6,7 @@ class MaquinaHistorico < ApplicationRecord
 
   belongs_to :maquina
   belongs_to :usuario
-  belongs_to :pedido_operacao
+  belongs_to :pedido_operacao,  on_delete: :cascade
 
   scope :with_maquina, -> (maquina_id) { where(maquina_id: maquina_id) }
   scope :with_turno,   -> (turno_id)   { joins(:usuario).where('usuarios.turno_id': turno_id) }

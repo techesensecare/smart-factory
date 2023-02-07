@@ -53,6 +53,7 @@ class Produto < ApplicationRecord
 
   def todas_operacoes
     operacoes_do_produto = self.operacoes
+    operacoes_do_produto = operacoes_do_produto.order('ordem ASC')
     operacoes_do_produto.each do |o|
       o.quantidade_materia_prima = 1
     end
