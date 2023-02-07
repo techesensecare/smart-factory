@@ -1,0 +1,52 @@
+
+<% if @operacoes.blank? %>
+  <h2>Nenhuma operação.</h2>
+<% else %>
+<div class="panel panel-default">
+  <table class="table table-bordered">
+    <tr>
+      <th>Pedido</th>
+      <th>Cliente</th>
+      <th>Produto</th>
+      <th>Operação</th>
+      <th>Prazo Entrega</th>
+      <th>Status</th>
+      <% if params[:with_status] == 'pausada' %>
+        <th>Motivo</th>
+      <% end %>
+      <th>Prioridade</th>
+      <th></th>
+    </tr>
+
+    <% @operacoes.each do |o| %>
+      <tr class="<%= o.descricao_prioridade %>">
+        <td><%= o.pedido.numero %></td>
+        <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
+        <td><%= o.pedido_item.descricao_produto %></td>
+        <td><%= o.descricao %></td>
+        <td><%= l o.pedido.prazo, format: '%d/%m/%y' if o.pedido.prazo %></td>
+        <td><%= o.status.text %></td>
+        <% if params[:with_status] == 'pausada' %>
+          <td><%= o.historicos.last.try :motivo %></td>
+        <% end %>
+        <td>
+          <%= o.descricao_prioridade %>
+          <% if policy(o).update_prioridade? %>
+            <div class="btn-group">
+              <%= link_to "^", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_acima(o.prioridade)), 
+                               class: 'btn btn-xs btn-default' %>
+              <%= link_to "v", update_prioridade_pedido_operacao_path(o, prioridade: prioridade_abaixo(o.prioridade)), 
+                               class: 'btn btn-xs btn-default' %> 
+            </div>
+          <% end %>
+        </td>
+        <td>
+          <% if policy(o).show? %>
+            <%= link_to "Abrir", o, class: 'btn btn-primary btn-xs' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<% end %>

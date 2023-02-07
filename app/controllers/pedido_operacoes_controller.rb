@@ -18,8 +18,10 @@ class PedidoOperacoesController < ApplicationController
 
     if @maquina
       @operacoes = apply_scopes(@maquina.pedido_operacoes.all)
+      #@pedidos = apply_scopes(Pedido.all)
     else
       @operacoes = apply_scopes(PedidoOperacao.all)
+      #@pedidos = apply_scopes(Pedido.all)
     end
 
     @hide_top_search = true
