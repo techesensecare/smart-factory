@@ -18,7 +18,6 @@ class ProdutosController < ApplicationController
   # GET /produtos/1
   # GET /produtos/1.json
   def show
-
     authorize @produto
     load_anexos
   end
@@ -40,6 +39,7 @@ class ProdutosController < ApplicationController
   def create
     authorize Produto
     @produto = Produto.new(produto_params)
+
 
     respond_to do |format|
       if @produto.save
