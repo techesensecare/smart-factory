@@ -66,7 +66,8 @@ class PedidosController < ApplicationController
             ferramentas:    operacao.ferramentas,
             produto_id:     operacao.produto_id,
             unidade_tempo_operacao: operacao.unidade_tempo_operacao,
-            quantidade:     item.quantidade * operacao.quantidade_materia_prima # 200 bolos, quantidade do pedido *  
+            quantidade:     (item.quantidade || 0) * (operacao.quantidade_materia_prima || 0)
+            # 200 bolos, quantidade do pedido *  
           )
         end
       end
