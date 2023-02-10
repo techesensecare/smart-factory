@@ -23,7 +23,7 @@ class PedidoOperacaoPolicy < ApplicationPolicy
 
   def enviar_para_fila?
     %w(administrador pcp).include?(@user.perfil) and
-      @record.status.aguardando?
+      @record.status.PCP?
   end
 
   def definir_maquina?

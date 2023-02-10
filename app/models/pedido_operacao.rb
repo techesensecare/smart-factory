@@ -3,7 +3,7 @@ class PedidoOperacao < ApplicationRecord
 
   default_scope { joins(:pedido).order('prioridade DESC, prazo ASC') }
 
-  enumerize :status, in: %w(aguardando na_fila executando pausada finalizada), default: :aguardando, scope: true
+  enumerize :status, in: %w(PCP na_fila executando pausada finalizada), default: :PCP, scope: true
 
   # TODO Remover
   belongs_to :produto
@@ -71,7 +71,7 @@ class PedidoOperacao < ApplicationRecord
         outro = self.dup
         outro.quantidade = quantidade_restante
         outro.maquina_id = nil
-        outro.status = :aguardando
+        outro.status = :PCP
         descricao_rejeito = rejeitos.map { |r| "#{r.quantidade} #{r.rejeito.descricao} #{r.observacao}" }.join(', ')
         # bug na linha acima causado por não incluir um motivo no rejeito
         outro.motivo_desmembramento = "Rejeito: #{descricao_rejeito}"
@@ -127,7 +127,7 @@ class PedidoOperacao < ApplicationRecord
     if changes[:status]
       antes, depois = changes[:status]
 
-      # Opções: aguardando na_fila executando pausada finalizada
+      # Opções: PCP na_fila executando pausada finalizada
 
       if antes == 'na_fila' and depois == :executando 
         self.cronometros.create!(
@@ -181,7 +181,7 @@ class PedidoOperacao < ApplicationRecord
     outro.quantidade            = nova_quantidade
     outro.motivo_ultima_pausa   = nil
     outro.maquina_id            = nil
-    outro.status                = :aguardando
+    outro.status                = :PCP
     outro.motivo_desmembramento = "Desmembramento: #{self.motivo_ultima_pausa || 'antes de iniciar a produção'}"
     outro.save
 

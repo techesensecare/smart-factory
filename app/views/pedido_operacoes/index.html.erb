@@ -50,9 +50,9 @@
       <li class="<%= 'active' if params[:with_status] == value %>">
         <% quantidade = @maquina.pedido_operacoes.with_status(value).count %>
         <% if quantidade > 0 %>
-          <%= link_to "#{label} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
+          <%= link_to "#{to_upcase(label)} <small class='badge'>#{quantidade}</small>".html_safe, with_status: value %>
         <% else %>
-          <%= link_to "#{label}".html_safe, with_status: value %>
+          <%= link_to "#{to_upcase(label)}".html_safe, with_status: value %>
         <% end %>
       </li>
     <% else %>
@@ -72,7 +72,7 @@
       <th>Pedido</th>
       <th>Cliente</th>
       <th>Produto</th>
-      <th>Operação</th>
+      <th>Atividade</th>
       <th>Prazo Entrega</th>
       <th>Status</th>
       <% if params[:with_status] == 'pausada' %>
