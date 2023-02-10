@@ -57,7 +57,8 @@
                 <%= b.input :status, label: "Status", include_blank: false, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>
                 <%= b.input :tempo_operacao, label: "Tempo de Operação", wrapper_html: { class: 'col-md-4' } %>
-                <%= b.input :unidade_tempo_operacao, collection: [['segundos'], ['minutos'], ['horas']], label: "Unidade do Tempo de Operação", wrapper_html: { class: 'col-md-4' }, style: "border: 1px solid #e5e6e7; border-radius: 1px;" %>
+                <%= b.input :unidade_tempo_operacao, collection: [['segundos'], ['minutos'], ['horas']], selected: 'segundos', label: "Unidade do Tempo de Operação", wrapper_html: { class: 'col-md-4' }, style: "border: 1px solid #e5e6e7; border-radius: 1px;" %>
+
               </div>
               <div class="row">
                 <%= b.input :quantidade, wrapper_html: {class: 'col-md-6'} %>

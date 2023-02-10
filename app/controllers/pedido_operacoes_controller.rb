@@ -24,7 +24,6 @@ class PedidoOperacoesController < ApplicationController
       @operacoes = apply_scopes(PedidoOperacao.all)
       #@pedidos = apply_scopes(Pedido.all)
     end
-    byebug
     @hide_top_search = true
   end
 
@@ -116,14 +115,16 @@ class PedidoOperacoesController < ApplicationController
 
   def update_status
     @operacao = PedidoOperacao.find(params[:id])
-    authorize @operacao
+    authorize @operacao, @maquina
+
+    #@maquina   = Maquina.find_by_id(params[:maquina_id])
 
     if params[:status] == 'executando' and !@operacao.maquina.status.disponivel?
       flash[:alert] = 'A máquina não está disponível no momento'
     else
       @operacao.update_status(params[:status], current_usuario, @operacao.maquina, params[:motivo]) 
     end
-    redirect_to @operacao
+    redirect_to operacoes_maquina_path(@maquina)
   end
 
   def show
