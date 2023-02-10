@@ -19,6 +19,10 @@ class PedidoOperacao < ApplicationRecord
   accepts_nested_attributes_for :rejeitos, allow_destroy: true
 
   has_many :cronometros
+  has_many :pedido_operacao_historicos, dependent: :delete_all
+  has_many :maquina_historicos, dependent: :delete_all
+  has_many :cronometros, dependent: :delete_all
+
 
   after_save :update_cronometro
 
