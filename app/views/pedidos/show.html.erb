@@ -116,14 +116,22 @@
                   <th>Ordem</th>
                   <th>Descrição</th>
                   <th>Máquina</th>
-                  <th>Status</th>
+                  <th>Item</th>
+                  <th>Quantidade</th>
+                  <th>Status</th>                  
                 </tr>
+
+                <%# Isso aqui ordenou de acordo com as ordens. talvez seja necessário descomentar %>
+                <%# @pedido.operacoes = @pedido.operacoes.order('ordem ASC') %>
+
                 <% @pedido.operacoes.order('ordem ASC').each do |o| %>
                   <tr>
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
                     <td><%= o.maquina.try :descricao %></td>
-                    <td><%= o.status %></td>
+                    <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %></td>
+                    <td><%= o.quantidade %></td>
+                    <td><%= o.status_text.upcase %></td>
                   </tr>
                   <%= %>
                 <% end %>
@@ -149,8 +157,9 @@
                   <th>Ordem</th>
                   <th>Descrição</th>
                   <th>Máquina</th>
+                  <th>Item</th>
                   <th>Quantidade</th>
-                  <th>Status</th>
+                  <th>Status</th>                  
                 </tr>
 
                 <%# Isso aqui ordenou de acordo com as ordens. talvez seja necessário descomentar %>
@@ -161,8 +170,9 @@
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
                     <td><%= o.maquina.try :descricao %></td>
+                    <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %></td>
                     <td><%= o.quantidade %></td>
-                    <td><%= o.status_text %></td>
+                    <td><%= o.status_text.upcase %></td>
                   </tr>
                   <%= %>
                 <% end %>
