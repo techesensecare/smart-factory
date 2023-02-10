@@ -62,8 +62,8 @@
           </tr>
           <% @produto.materia_primas.each do |m| %>
             <tr>
-              <td><%= link_to m.produto_usado.codigo, m.produto_usado %></td>
-              <td><%= m.produto_usado.descricao %></td>
+              <td><%= link_to m.produto_usado_id, m.produto_usado %></td>
+              <td><%= Produto.find(m.produto_usado_id).descricao %></td>
               <td><%= m.produto_usado.unidade_medida %></td>
               <td><%= m.quantidade %></td>
               <td><%= m.produto_usado.tipo %></td>

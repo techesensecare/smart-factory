@@ -17,6 +17,7 @@ class Maquina < ApplicationRecord
   has_many :historicos, class_name: 'MaquinaHistorico'
   has_many :pedido_operacoes_historicos, class_name: 'PedidoOperacaoHistorico'
   has_many :pedido_operacoes
+  has_many :operacoes
   has_many :cronometros
 
   after_save :update_cronometro

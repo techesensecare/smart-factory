@@ -10,8 +10,9 @@ class PedidoOperacoesController < ApplicationController
   def index
     authorize PedidoOperacao, :index?
 
+
     if not params[:with_descricao]
-      params[:with_status] ||= 'aguardando'
+      params[:with_status] ||= 'Pcp'
     end
 
     @maquina   = Maquina.find_by_id(params[:maquina_id])

@@ -44,14 +44,15 @@ class PedidosController < ApplicationController
   def detalhar_projeto
     authorize @pedido
 
+    @produto = Produto.new
+    
     # apenas os produtos referentes ao item cadastrado
     # esse código vai ter que ser revisto, abaixo
     
+
     @items = @pedido.item_pedidos[0].produto.materia_primas
 
-    byebug
-
-    if @pedido.operacoes.blank? 
+      if @pedido.operacoes.blank? 
       @pedido.item_pedidos.each do |item|
         item.produto.todas_operacoes.each do |operacao|
           @pedido.operacoes.build(
@@ -63,8 +64,9 @@ class PedidosController < ApplicationController
             tempo_operacao: operacao.tempo_operacao,
             observacao:     operacao.observacao,
             ferramentas:    operacao.ferramentas,
-            produto_id:     operacao.produto_id
-            # quantidade:   item.quantidade * operacao.quantidade_materia_prima 
+            produto_id:     operacao.produto_id,
+            unidade_tempo_operacao: operacao.unidade_tempo_operacao,
+            quantidade:     item.quantidade * operacao.quantidade_materia_prima # 200 bolos, quantidade do pedido *  
           )
         end
       end

@@ -18,6 +18,7 @@ class ProdutosController < ApplicationController
   # GET /produtos/1
   # GET /produtos/1.json
   def show
+
     authorize @produto
     load_anexos
   end
