@@ -124,7 +124,7 @@ class PedidoOperacoesController < ApplicationController
     else
       @operacao.update_status(params[:status], current_usuario, @operacao.maquina, params[:motivo]) 
     end
-    redirect_to operacoes_maquina_path(@maquina)
+    redirect_to request.referer || root_path
   end
 
   def show
