@@ -131,7 +131,8 @@ class PedidoOperacoesController < ApplicationController
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao
 
-    @produto  = @operacao.pedido_item.produto
+
+    @produto  = MateriaPrima.find(@operacao.pedido_item_id).produto_usado
     load_anexos
   end
 
