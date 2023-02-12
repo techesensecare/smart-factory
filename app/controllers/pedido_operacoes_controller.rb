@@ -117,12 +117,19 @@ class PedidoOperacoesController < ApplicationController
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao, @maquina
 
+    byebug
+    
     #@maquina   = Maquina.find_by_id(params[:maquina_id])
 
     if params[:status] == 'executando' and !@operacao.maquina.status.disponivel?
       flash[:alert] = 'A máquina não está disponível no momento'
     else
-      @operacao.update_status(params[:status], current_usuario, @operacao.maquina, params[:motivo]) 
+      if params[:status] == 'na_fila'
+        @operacao.status = 'executando'
+        @operacao.save
+      else
+        @operacao.update_status(params[:status], current_usuario, @operacao.maquina, params[:motivo]) 
+      end
     end
     redirect_to request.referer || root_path
   end
