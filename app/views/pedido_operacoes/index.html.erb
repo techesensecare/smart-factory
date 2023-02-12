@@ -112,11 +112,16 @@
         </td>
         <td>
           <% #if policy(o).enviar_para_fila? EDITAR POLICY para aparecer o botão mesmo NA FILA %>
+          <% if params[:with_status] != 'executando' %>
             <%= link_to update_status_pedido_operacao_path(id: o.id, status: :na_fila), class: 'btn btn-primary btn-xs' do %>
               Enviar para Fila
               <i class="fa fa-play"></i>
             <% end %>
-          <% #end %>
+          <% else %>
+            <% unless o.quantidade.nil? %>
+              <%= link_to "Executar operação", iniciar_operacao_path(o), class: 'btn btn-primary btn-xs' %>  
+            <% end %>        
+          <% end %>        
         </td>
       </tr>
     <% end %>

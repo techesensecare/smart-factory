@@ -26,12 +26,12 @@
         Quantidade a produzir
         <h2>
             <% unless @operacao.quantidade.nil? %>
-              <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
-                <% if policy(@operacao).desmembrar? %>
-                <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'btn btn-default' %>
-                <%= link_to "Iniciar operação", iniciar_operacao_path(@operacao), class: 'pull-right btn btn-primary' %>  
+              <%= link_to "Iniciar operação", iniciar_operacao_path(@operacao), class: 'pull-right btn btn-primary' %>  
+                <% if @operacao.quantidade > 1 and @operacao.pode_desmembrar? %>
+                  <% if policy(@operacao).desmembrar? %>
+                    <%= link_to "desmembrar", desmembrar_pedido_operacao_path(@operacao), class: 'btn btn-default' %>
+                  <% end %>
                 <% end %>
-              <% end %>
             <% end %>
         </h2>
       </div>

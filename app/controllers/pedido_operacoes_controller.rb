@@ -29,16 +29,20 @@ class PedidoOperacoesController < ApplicationController
 
   def iniciar_operacao
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
-    @item = @operacao.pedido_item
+    @item = MateriaPrima.find(@operacao.pedido_item_id).produto_usado
     @items_producao = ItemsProducao.new
     # @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
     # authorize @operacao
     # método comentado para agilizar produção. verificar depois
+
+    @pesos = ItemsProducao.where(operacao_id: @operacao.id).all
+
   end
 
   def iniciar_operacao_create
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
     @items_producao = ItemsProducao.new(items_producao_params)
+
     
     if @operacao.quantidade_produzida == nil
       @operacao.quantidade_produzida = 0
@@ -116,8 +120,6 @@ class PedidoOperacoesController < ApplicationController
   def update_status
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao, @maquina
-
-    byebug
     
     #@maquina   = Maquina.find_by_id(params[:maquina_id])
 
@@ -138,7 +140,6 @@ class PedidoOperacoesController < ApplicationController
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao
 
-
     @produto  = MateriaPrima.find(@operacao.pedido_item_id).produto_usado
     load_anexos
   end
@@ -150,6 +151,6 @@ class PedidoOperacoesController < ApplicationController
   end
 
   def items_producao_params
-    params.require(:items_producao).permit(:pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao)
+    params.require(:items_producao).permit(:operacao_id, :pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao)
   end
 end

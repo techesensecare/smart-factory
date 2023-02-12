@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230210142356) do
+ActiveRecord::Schema.define(version: 20230212152131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,8 +204,9 @@ ActiveRecord::Schema.define(version: 20230210142356) do
     t.integer "produto_id"
     t.integer "pedido_item_id"
     t.integer "peso"
-    t.integer "unidade"
+    t.string "unidade"
     t.string "observacao"
+    t.integer "operacao_id"
   end
 
   create_table "maquina_historicos", id: :serial, force: :cascade do |t|

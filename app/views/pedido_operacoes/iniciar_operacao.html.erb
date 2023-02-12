@@ -15,11 +15,11 @@
     <tbody>
       <tr>
         <td>Produto</td>
-        <td><%= @item.descricao_produto %></td>
+        <td><%= @item.descricao %></td>
       </tr>
       <tr>
         <td>Quantidade</td>
-        <td><%= @item.quantidade %></td>
+        <td><%=  @operacao.quantidade_produzida || 0 %></td>
       </tr>
     </tbody>
   </table>
@@ -31,12 +31,28 @@
     <%= form_for @items_producao, url: iniciar_operacao_create_path, local: true do |f| %>
       <%# :pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao %>
 
+      <table class="table">
+        <tr>
+          <th>Produto</th>
+          <th>Peso</th>
+          <th>Unidade</th>
+        </tr>
+        <% @pesos.each do |item| %>
+          <tr>
+            <td><%= MateriaPrima.find(item.pedido_item_id).produto_usado.descricao %></td>
+            <td><%= item.peso %></td>
+            <td><%= item.unidade %></td>
+          </tr>
+        <% end %>
+      </table>
+
       <div style="display: flex; flex-direction: column;" >
+        <%= f.hidden_field :operacao_id, value: @operacao.id %>
         <%= f.hidden_field :pedido_id, value: @operacao.pedido_id %>
         <%= f.hidden_field :pedido_item_id, value: @operacao.pedido_item_id %>
         <%#= f.hidden_field :produto_id, value: @paciente.id %>
         <%= f.label :peso, style: '' %>
-        <%= f.number_field :peso, placeholder: "Peso atual: #{ @item.descricao_produto } ", :class => 'form-control' %>
+        <%= f.number_field :peso, placeholder: "Peso atual: #{ @item.descricao } ", :class => 'form-control' %>
         <%= f.label :unidade, style: 'margin-top: 20px;' %>
         <%= f.select :unidade, [['mg', 'mg'],['g', 'g'], ['Kg', 'kg']], {}, :class => 'form-control' %>        
       </div>
@@ -99,7 +115,7 @@
       </tr>
       <tr>
         <td>Quantidade produzida</td>
-        <td><%= @operacao.quantidade_produzida %></td>
+        <td><%= @operacao.quantidade_produzida || 0 %></td>
       </tr>
       <% if params[:with_status] == 'pausada' %>
         <tr>
