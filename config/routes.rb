@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao', as: :iniciar_operacao
   post 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao_create', as: :iniciar_operacao_create
 
+  get 'travar_operacao/', to: 'pedido_operacoes#travar_operacao', as: :travar_operacao
+
   # get 'embalagens', to: 'embalagens#index', as: :embalagens
   
   resources :embalagens

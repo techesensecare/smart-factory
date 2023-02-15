@@ -51,13 +51,28 @@ class PedidoOperacoesController < ApplicationController
     end
 
 
-    if @items_producao.save
+    peso = @items_producao.peso
+
+    tolerancias = MateriaPrima.find(@items_producao.pedido_item_id)
+    tolerancia_inferior = tolerancias.tolerancia_inferior
+    tolerancia_superior = tolerancias.tolerancia_superior
+
+
+    if peso.between?(tolerancia_inferior, tolerancia_superior)
+      result = true
+    else
+      result = false
+    end
+
+    if result == true and @items_producao.save
       flash[:notice] = 'Registrado com sucesso'
       @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
       @operacao.save
       redirect_to iniciar_operacao_path(pedido_operacao_id: params[:pedido_operacao_id])
     else
       flash[:error] = 'Ocorreu um erro ao tentar processar os dados. Por favor, tente novamente ou contate nosso suporte.'
+      
+      redirect_to travar_operacao_path
     end
   end
 
