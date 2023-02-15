@@ -31,20 +31,6 @@
     <%= form_for @items_producao, url: iniciar_operacao_create_path, local: true do |f| %>
       <%# :pedido_id, :produto_id, :pedido_item_id, :peso, :unidade, :observacao %>
 
-      <table class="table">
-        <tr>
-          <th>Produto</th>
-          <th>Peso</th>
-          <th>Unidade</th>
-        </tr>
-        <% @pesos.each do |item| %>
-          <tr>
-            <td><%= MateriaPrima.find(item.pedido_item_id).produto_usado.descricao %></td>
-            <td><%= item.peso %></td>
-            <td><%= item.unidade %></td>
-          </tr>
-        <% end %>
-      </table>
 
       <div style="display: flex; flex-direction: column;" >
         <%= f.hidden_field :operacao_id, value: @operacao.id %>
@@ -59,6 +45,20 @@
       <div class="" style="margin-top: 20px;">
         <%= f.submit "Submeter Peso", class: 'btn btn-primary' %>
       </div>
+      
+
+      <table class="table" style="margin-top:20px;">
+        <tr>
+          <th>Produto</th>
+          <th>Peso</th>
+        </tr>
+        <% @pesos.each do |item| %>
+          <tr>
+            <td><%= MateriaPrima.find(item.pedido_item_id).produto_usado.descricao %></td>
+            <td><%= "#{item.peso}#{item.unidade}"  %></td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
   </div>
 </div>

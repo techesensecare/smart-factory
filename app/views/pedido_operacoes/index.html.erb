@@ -87,7 +87,7 @@
       <tr class="<%= o.descricao_prioridade %>">
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
-        <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %></td>
+        <td><%=  MateriaPrima.find(o.pedido_item_id).produto.descricao %></td>
         <td><% if policy(o).show? %>
             <%= link_to o.descricao, o, style: "color: inherit;"%>
           <% end %></td>
@@ -108,7 +108,7 @@
           <% end %>
         </td>
         <td>
-          <%= o.descricao %>
+          <%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %>
         </td>
         <td>
           <% #if policy(o).enviar_para_fila? EDITAR POLICY para aparecer o botão mesmo NA FILA %>

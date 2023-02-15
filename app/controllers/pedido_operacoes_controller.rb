@@ -24,6 +24,7 @@ class PedidoOperacoesController < ApplicationController
       @operacoes = apply_scopes(PedidoOperacao.all)
       #@pedidos = apply_scopes(Pedido.all)
     end
+
     @hide_top_search = true
   end
 
