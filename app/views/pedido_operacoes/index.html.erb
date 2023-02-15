@@ -72,6 +72,7 @@
       <th>Pedido</th>
       <th>Cliente</th>
       <th>Produto</th>
+      <th>Ingrediente</th>
       <th>Atividade</th>
       <th>Prazo Entrega</th>
       <th>Status</th>
@@ -79,7 +80,6 @@
         <th>Motivo</th>
       <% end %>
       <th>Prioridade</th>
-      <th>Ingrediente</th>
       <th></th>
     </tr>
 
@@ -88,6 +88,7 @@
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
         <td><%=  MateriaPrima.find(o.pedido_item_id).produto.descricao %></td>
+        <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %></td>
         <td><% if policy(o).show? %>
             <%= link_to o.descricao, o, style: "color: inherit;"%>
           <% end %></td>
@@ -107,9 +108,7 @@
             </div>
           <% end %>
         </td>
-        <td>
-          <%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %>
-        </td>
+
         <td>
           <% #if policy(o).enviar_para_fila? EDITAR POLICY para aparecer o botão mesmo NA FILA %>
           <% if params[:with_status] != 'executando' %>
