@@ -19,7 +19,15 @@
       </tr>
       <tr>
         <td>Quantidade</td>
-        <td><%=  @operacao.quantidade_produzida || 0 %></td>
+        <td><%= @operacao.quantidade_produzida || 0 %></td>
+      </tr>
+      <tr>
+        <td>Limite Inferior</td>
+        <td><%=  MateriaPrima.find(@operacao.pedido_item_id).tolerancia_inferior || 0 %></td>
+      </tr>
+      <tr>
+        <td>Limite Superior</td>
+        <td><%=  MateriaPrima.find(@operacao.pedido_item_id).tolerancia_superior || 0 %></td>
       </tr>
     </tbody>
   </table>
