@@ -18,16 +18,20 @@
         <td><%= @item.descricao %></td>
       </tr>
       <tr>
-        <td>Quantidade</td>
+        <td>Quantidade a produzir</td>
+        <td><%= @operacao.quantidade %></td>
+      </tr>
+      <tr>
+        <td>Quantidade produzida</td>
         <td><%= @operacao.quantidade_produzida || 0 %></td>
       </tr>
       <tr>
         <td>Limite Inferior</td>
-        <td><%=  MateriaPrima.find(@operacao.pedido_item_id).tolerancia_inferior || 0 %></td>
+        <td><%= "#{MateriaPrima.find(@operacao.pedido_item_id).tolerancia_inferior || 0}#{@unidade_medida}" %></td>
       </tr>
       <tr>
         <td>Limite Superior</td>
-        <td><%=  MateriaPrima.find(@operacao.pedido_item_id).tolerancia_superior || 0 %></td>
+        <td><%=  "#{MateriaPrima.find(@operacao.pedido_item_id).tolerancia_superior || 0}#{@unidade_medida}" %></td>
       </tr>
     </tbody>
   </table>
@@ -44,11 +48,11 @@
         <%= f.hidden_field :operacao_id, value: @operacao.id %>
         <%= f.hidden_field :pedido_id, value: @operacao.pedido_id %>
         <%= f.hidden_field :pedido_item_id, value: @operacao.pedido_item_id %>
-        <%#= f.hidden_field :produto_id, value: @paciente.id %>
+        <%= f.hidden_field :unidade, value: @unidade_medida %>        
+        <%= f.hidden_field :produto_id, value: @produto_id %>
         <%= f.label :peso, style: '' %>
-        <%= f.number_field :peso, placeholder: "Peso atual: #{ @item.descricao } ", :class => 'form-control' %>
+        <%= f.number_field :peso, :step => 0.1, placeholder: "Peso atual: #{ @item.descricao } ", :class => 'form-control' %>
         <%= f.label :unidade, style: 'margin-top: 20px;' %>
-        <%= f.select :unidade, [['mg', 'mg'],['g', 'g'], ['Kg', 'kg']], {}, :class => 'form-control' %>        
       </div>
       <div class="" style="margin-top: 20px;">
         <%= f.submit "Submeter Peso", class: 'btn btn-primary' %>
@@ -63,7 +67,7 @@
         <% @pesos.each do |item| %>
           <tr>
             <td><%= MateriaPrima.find(item.pedido_item_id).produto_usado.descricao %></td>
-            <td><%= "#{item.peso}#{item.unidade}"  %></td>
+            <td><%= "#{item.peso}#{@unidade_medida}"  %></td>
           </tr>
         <% end %>
       </table>
@@ -102,10 +106,6 @@
         <td><%= @operacao.tempo_setup %></td>
       </tr>
       <tr>
-        <td>Tempo estimado de Operação</td>
-        <td><%= @operacao.tempo_operacao %></td>
-      </tr>
-      <tr>
         <td>Status</td>
         <td><%= @operacao.status %></td>
       </tr>
@@ -117,14 +117,7 @@
         <td>Modificado em</td>
         <td><%= @operacao.updated_at.strftime('%d.%m.%Y') %></td>
       </tr>
-      <tr>
-        <td>Quantidade a produzir</td>
-        <td><%= @operacao.quantidade %></td>
-      </tr>
-      <tr>
-        <td>Quantidade produzida</td>
-        <td><%= @operacao.quantidade_produzida || 0 %></td>
-      </tr>
+      
       <% if params[:with_status] == 'pausada' %>
         <tr>
           <td>Motivo da pausa</td>

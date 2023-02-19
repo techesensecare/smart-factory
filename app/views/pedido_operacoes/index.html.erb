@@ -80,7 +80,14 @@
         <th>Motivo</th>
       <% end %>
       <th>Prioridade</th>
+        <% if params[:with_status] != 'finalizada' %>
+
       <th></th>
+
+          <% if params[:with_status] != 'executando' %>
+            <th></th>
+          <% end %>          
+        <% end %>
     </tr>
 
     <% @operacoes.order('ordem ASC').each do |o| %>
@@ -108,20 +115,30 @@
             </div>
           <% end %>
         </td>
+        <% if params[:with_status] != 'finalizada' %>
 
-        <td>
-          <% #if policy(o).enviar_para_fila? EDITAR POLICY para aparecer o botão mesmo NA FILA %>
-          <% if params[:with_status] != 'executando' %>
-            <%= link_to update_status_pedido_operacao_path(id: o.id, status: :na_fila), class: 'btn btn-primary btn-xs' do %>
-              Enviar para Fila
-              <i class="fa fa-play"></i>
-            <% end %>
-          <% else %>
-            <% unless o.quantidade.nil? %>
-              <%= link_to "Executar operação", iniciar_operacao_path(o), class: 'btn btn-primary btn-xs' %>  
+          <td>
+            <% #if policy(o).enviar_para_fila? EDITAR POLICY para aparecer o botão mesmo NA FILA %>
+            <% if params[:with_status] != 'executando'%>
+              <%= link_to update_status_pedido_operacao_path(id: o.id, status: :na_fila), class: 'btn btn-primary btn-xs' do %>
+                Enviar para Fila
+                <i class="fa fa-play"></i>
+              <% end %>
+            <% else %>
+              <% unless o.quantidade.nil? %>
+                <%= link_to "Executar", iniciar_operacao_path(o), class: 'btn btn-primary btn-xs' %>  
+              <% end %>        
             <% end %>        
-          <% end %>        
-        </td>
+          </td>
+          <td>
+              <% if params[:with_status] == 'executando' %>
+                <%= link_to update_status_pedido_operacao_path(id: o.id, status: :finalizada), class: 'btn btn-primary btn-xs' do %>
+                  Finalizar
+                <% end %>
+              <% end %>
+          </td>
+      <% end %>            
+        
       </tr>
     <% end %>
   </table>

@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao', as: :iniciar_operacao
   post 'iniciar_operacao/:pedido_operacao_id', to: 'pedido_operacoes#iniciar_operacao_create', as: :iniciar_operacao_create
+  get 'operacao_finalizada/:pedido_operacao_id', to: 'pedido_operacoes#operacao_finalizada', as: :operacao_finalizada 
 
   get 'travar_operacao/', to: 'pedido_operacoes#travar_operacao', as: :travar_operacao
 

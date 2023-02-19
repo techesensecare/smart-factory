@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230212152131) do
+ActiveRecord::Schema.define(version: 20230219185125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(version: 20230212152131) do
     t.integer "pedido_id"
     t.integer "produto_id"
     t.integer "pedido_item_id"
-    t.integer "peso"
+    t.float "peso"
     t.string "unidade"
     t.string "observacao"
     t.integer "operacao_id"

@@ -30,26 +30,26 @@ class PedidoOperacoesController < ApplicationController
 
   def iniciar_operacao
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
+    @produto_id = MateriaPrima.find(@operacao.pedido_item_id).produto_id
+    @operacao.produto_id = @produto_id
     @item = MateriaPrima.find(@operacao.pedido_item_id).produto_usado
     @items_producao = ItemsProducao.new
+    @unidade_medida = MateriaPrima.find(@operacao.pedido_item_id).produto_usado.unidade_medida
     # @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
     # authorize @operacao
     # método comentado para agilizar produção. verificar depois
 
     @pesos = ItemsProducao.where(operacao_id: @operacao.id).all
-
   end
 
   def iniciar_operacao_create
     @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
     @items_producao = ItemsProducao.new(items_producao_params)
-
     
     if @operacao.quantidade_produzida == nil
       @operacao.quantidade_produzida = 0
       @operacao.save
     end
-
 
     peso = @items_producao.peso
 
@@ -57,6 +57,10 @@ class PedidoOperacoesController < ApplicationController
     tolerancia_inferior = tolerancias.tolerancia_inferior
     tolerancia_superior = tolerancias.tolerancia_superior
 
+    if peso == nil
+      redirect_to iniciar_operacao_path(pedido_operacao_id: params[:pedido_operacao_id])
+      return
+    end
 
     if peso.between?(tolerancia_inferior, tolerancia_superior)
       result = true
@@ -68,15 +72,25 @@ class PedidoOperacoesController < ApplicationController
       flash[:notice] = 'Registrado com sucesso'
       @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
       @operacao.save
-      redirect_to iniciar_operacao_path(pedido_operacao_id: params[:pedido_operacao_id])
+
+      if @operacao.quantidade_produzida == @operacao.quantidade 
+        redirect_to operacao_finalizada_path(pedido_operacao_id:params[:pedido_operacao_id])
+      else
+        redirect_to iniciar_operacao_path(pedido_operacao_id: params[:pedido_operacao_id])
+      end
     else
       flash[:error] = 'Ocorreu um erro ao tentar processar os dados. Por favor, tente novamente ou contate nosso suporte.'
-      
       redirect_to travar_operacao_path
     end
   end
 
 
+  def operacao_finalizada
+    @operacao = PedidoOperacao.find(params[:pedido_operacao_id])
+    @operacao.status = 'finalizada'
+    @operacao.save
+  end
+  
   def desmembrar
     @operacao = PedidoOperacao.find(params[:id])
     authorize @operacao
