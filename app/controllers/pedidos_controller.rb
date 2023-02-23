@@ -48,9 +48,14 @@ class PedidosController < ApplicationController
     
     # apenas os produtos referentes ao item cadastrado
     # esse código vai ter que ser revisto, abaixo
-    
 
-    @items = @pedido.item_pedidos[0].produto.materia_primas
+    @items = []
+    @pedido.item_pedidos.each do |item_pedido|
+      @items += item_pedido.produto.materia_primas
+    end
+
+    @items = @items.uniq
+
 
       if @pedido.operacoes.blank? 
       @pedido.item_pedidos.each do |item|

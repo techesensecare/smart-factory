@@ -170,7 +170,7 @@
                     <td><%= o.ordem %></td>
                     <td><%= o.descricao %></td>
                     <td><%= o.maquina.try :descricao %></td>
-                    <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao %></td>
+                    <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao.try %></td>
                     <td><%= o.quantidade %></td>
                     <td><%= o.status_text.upcase %></td>
                   </tr>
