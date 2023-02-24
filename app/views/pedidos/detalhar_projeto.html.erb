@@ -48,7 +48,7 @@
                 <%= b.input :pedido_item_id, 
                             collection: @items,
                             label_method: lambda { |item| "#{item.produto_usado.id} - #{item.produto_usado.descricao}. Unidade de medida: #{item.produto_usado.unidade_medida}" },
-                            label: 'Referente ao item', wrapper_html: { class: 'col-md-3' } %>
+                            label: 'Referente ao item', wrapper_html: { class: 'col-md-3' }, required: true %>
                 <%= b.input :ordem, wrapper_html: { class: 'col-md-2' } %>
                 <%= b.input :descricao, label: "Descrição da atividade", wrapper_html: { class: 'col-md-3' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>

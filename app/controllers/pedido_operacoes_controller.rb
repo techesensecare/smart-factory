@@ -90,6 +90,11 @@ class PedidoOperacoesController < ApplicationController
     @operacao.status = 'finalizada'
     @operacao.save
   end
+
+  def apagar_operacoes
+    PedidoOperacao.where(status:'finalizada').destroy_all
+    redirect_to request.referer || root_path
+  end
   
   def desmembrar
     @operacao = PedidoOperacao.find(params[:id])
