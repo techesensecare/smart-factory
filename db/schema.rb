@@ -377,7 +377,7 @@ ActiveRecord::Schema.define(version: 20230228123057) do
     t.integer "embalagem_id"
   end
 
-  create_table "produtos_mr_taste", force: :cascade do |t|
+  create_table "produtos_mr_tastes", force: :cascade do |t|
     t.integer "codigo_ordem_producao"
     t.string "materia_prima"
     t.float "quantidade"

@@ -1,0 +1,3 @@
+class ProdutosMrTaste < ApplicationRecord
+
+end
