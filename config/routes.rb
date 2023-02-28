@@ -44,6 +44,8 @@ Rails.application.routes.draw do
 
   get 'travar_operacao/', to: 'pedido_operacoes#travar_operacao', as: :travar_operacao
 
+  get 'registrar_produtos', to: 'pedido_operacoes#registrar_operacoes_mr_taste', as: :registrar_operacoes_mr_taste
+
   # get 'embalagens', to: 'embalagens#index', as: :embalagens
   
   resources :embalagens
