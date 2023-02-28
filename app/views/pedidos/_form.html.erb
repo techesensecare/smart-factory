@@ -31,7 +31,7 @@
             <div class="row">
               <%# TODO Melhorar essas seleção, os novos ficam com dois itens em branco %>
               <%= b.input :descricao_produto,
-                          collection: ProdutosMrTaste.all.map { |p| [p.materia_prima, p.quantidade, p.unidade_medida] },
+                          collection: ProdutosMrTaste.all.map { |p| ["#{p.materia_prima} #{p.quantidade} #{p.unidade_medida}", p.id] },
                           label: "Descrição do produto",
                           wrapper_html: { class: 'col-md-4' },
                           input_html: { class: 'select2-produto' } %>
