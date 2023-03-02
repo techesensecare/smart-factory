@@ -125,8 +125,9 @@
                 <%= b.input :descricao, label: "Descrição da operação", wrapper_html: { class: 'col-md-8' } %>
                 <%= b.input :maquina_id, collection: Maquina.all, label: "Máquina", wrapper_html: { class: 'col-md-3' } %>
                 <%= b.input :produto_usado_id, 
-                    collection: Produto.materias_primas.all.order('descricao'), 
-                    label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
+                    collection: Produto.all.map { |p| ["#{p.descricao} #{ProdutosMrTaste.find_by(materia_prima: p.descricao).quantidade} #{p.unidade_medida}", p.id] },
+
+                    label_method: lambda { |id| produto = Produto.find(id) },
                     label: "Item", placeholder: 'Produto', wrapper_html: { class: 'col-md-6' }, required: true %>
               </div>
               <div class="row" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;" >

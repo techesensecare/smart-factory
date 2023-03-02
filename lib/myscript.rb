@@ -3,10 +3,10 @@ class MyScript
   # require "#{Rails.root}/lib/myscript.rb"
   # MyScript.run
 
-  Movimento.destroy_all
-  ItemPedido.destroy_all
-  Operacao.destroy_all
-  Produto.destroy_all
+  #Movimento.destroy_all
+  #ItemPedido.destroy_all
+  #Operacao.destroy_all
+  #Produto.destroy_all
 
 
   def self.format_weight(weight)
@@ -41,6 +41,7 @@ class MyScript
         )
       else
         b = Produto.new(
+          codigo: pm.codigo_ordem_producao,
           descricao: pm.materia_prima,
           unidade_medida: format_weight(pm.unidade_medida),
           tipo: nil,
