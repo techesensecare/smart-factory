@@ -127,7 +127,7 @@
                 <%= b.input :produto_usado_id, 
                     collection: Produto.materias_primas.all.order('descricao'), 
                     label_method: lambda { |item| "#{item.codigo} - #{item.descricao}. Unidade de medida: #{item.unidade_medida}" } ,
-                    label: "Item", placeholder: 'Produto', wrapper_html: { class: 'col-md-6' } %>
+                    label: "Item", placeholder: 'Produto', wrapper_html: { class: 'col-md-6' }, required: true #necessário mesmo? Pode ter atividade sem produto? %>
               </div>
               <div class="row" style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;" >
                 <%= b.input :tempo_setup, label: "Tempo de Setup (min)", wrapper_html: { class: 'col-md-4' } %>

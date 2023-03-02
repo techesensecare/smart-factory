@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230219185125) do
+ActiveRecord::Schema.define(version: 20230228123057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20230219185125) do
   end
 
   create_table "celulas_maquinas", id: false, force: :cascade do |t|
-    t.bigint "celula_id", null: false
-    t.bigint "maquina_id", null: false
+    t.integer "celula_id", null: false
+    t.integer "maquina_id", null: false
   end
 
   create_table "centros", id: :serial, force: :cascade do |t|
@@ -74,13 +74,6 @@ ActiveRecord::Schema.define(version: 20230219185125) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
-    t.integer "preco"
-    t.string "prazo_de_entrega"
-    t.string "marcas_homologadas"
-    t.integer "lote_minimo"
-    t.integer "produto_id"
-    t.integer "sub_produto_id"
-    t.string "nivel_de_comunizacao"
   end
 
   create_table "composicao_produtos", force: :cascade do |t|
@@ -165,13 +158,13 @@ ActiveRecord::Schema.define(version: 20230219185125) do
   end
 
   create_table "ferramentas_operacoes", id: false, force: :cascade do |t|
-    t.bigint "ferramenta_id", null: false
-    t.bigint "operacao_id", null: false
+    t.integer "ferramenta_id", null: false
+    t.integer "operacao_id", null: false
   end
 
   create_table "ferramentas_pedido_operacoes", id: false, force: :cascade do |t|
-    t.bigint "ferramenta_id", null: false
-    t.bigint "pedido_operacao_id", null: false
+    t.integer "ferramenta_id", null: false
+    t.integer "pedido_operacao_id", null: false
   end
 
   create_table "fornecedores", id: :serial, force: :cascade do |t|
@@ -245,13 +238,13 @@ ActiveRecord::Schema.define(version: 20230219185125) do
   end
 
   create_table "maquinas_terminais", id: false, force: :cascade do |t|
-    t.bigint "maquina_id", null: false
-    t.bigint "terminal_id", null: false
+    t.integer "maquina_id", null: false
+    t.integer "terminal_id", null: false
   end
 
   create_table "maquinas_usuarios", id: false, force: :cascade do |t|
-    t.bigint "maquina_id", null: false
-    t.bigint "usuario_id", null: false
+    t.integer "maquina_id", null: false
+    t.integer "usuario_id", null: false
   end
 
   create_table "materia_primas", id: :serial, force: :cascade do |t|
@@ -269,13 +262,6 @@ ActiveRecord::Schema.define(version: 20230219185125) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
-    t.integer "preco"
-    t.string "prazo_de_entrega"
-    t.string "marcas_homologadas"
-    t.integer "lote_minimo"
-    t.integer "produto_id"
-    t.integer "sub_produto_id"
-    t.string "nivel_de_comunizacao"
   end
 
   create_table "movimentos", id: :serial, force: :cascade do |t|
@@ -300,8 +286,6 @@ ActiveRecord::Schema.define(version: 20230219185125) do
     t.datetime "updated_at", null: false
     t.integer "produto_usado_id"
     t.string "unidade_tempo_operacao"
-    t.float "tolerancia_inferior"
-    t.float "tolerancia_superior"
     t.index ["maquina_id"], name: "index_operacoes_on_maquina_id"
     t.index ["produto_id"], name: "index_operacoes_on_produto_id"
   end
@@ -393,6 +377,16 @@ ActiveRecord::Schema.define(version: 20230219185125) do
     t.integer "embalagem_id"
   end
 
+  create_table "produtos_mr_tastes", force: :cascade do |t|
+    t.integer "codigo_ordem_producao"
+    t.string "materia_prima"
+    t.float "quantidade"
+    t.string "unidade_medida"
+    t.string "lote"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rejeitos", id: :serial, force: :cascade do |t|
     t.string "descricao"
     t.datetime "created_at", null: false
@@ -406,13 +400,6 @@ ActiveRecord::Schema.define(version: 20230219185125) do
     t.string "unidade_de_medida"
     t.string "tipo"
     t.integer "saldo"
-    t.integer "preco"
-    t.integer "preco_de_venda"
-    t.string "prazo_de_entrega"
-    t.string "marcas_homologadas"
-    t.integer "lote_minimo"
-    t.integer "produto_id"
-    t.string "nivel_de_comunizacao"
   end
 
   create_table "terminais", id: :serial, force: :cascade do |t|

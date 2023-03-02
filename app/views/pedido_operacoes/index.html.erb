@@ -26,6 +26,11 @@
   </div>
 </div>
 
+  <% if params[:with_status] == 'finalizada' %>
+    <%= link_to 'Limpar operações <i class="fa fa-check"></i>'.html_safe, apagar_operacoes_path, class: 'btn btn-primary'  %>
+  <% end %>      
+
+
 <p class="hide">
   Você está visualizando as operações, independentes de pedidos.
   <%= link_to "Clique aqui para visualizar os Pedidos em produção.", pedidos_path(with_status: :producao) %>
@@ -95,7 +100,7 @@
         <td><%= o.pedido.numero %></td>
         <td><%= o.pedido.cliente.nome %></td> <%# atenção, registros antigos vem com nil %>
         <td><%=  MateriaPrima.find(o.pedido_item_id).produto.descricao %></td>
-        <td><%= MateriaPrima.find(o.pedido_item_id).produto_usado.descricao || '' %></td>
+        <td><%= MateriaPrima.find(o.pedido_item_id).try(:produto_usado).try(:descricao) || '' %></td>
         <td><% if policy(o).show? %>
             <%= link_to o.descricao, o, style: "color: inherit;"%>
           <% end %></td>
