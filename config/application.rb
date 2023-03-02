@@ -18,6 +18,9 @@ module SmartFactory
       g.javascripts false
     end
 
+    config.autoload_paths << "#{Rails.root}/lib"
+
+
     # Proxy para acessar S3 como se fossem no mesmo domínio.
     # Ref: https://github.com/waterlink/rack-reverse-proxy
     config.middleware.insert(0, Rack::ReverseProxy) do

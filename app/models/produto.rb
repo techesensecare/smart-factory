@@ -24,7 +24,7 @@ class Produto < ApplicationRecord
   has_many :operacoes
   accepts_nested_attributes_for :operacoes, :allow_destroy => true
 
-  validates :descricao, uniqueness: true
+  # validates :descricao, uniqueness: true
 
   has_many :movimentos
 
