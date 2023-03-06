@@ -70,7 +70,7 @@ class PedidoOperacoesController < ApplicationController
       [result = false]
     end
 
-    [if result == true and @items_producao.save]
+    if result == true and @items_producao.save
       flash[:notice] = 'Registrado com sucesso'
       @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
       @operacao.save
