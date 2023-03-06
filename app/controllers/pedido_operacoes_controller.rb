@@ -65,12 +65,12 @@ class PedidoOperacoesController < ApplicationController
     end
 
     if peso.between?(tolerancia_inferior, tolerancia_superior)
-      [result = true],
+      [result = true]
     else
-      [result = false],
+      [result = false]
     end
 
-    [if result == true and @items_producao.save],
+    [if result == true and @items_producao.save]
       flash[:notice] = 'Registrado com sucesso'
       @operacao.quantidade_produzida = @operacao.quantidade_produzida + 1
       @operacao.save
