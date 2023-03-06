@@ -26,7 +26,7 @@ class ProdutosController < ApplicationController
   def new
     authorize Produto
     @produto = Produto.new
-    @produto.descricao = params[:descricao]
+    #@produto.descricao = params[:descricao]
   end
 
   # GET /produtos/1/edit
