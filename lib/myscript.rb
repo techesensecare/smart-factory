@@ -18,8 +18,6 @@ class MyScript
   end
 
   def self.run
-
-    destroy = ProdutosMrTaste.first
     
     if destroy.materia_prima = 'materia_prima'
       ProdutosMrTaste.first.destroy
@@ -42,7 +40,7 @@ class MyScript
       else
         b = Produto.new(
           codigo: pm.codigo_ordem_producao,
-          descricao: pm.materia_prima,
+          descricao: "#{pm.materia_prima}, OP: #{pm.codigo_ordem_producao}",
           unidade_medida: format_weight(pm.unidade_medida),
           tipo: nil,
           codigo_automatico: false,
