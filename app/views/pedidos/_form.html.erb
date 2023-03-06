@@ -30,8 +30,8 @@
           <%= f.fields_for :item_pedidos do |b| %>
             <div class="row">
               <%# TODO Melhorar essas seleção, os novos ficam com dois itens em branco %>
-              <%= b.input :descricao_produto,
-                          collection: Produto.where(composto: true).where.not(mr_taste_mp: nil).all.map { |p| ["#{p.descricao} - Peso: #{ProdutosMrTaste.find(p.mr_taste_mp).quantidade} #{p.unidade_medida}", p.id] },
+              <%= b.input :produto_id,
+                          collection: Produto.where(mr_taste_mp: nil).all,
                           label: "Descrição do produto",
                           wrapper_html: { class: 'col-md-4' },
                           input_html: { class: 'select2-produto' } %>

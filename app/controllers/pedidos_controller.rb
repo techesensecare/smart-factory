@@ -20,6 +20,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/1
   # GET /pedidos/1.json
   def show
+    byebug
     authorize @pedido
   end
 
@@ -90,6 +91,14 @@ class PedidosController < ApplicationController
     authorize Pedido
     @pedido = Pedido.new(pedido_params)
     @pedido.responsavel = current_usuario
+    
+    @pedido.item_pedidos.each do |item|
+      produto = Produto.find(item.produto_id)
+      item.descricao_produto = produto.descricao
+    end
+    
+
+    #@pedido.item_pedidos.descricao_produto =
 
     respond_to do |format|
       if @pedido.save

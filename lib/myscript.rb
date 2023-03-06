@@ -3,10 +3,10 @@ class MyScript
   # require "#{Rails.root}/lib/myscript.rb"
   # MyScript.run
 
-  #Movimento.destroy_all
-  #ItemPedido.destroy_all
-  #Operacao.destroy_all
-  #Produto.destroy_all
+  # Movimento.destroy_all
+  # ItemPedido.destroy_all
+  # Operacao.destroy_all
+  # Produto.destroy_all
 
 
   def self.format_weight(weight)
